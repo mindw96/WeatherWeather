@@ -61,3 +61,9 @@ gh release edit v0.5.0 --repo mindw96/WeatherWeather --draft=false --latest
 5. 공개 피드와 ZIP을 다시 내려받아 해시를 확인하고 실제 Sparkle가 현재 버전/새 버전을 구분하는지 점검합니다. 0.4.0 이하 앱에는 업데이터가 없으므로 0.5.0을 처음 한 번 직접 설치해야 합니다.
 
 Sparkle는 공식 2.10.1 SwiftPM 바이너리를 사용하며 `Package.resolved`를 커밋합니다. `script/embed_sparkle.py`가 프레임워크와 XPC/Updater/Autoupdate를 안쪽부터 서명하고 원본 라이선스를 앱 리소스에 포함합니다. GitHub Actions는 개발용 번들 빌드와 핵심 테스트·업데이트 설정 검사를 수행합니다. Developer ID와 EdDSA 개인 키는 CI에 복사하지 않고 현재 Mac의 키체인을 사용합니다.
+
+## 로컬 폴더와 검증 산출물
+
+공유 앱의 실행·업데이트는 `/Applications` 또는 `~/Applications`에서 확인합니다. 이 프로젝트의 Documents 폴더는 File Provider가 FinderInfo를 다시 붙여 서명 검사를 방해할 수 있습니다. 0.5.0의 실제 실행본은 `~/Applications/WindowWeather.app`에 설치했습니다. 배포용 ZIP은 계속 `/private/tmp`의 깨끗한 앱으로 만듭니다.
+
+재생성 가능한 `docs/**/*.png` 미리보기는 로컬에 보관하고 Git에서는 제외합니다. `--previews`, `--validate-focus`, `--validate-snowman`으로 다시 만들 수 있습니다. 텍스트 검증 보고서·성능 원시 값·재현 코드는 저장소에 포함합니다. Git 객체가 iCloud의 dataless 상태라 읽기 대기가 생기면 해당 프로젝트 폴더의 다운로드를 완료하거나 로컬 체크아웃에서 작업합니다.

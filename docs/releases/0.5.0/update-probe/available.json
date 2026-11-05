@@ -1,0 +1,16 @@
+{
+  "automaticPreferenceRoundTrip" : true,
+  "availableVersion" : "0.5.0",
+  "bundleIdentifier" : "org.windowweather.sparkle-probe.build4.b3d9b1626c344483881edc5c3957fc3d",
+  "checkKind" : "SPUUpdater.checkForUpdateInformation",
+  "downloadURL" : "https:\/\/github.com\/mindw96\/WeatherWeather\/releases\/download\/v0.5.0\/WindowWeather-0.5.0-update.zip",
+  "elapsedSeconds" : 0.73243701457977295,
+  "expected" : "available",
+  "feedItemCount" : 1,
+  "feedURL" : "https:\/\/github.com\/mindw96\/WeatherWeather\/releases\/latest\/download\/appcast.xml",
+  "hostBuild" : "4",
+  "latestBuild" : "5",
+  "outcome" : "available",
+  "passed" : true,
+  "scope" : "Real Sparkle feed selection; no update presentation, payload download, or installation. Isolated temporary host and preferences."
+}

@@ -1,0 +1,17 @@
+{
+  "appPath" : "\/Users\/mindw\/Applications\/WindowWeather.app",
+  "checkedAt" : "2026-11-05T12:54:23Z",
+  "note" : "Public running-application and on-screen window metadata; no physical Dock clicks or desktop screenshots.",
+  "onScreenControllerBounds" : [
+    {
+      "Height" : 759,
+      "Width" : 450,
+      "X" : 615,
+      "Y" : 96
+    }
+  ],
+  "onScreenControllerCount" : 1,
+  "pid" : 3631,
+  "regularDockApplication" : true,
+  "version" : "0.5.0"
+}

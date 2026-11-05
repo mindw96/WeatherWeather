@@ -8,9 +8,11 @@ macOS의 창 위에 눈·비·가을 낙엽·봄 벚꽃을 내리는 작은 앱�
 
 ## 다운로드와 업데이트
 
-소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. 앱 이름은 **Window Weather**입니다. 공유 파일은 [GitHub Releases](https://github.com/mindw96/WeatherWeather/releases)에서 받을 수 있습니다.
+소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. 앱 이름은 **Window Weather**입니다. **[0.5.0 공유 ZIP 다운로드](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.0/WindowWeather-0.5.0-macOS-universal.zip)** · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.5.0). Developer ID 서명·Apple 공증·업데이트 EdDSA 서명과 공개 파일 무결성 검증을 완료했습니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다.
 
 0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.4.0 이하에는 Sparkle가 없으므로 0.5.0을 한 번 직접 설치해야 합니다.**
+
+ZIP을 풀고 `WindowWeather.app`을 응용 프로그램 폴더로 옮겨 실행해 주세요. iCloud가 동기화하는 개발 폴더에서는 Finder 메타데이터가 코드 서명 검사에 영향을 줄 수 있으므로 설치본은 `/Applications` 또는 `~/Applications`에서 사용합니다.
 
 `./script/release.sh`는 통합 Release 빌드·Developer ID 서명·Apple 공증·티켓 첨부·EdDSA 업데이트 서명·최종 검증을 자동 진행합니다. 결과는 `dist/releases/0.5.0/`의 공유 ZIP, 앱만 포함한 `WindowWeather-0.5.0-update.zip`, `appcast.xml`, `SHA256SUMS.txt`입니다. 중단 후에는 `--resume`으로 같은 제출을 이어갑니다. 새 버전 번호·안내문 갱신과 GitHub 게시 절차는 [배포 문서](docs/RELEASING.md)에 있습니다.
 

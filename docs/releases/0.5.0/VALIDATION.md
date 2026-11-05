@@ -29,7 +29,13 @@ Sparkle이 자동 확인 주기와 저장된 선택을 관리합니다. 정상 �
 
 공식 Sparkle `generate_appcast`로 빌드 5의 피드를 만들고 키체인 공개 키·앱 공개 키·설정 공개 키를 대조했습니다. 피드의 버전·ZIP URL·길이를 검증하고 공식 `sign_update --verify`로 업데이트 ZIP의 EdDSA 서명을 검증했습니다. 세 파일의 SHA-256은 배포 폴더 `SHA256SUMS.txt`에 보관합니다. 근거는 `notarization.json`과 `artifact-verification.txt`입니다.
 
-공개 GitHub 피드와 실제 Sparkle 조회 결과는 게시 후 추가합니다. 현재까지의 검증은 실제 앱 교체·재실행을 포함하지 않습니다.
+[v0.5.0 Release](https://github.com/mindw96/WeatherWeather/releases/tag/v0.5.0)를 공개했습니다. GitHub에 올라간 파일 네 개의 digest를 로컬과 대조했고, 공개 URL에서 피드·공유 ZIP·업데이트 ZIP을 인증 없이 다시 내려받아 HTTP 200과 SHA-256 일치를 확인했습니다. 결과는 `github-release.json`, `public-download-verification.json`에 있습니다.
+
+공식 Sparkle `checkForUpdateInformation()`으로 공개 피드를 조회한 결과 두 테스트 호스트 모두 통과했습니다. 빌드 5는 `OnLatestVersion`과 최신 항목 5, 빌드 4는 업데이트 빌드 5/0.5.0과 올바른 ZIP URL을 받았습니다. 두 호스트에서 자동 확인 선택의 ON/OFF 저장도 통과했습니다. 소스와 결과는 `update-probe/`에 있습니다. 이는 조회·파싱·버전 선택 검사이며, 업데이트 설치·재실행 검사는 아닙니다. 빌드 4는 Sparkle가 포함된 테스트 호스트로 실제 배포한 0.4.0과 구분합니다.
+
+최초 제품 소스 커밋 `5cc29910e4063c5691d390b34fedc4f5bb52cc7b`와 v0.5.0 태그의 GitHub Actions macOS 빌드·업데이트 설정 검사·XCTest가 모두 성공했습니다: [main 실행](https://github.com/mindw96/WeatherWeather/actions/runs/42029808736), [태그 실행](https://github.com/mindw96/WeatherWeather/actions/runs/42029808796).
+
+동기화된 Documents 실행본에 FinderInfo가 다시 붙는 문제가 재현되어, 최종 실행 앱은 `/Users/mindw/Applications/WindowWeather.app`에 설치했습니다. 해당 설치본의 엄격 코드 서명·공증 티켓·Gatekeeper 허용을 확인하고 실행했습니다. 실제 프로세스·일반 Dock 앱 정책·화면 내 설정창은 `runtime-check.json`으로 확인합니다. 동기화 폴더의 개발용 `dist` 앱과 공증된 사용자 Applications 설치본을 구분합니다.
 
 0.4.0에는 Sparkle이 없어 0.4.0 → 0.5.0 설치는 수동 교체입니다. 향후 업데이트는 공증된 앱 하나를 담은 업데이트 ZIP과 EdDSA 서명된 appcast를 사용합니다. 공유 안내·라이선스가 함께 담긴 universal ZIP과 업데이트 전용 ZIP은 별도 산출물입니다.
 
