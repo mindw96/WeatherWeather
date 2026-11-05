@@ -1,0 +1,25 @@
+--- WeatherSimulation.swift
++++ WeatherSimulation.swift
+@@ -155,7 +155,6 @@
+ 
+     /// Stable IDs preserve snow/water when a window moves. Removed IDs lose their pile.
+     public func setSurfaces(_ newSurfaces: [Surface]) {
+-        guard newSurfaces != surfaces else { return }
+         var ids = Set<UInt32>()
+         surfaces = newSurfaces.compactMap { surface in
+             guard ids.count < Self.maximumSurfaces,
+@@ -379,13 +378,9 @@
+     func firstCollision(fromX x0: Double, y y0: Double, toX x1: Double, y y1: Double) -> Collision? {
+         guard y1 > y0 else { return nil }
+         var nearest: Collision?
+-        let maximumHeight = maximumAccumulationHeight
+         for index in piles.indices {
+             let pile = piles[index]
+-            // Skip edges outside the swept particle bounds before sampling the ridge.
+-            guard !pile.segments.isEmpty,
+-                  y0 <= pile.y, y1 >= pile.y - maximumHeight,
+-                  max(x0, x1) >= pile.x, min(x0, x1) <= pile.x + pile.width else { continue }
++            guard !pile.segments.isEmpty else { continue }
+             var top = pile.y - pile.height(at: x1 - pile.x)
+             var t = (top - y0) / (y1 - y0)
+             guard t >= 0, t <= 1 else { continue }

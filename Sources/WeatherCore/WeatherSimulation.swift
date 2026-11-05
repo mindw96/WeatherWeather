@@ -1,0 +1,507 @@
+import Foundation
+
+public enum WeatherMode: String, CaseIterable, Sendable {
+    case snow
+    case rain
+    case autumn
+    case cherryBlossom
+
+    public var isSeasonal: Bool { self == .autumn || self == .cherryBlossom }
+}
+
+/// Coordinates are screen-local points with the origin at the top left.
+public struct SurfaceSegment: Equatable, Sendable {
+    public var minX: Double
+    public var maxX: Double
+
+    public init(minX: Double, maxX: Double) {
+        self.minX = minX
+        self.maxX = maxX
+    }
+}
+
+public struct Surface: Equatable, Sendable {
+    public var id: UInt32
+    public var x: Double
+    public var y: Double
+    public var width: Double
+    /// Visible intervals relative to x. An empty list means a fully covered edge.
+    public var segments: [SurfaceSegment]
+
+    public init(id: UInt32, x: Double, y: Double, width: Double,
+                segments: [SurfaceSegment]? = nil) {
+        self.id = id
+        self.x = x
+        self.y = y
+        self.width = width
+        self.segments = segments ?? [.init(minX: 0, maxX: width)]
+    }
+}
+
+public struct Particle: Equatable, Sendable {
+    public var x: Double
+    public var y: Double
+    public var vx: Double
+    public var vy: Double
+    public var size: Double
+    public var opacity: Double
+    public var rotation: Double
+    public var angularVelocity: Double
+    public var variant: Int
+    public var phase: Double
+
+    public init(x: Double, y: Double, vx: Double, vy: Double,
+                size: Double, opacity: Double, rotation: Double = 0,
+                angularVelocity: Double = 0, variant: Int = 0, phase: Double = 0) {
+        self.x = x; self.y = y; self.vx = vx; self.vy = vy
+        self.size = size; self.opacity = opacity
+        self.rotation = rotation; self.angularVelocity = angularVelocity
+        self.variant = variant; self.phase = phase
+    }
+}
+
+/// A leaf or petal resting in window-local coordinates, independent of its display.
+public struct SettledParticle: Equatable, Sendable {
+    public var id: UInt64
+    public var mode: WeatherMode
+    public var surfaceID: UInt32
+    public var position: Double
+    public var offsetY: Double
+    public var size: Double
+    public var rotation: Double
+    public var variant: Int
+    /// Remaining lifetime in seconds. Fade during the final eight seconds.
+    public var life: Double
+
+    public init(id: UInt64, mode: WeatherMode, surfaceID: UInt32, position: Double,
+                offsetY: Double, size: Double, rotation: Double, variant: Int, life: Double) {
+        self.id = id; self.mode = mode; self.surfaceID = surfaceID
+        self.position = position; self.offsetY = offsetY; self.size = size
+        self.rotation = rotation; self.variant = variant; self.life = life
+    }
+}
+
+public struct Pile: Equatable, Sendable {
+    public var surfaceID: UInt32
+    public var x: Double
+    public var y: Double
+    public var width: Double
+    public var heights: [Double]
+    public var segments: [SurfaceSegment]
+    public var mode: WeatherMode
+
+    public func height(at localX: Double) -> Double {
+        guard width > 0, !heights.isEmpty, localX.isFinite else { return 0 }
+        let position = min(max(localX / width, 0), 1) * Double(heights.count - 1)
+        let lower = Int(position)
+        let upper = min(lower + 1, heights.count - 1)
+        let fraction = position - Double(lower)
+        return heights[lower] * (1 - fraction) + heights[upper] * fraction
+    }
+}
+
+public struct Splash: Equatable, Sendable {
+    public var x: Double
+    public var y: Double
+    public var vx: Double
+    public var vy: Double
+    /// Remaining lifetime, in seconds.
+    public var life: Double
+}
+
+/// A deterministic, renderer-independent simulation. It imports no Apple UI APIs.
+/// Each instance belongs to one display; the host provides its visible window edges.
+public final class WeatherSimulation {
+    public static let maximumParticles = 1_600
+    public static let maximumSplashes = 400
+    public static let maximumSurfaces = 256
+    public static let maximumSnowHeight = 18.0
+    public static let maximumWaterHeight = 4.0
+    public static let maximumLeafHeight = 10.0
+    public static let maximumPetalHeight = 7.0
+    public static let maximumSettledParticles = 1_200
+
+    public var mode: WeatherMode = .snow {
+        didSet { if oldValue != mode { reset() } }
+    }
+    public var intensity: Double = 0.55
+    public var wind: Double = 0
+    public var accumulationEnabled = true {
+        didSet { if !accumulationEnabled { clearAccumulation() } }
+    }
+    public private(set) var width: Double
+    public private(set) var height: Double
+    public private(set) var particles: [Particle] = []
+    public private(set) var piles: [Pile] = []
+    public private(set) var splashes: [Splash] = []
+    public private(set) var surfaces: [Surface] = []
+    public private(set) var settledParticles: [SettledParticle] = []
+
+    private var random: SeededRandom
+    private var emissionRemainder = 0.0
+    private var elapsed = 0.0
+
+    public init(width: Double, height: Double, seed: UInt64 = 0x5745_4154_4845_52) {
+        self.width = Self.validDimension(width)
+        self.height = Self.validDimension(height)
+        random = SeededRandom(state: seed)
+    }
+
+    public func resize(width: Double, height: Double) {
+        self.width = Self.validDimension(width)
+        self.height = Self.validDimension(height)
+        particles.removeAll { $0.x < -60 || $0.x > self.width + 60 || $0.y > self.height + 60 }
+    }
+
+    /// Stable IDs preserve snow/water when a window moves. Removed IDs lose their pile.
+    public func setSurfaces(_ newSurfaces: [Surface]) {
+        guard newSurfaces != surfaces else { return }
+        var ids = Set<UInt32>()
+        surfaces = newSurfaces.compactMap { surface in
+            guard ids.count < Self.maximumSurfaces,
+                  surface.x.isFinite, surface.y.isFinite,
+                  surface.width.isFinite, surface.width >= 1,
+                  surface.width <= 65_536, ids.insert(surface.id).inserted else { return nil }
+            var result = surface
+            result.segments = surface.segments.compactMap { segment in
+                guard segment.minX.isFinite, segment.maxX.isFinite else { return nil }
+                let start = max(0, segment.minX), end = min(surface.width, segment.maxX)
+                return start < end ? .init(minX: start, maxX: end) : nil
+            }
+            return result
+        }
+        let previous = Dictionary(uniqueKeysWithValues: piles.map { ($0.surfaceID, $0) })
+        piles = surfaces.map { surface in
+            let count = min(2_048, max(2, Int(ceil(surface.width / 6)) + 1))
+            let old = previous[surface.id]
+            let heights: [Double]
+            if let old, old.width == surface.width, old.heights.count == count {
+                heights = old.heights
+            } else {
+                heights = (0..<count).map { index -> Double in
+                    guard let old else { return 0 }
+                    return old.height(at: Double(index) / Double(count - 1) * old.width)
+                }
+            }
+            return Pile(surfaceID: surface.id, x: surface.x, y: surface.y,
+                        width: surface.width, heights: heights,
+                        segments: surface.segments, mode: mode)
+        }
+        settledParticles.removeAll { !ids.contains($0.surfaceID) }
+    }
+
+    /// Merges window-local accumulation captured from other displays in this refresh.
+    /// Call after setSurfaces, using a fresh snapshot taken after any global clear or
+    /// mode change. Screen floors stay independent, and no missing surface is created.
+    public func inheritAccumulation(from sourcePiles: [Pile]) {
+        guard accumulationEnabled else { return }
+        let maximum = maximumAccumulationHeight
+        let sources = Dictionary(grouping: sourcePiles.filter {
+            $0.surfaceID != 0 && $0.mode == mode && $0.width.isFinite
+                && $0.width > 0 && !$0.heights.isEmpty
+        }, by: \.surfaceID)
+        func bounded(_ value: Double) -> Double {
+            value.isFinite ? min(max(value, 0), maximum) : 0
+        }
+        for index in piles.indices where piles[index].surfaceID != 0 {
+            guard let matching = sources[piles[index].surfaceID] else { continue }
+            var heights = piles[index].heights.map(bounded)
+            for source in matching {
+                for bin in heights.indices {
+                    let position = Double(bin) / Double(max(1, heights.count - 1))
+                        * Double(source.heights.count - 1)
+                    let lower = Int(position)
+                    let upper = min(lower + 1, source.heights.count - 1)
+                    let fraction = position - Double(lower)
+                    let inherited = bounded(source.heights[lower]) * (1 - fraction)
+                        + bounded(source.heights[upper]) * fraction
+                    heights[bin] = max(heights[bin], inherited)
+                }
+            }
+            piles[index].heights = heights
+        }
+    }
+
+    /// Call alongside inheritAccumulation with a fresh snapshot after any global clear.
+    /// Stable particle IDs make repeated cross-display synchronization idempotent.
+    public func inheritSettledParticles(from sourceParticles: [SettledParticle]) {
+        guard accumulationEnabled, mode.isSeasonal else { return }
+        let surfaceIDs = Set(surfaces.map(\.id))
+        var positions = Dictionary(uniqueKeysWithValues: settledParticles.enumerated().map { ($0.element.id, $0.offset) })
+        for particle in sourceParticles {
+            guard particle.surfaceID != 0, particle.mode == mode,
+                  surfaceIDs.contains(particle.surfaceID),
+                  particle.position.isFinite, (0...1).contains(particle.position),
+                  particle.offsetY.isFinite, particle.offsetY >= 0,
+                  particle.offsetY <= maximumAccumulationHeight + 20,
+                  particle.size.isFinite, particle.size > 0, particle.size <= 20,
+                  particle.rotation.isFinite, (0...2).contains(particle.variant),
+                  particle.life.isFinite, particle.life > 0,
+                  particle.life <= settledLifetime else { continue }
+            if let existing = positions[particle.id] {
+                // A copied particle never becomes younger as it crosses a screen seam.
+                settledParticles[existing].life = min(settledParticles[existing].life, particle.life)
+            } else {
+                positions[particle.id] = settledParticles.count
+                settledParticles.append(particle)
+            }
+        }
+        trimSettledParticles()
+    }
+
+    public func clearAccumulation() {
+        settledParticles.removeAll(keepingCapacity: true)
+        for index in piles.indices {
+            piles[index].heights = Array(repeating: 0, count: piles[index].heights.count)
+        }
+    }
+
+    public func reset() {
+        particles.removeAll(keepingCapacity: true)
+        splashes.removeAll(keepingCapacity: true)
+        emissionRemainder = 0
+        elapsed = 0
+        clearAccumulation()
+        for index in piles.indices { piles[index].mode = mode }
+    }
+
+    /// A delayed frame advances at most 100 ms, avoiding post-sleep bursts.
+    public func update(deltaTime: Double) {
+        guard deltaTime.isFinite, deltaTime > 0 else { return }
+        let dt = min(deltaTime, 0.1)
+        elapsed += dt
+        let density = intensity.isFinite ? min(max(intensity, 0), 1) : 0
+        let breeze = wind.isFinite ? min(max(wind, -1), 1) : 0
+        let baseRate: Double
+        switch mode {
+        case .snow: baseRate = 72
+        case .rain: baseRate = 230
+        case .autumn: baseRate = 18
+        case .cherryBlossom: baseRate = 25
+        }
+        let rate = baseRate * min(width / 1_000, 4) * density
+        emissionRemainder += rate * dt
+        let requested = Int(emissionRemainder)
+        emissionRemainder -= Double(requested)
+        let count = min(requested, Self.maximumParticles - particles.count)
+        if count > 0 {
+            for _ in 0..<count { spawnParticle(wind: breeze) }
+        }
+
+        let decay = mode == .snow ? 0.006 : (mode == .rain ? 0.07 : 0.08)
+        for index in piles.indices {
+            for bin in piles[index].heights.indices {
+                piles[index].heights[bin] = max(0, piles[index].heights[bin] - decay * dt)
+            }
+        }
+
+        var survivors: [Particle] = []
+        survivors.reserveCapacity(particles.count)
+        for var particle in particles {
+            let oldX = particle.x, oldY = particle.y
+            switch mode {
+            case .snow:
+                particle.vx = breeze * 65 + sin(elapsed * 1.4 + particle.size * 7 + particle.y * 0.009) * 16
+            case .rain:
+                particle.vx = breeze * 150
+            case .autumn:
+                particle.vx = breeze * 100 + sin(elapsed * 1.8 + particle.phase + particle.y * 0.004) * 35
+                particle.rotation += (particle.angularVelocity + sin(elapsed * 2 + particle.phase) * 0.3) * dt
+            case .cherryBlossom:
+                particle.vx = breeze * 80 + sin(elapsed * 1.1 + particle.phase + particle.y * 0.003) * 25
+                particle.rotation += (particle.angularVelocity + sin(elapsed + particle.phase) * 0.2) * dt
+            }
+            particle.x += particle.vx * dt
+            let flutter = mode.isSeasonal ? 0.85 + 0.15 * sin(elapsed * 2 + particle.phase) : 1
+            particle.y += particle.vy * flutter * dt
+            if let hit = firstCollision(fromX: oldX, y: oldY, toX: particle.x, y: particle.y) {
+                if accumulationEnabled {
+                    accumulate(at: hit)
+                    if mode.isSeasonal { settle(particle, at: hit) }
+                }
+                if mode == .rain { addSplashes(at: hit) }
+            } else if particle.y < height + 50, particle.x > -80, particle.x < width + 80 {
+                survivors.append(particle)
+            }
+        }
+        particles = survivors
+
+        for index in splashes.indices {
+            splashes[index].x += splashes[index].vx * dt
+            splashes[index].y += splashes[index].vy * dt
+            splashes[index].vy += 430 * dt
+            splashes[index].life -= dt
+        }
+        splashes.removeAll { $0.life <= 0 || $0.y > height + 30 }
+
+        if mode.isSeasonal {
+            for index in settledParticles.indices { settledParticles[index].life -= dt }
+            settledParticles.removeAll { $0.life <= 0 }
+            // No invisible collision ridge survives after the last leaf/petal fades.
+            let occupied = Set(settledParticles.map(\.surfaceID))
+            for index in piles.indices where !occupied.contains(piles[index].surfaceID) {
+                piles[index].heights = Array(repeating: 0, count: piles[index].heights.count)
+            }
+        }
+    }
+
+    private func spawnParticle(wind: Double) {
+        if mode.isSeasonal {
+            let leaf = mode == .autumn
+            particles.append(Particle(
+                x: random.between(-30, width + 30), y: random.between(-35, -4),
+                vx: wind * (leaf ? 100 : 80),
+                vy: random.between(leaf ? 40 : 25, leaf ? 95 : 65),
+                size: random.between(leaf ? 7 : 5, leaf ? 14 : 9),
+                opacity: random.between(leaf ? 0.8 : 0.72, leaf ? 1 : 0.95),
+                rotation: random.between(-Double.pi, Double.pi),
+                angularVelocity: random.between(leaf ? -2 : -1.4, leaf ? 2 : 1.4),
+                variant: Int(random.between(0, 3)), phase: random.between(0, Double.pi * 2)))
+            return
+        }
+        let snow = mode == .snow
+        particles.append(Particle(
+            x: random.between(-30, width + 30), y: random.between(-35, -4),
+            vx: wind * (snow ? 65 : 150),
+            vy: random.between(snow ? 30 : 650, snow ? 86 : 1_100),
+            size: random.between(snow ? 1.3 : 0.7, snow ? 3.5 : 1.4),
+            opacity: random.between(snow ? 0.45 : 0.16, snow ? 0.95 : 0.42)))
+    }
+
+    struct Collision {
+        var pileIndex: Int
+        var x: Double
+        var y: Double
+        var fraction: Double
+    }
+
+    /// Swept intersection prevents fast rain from tunnelling through window edges.
+    func firstCollision(fromX x0: Double, y y0: Double, toX x1: Double, y y1: Double) -> Collision? {
+        guard y1 > y0 else { return nil }
+        var nearest: Collision?
+        let maximumHeight = maximumAccumulationHeight
+        for index in piles.indices {
+            let pile = piles[index]
+            // Skip edges outside the swept particle bounds before sampling the ridge.
+            guard !pile.segments.isEmpty,
+                  y0 <= pile.y, y1 >= pile.y - maximumHeight,
+                  max(x0, x1) >= pile.x, min(x0, x1) <= pile.x + pile.width else { continue }
+            var top = pile.y - pile.height(at: x1 - pile.x)
+            var t = (top - y0) / (y1 - y0)
+            guard t >= 0, t <= 1 else { continue }
+            var x = x0 + (x1 - x0) * t
+            top = pile.y - pile.height(at: x - pile.x)
+            t = (top - y0) / (y1 - y0)
+            x = x0 + (x1 - x0) * t
+            let localX = x - pile.x
+            guard t >= 0, t <= 1,
+                  pile.segments.contains(where: { localX >= $0.minX && localX <= $0.maxX }),
+                  nearest == nil || t < nearest!.fraction else { continue }
+            nearest = Collision(pileIndex: index, x: x, y: top, fraction: t)
+        }
+        return nearest
+    }
+
+    private func accumulate(at hit: Collision) {
+        let snow = mode == .snow
+        let radius = snow ? random.between(9, 18) : (mode == .rain ? 30 : 12)
+        let amount = snow ? random.between(0.38, 0.9) : (mode == .rain ? 0.17 : 0.35)
+        let pile = piles[hit.pileIndex]
+        let impact = hit.x - pile.x
+        let spacing = pile.width / Double(pile.heights.count - 1)
+        let low = max(0, Int(floor((impact - radius) / spacing)))
+        let high = min(pile.heights.count - 1, Int(ceil((impact + radius) / spacing)))
+        guard low <= high else { return }
+        for bin in low...high {
+            let localX = Double(bin) * spacing
+            guard pile.segments.contains(where: { localX >= $0.minX && localX <= $0.maxX }) else { continue }
+            let distance = abs(localX - impact) / radius
+            guard distance < 1 else { continue }
+            // The smooth kernel gives a soft ridge without textures or copied assets.
+            let addition = amount * pow(1 - distance * distance, 2)
+            let maximum = snow ? snowCapacity(at: localX, in: pile) : maximumAccumulationHeight
+            piles[hit.pileIndex].heights[bin] = min(maximum, pile.heights[bin] + addition)
+        }
+    }
+
+    private var maximumAccumulationHeight: Double {
+        switch mode {
+        case .snow: return Self.maximumSnowHeight
+        case .rain: return Self.maximumWaterHeight
+        case .autumn: return Self.maximumLeafHeight
+        case .cherryBlossom: return Self.maximumPetalHeight
+        }
+    }
+
+    private var settledLifetime: Double { mode == .autumn ? 90 : 60 }
+
+    private func settle(_ particle: Particle, at hit: Collision) {
+        let pile = piles[hit.pileIndex]
+        let localX = min(max(hit.x - pile.x, 0), pile.width)
+        settledParticles.append(SettledParticle(
+            id: random.next(), mode: mode, surfaceID: pile.surfaceID,
+            position: localX / pile.width,
+            offsetY: pile.height(at: localX) + particle.size * random.between(0.15, 0.45),
+            size: particle.size, rotation: random.between(-Double.pi, Double.pi),
+            variant: particle.variant, life: settledLifetime))
+        trimSettledParticles()
+    }
+
+    private func trimSettledParticles() {
+        let excess = settledParticles.count - Self.maximumSettledParticles
+        if excess > 0 { settledParticles.removeFirst(excess) }
+    }
+
+    /// A stable, gently uneven saturation profile prevents long-running snow from
+    /// becoming a flat bar. Actual stored heights still drive both drawing and collision.
+    private func snowCapacity(at localX: Double, in pile: Pile) -> Double {
+        let phase = Double(pile.surfaceID % 997) * 0.017
+        let ridge = 13.5 + 2.0 * sin(localX / 52 + phase)
+            + 1.2 * sin(localX / 19 + phase * 1.3)
+        let edge = min(max(0, min(localX, pile.width - localX)) / 10, 1)
+        let taper = edge * edge * (3 - 2 * edge)
+        return min(Self.maximumSnowHeight, ridge * taper)
+    }
+
+    private func addSplashes(at hit: Collision) {
+        guard splashes.count < Self.maximumSplashes - 4 else { return }
+        for direction in [-1.0, 1.0] {
+            splashes.append(Splash(x: hit.x, y: hit.y - 1,
+                                   vx: direction * random.between(20, 72),
+                                   vy: -random.between(45, 115),
+                                   life: random.between(0.20, 0.44)))
+        }
+        let pile = piles[hit.pileIndex]
+        if accumulationEnabled, pile.surfaceID != 0,
+           pile.height(at: hit.x - pile.x) > 2.5, random.between(0, 1) < 0.15,
+           let segment = pile.segments.first(where: { hit.x - pile.x >= $0.minX && hit.x - pile.x <= $0.maxX }) {
+            let localX = hit.x - pile.x
+            let edge = localX - segment.minX < segment.maxX - localX ? segment.minX : segment.maxX
+            splashes.append(Splash(x: pile.x + edge, y: pile.y + 2,
+                                   vx: 0, vy: 55, life: 0.75))
+        }
+    }
+
+    private static func validDimension(_ value: Double) -> Double {
+        value.isFinite ? min(max(value, 1), 32_768) : 1
+    }
+}
+
+private struct SeededRandom {
+    var state: UInt64
+
+    mutating func between(_ lower: Double, _ upper: Double) -> Double {
+        let unit = Double(next() >> 11) / 9_007_199_254_740_992
+        return lower + (upper - lower) * unit
+    }
+
+    mutating func next() -> UInt64 {
+        // SplitMix64 supports every seed, including zero, and has no OS dependency.
+        state &+= 0x9E37_79B9_7F4A_7C15
+        var value = state
+        value = (value ^ (value >> 30)) &* 0xBF58_476D_1CE4_E5B9
+        value = (value ^ (value >> 27)) &* 0x94D0_49BB_1331_11EB
+        value ^= value >> 31
+        return value
+    }
+}

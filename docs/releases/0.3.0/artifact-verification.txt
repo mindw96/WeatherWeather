@@ -1,0 +1,32 @@
+/private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app: valid on disk
+/private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app: satisfies its Designated Requirement
+Executable=/private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1537 flags=0x10000(runtime) hashes=41+3 location=embedded
+Hash type=sha256 size=32
+CandidateCDHash sha256=c7a284cb5cc20b6b87669360212c4012eaa04feb
+CandidateCDHashFull sha256=c7a284cb5cc20b6b87669360212c4012eaa04febb5e1952c30638cef58a2bcca
+Hash choices=sha256
+CMSDigest=c7a284cb5cc20b6b87669360212c4012eaa04febb5e1952c30638cef58a2bcca
+CMSDigestType=2
+CDHash=c7a284cb5cc20b6b87669360212c4012eaa04feb
+Signature size=8975
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 6:33:52 PM
+Notarization Ticket=stapled
+Info.plist entries=11
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=0
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+x86_64 arm64
+/private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app/Contents/Info.plist: OK
+Processing: /private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app
+The validate action worked!
+/private/tmp/window-weather-030-notarized.YMaE6x/WindowWeather-0.3.0-macOS/WindowWeather.app: accepted
+source=Notarized Developer ID

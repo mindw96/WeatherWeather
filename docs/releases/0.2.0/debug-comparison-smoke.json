@@ -1,0 +1,55 @@
+{
+  "checks" : {
+    "accumulationFollowsWindowBetweenDisplays" : true,
+    "animationProducedParticles" : true,
+    "autumnClearRemovesShapes" : true,
+    "autumnFallsAndSettles" : true,
+    "cherryBlossomClearRemovesShapes" : true,
+    "cherryBlossomFallsAndSettles" : true,
+    "clearRemovesAccumulation" : true,
+    "clickThroughNonactivatingPanels" : true,
+    "closedWindowRemoved" : true,
+    "fullScreenAccumulationDefaultsOff" : true,
+    "fullScreenOffExcludesWindowAndFloor" : false,
+    "fullScreenOffRemovesExistingAccumulation" : false,
+    "fullScreenOnAccumulates" : true,
+    "fullScreenOnRestoresSurface" : true,
+    "fullScreenWindowRemainsOccluder" : true,
+    "nativeFullScreenEntered" : true,
+    "nativeFullScreenExited" : true,
+    "nativeFullScreenOffExcludesSurface" : false,
+    "nativeFullScreenOnRestoresVisibleSurface" : true,
+    "oneOverlayPerDisplay" : true,
+    "pauseHidesOverlays" : true,
+    "realWindowDetected" : true,
+    "resumeShowsOverlays" : true,
+    "windowMoveTracked" : false,
+    "windowResizeTracked" : false,
+    "windowSurfaceCreated" : true
+  },
+  "diagnostics" : {
+    "displayTransfer" : {
+      "after" : 844.33753154871454,
+      "before" : 844.54714756747387,
+      "targetContainsWindowCenter" : true
+    },
+    "windowMove" : {
+      "after" : [
+        149,
+        620
+      ],
+      "before" : [
+        104,
+        655
+      ],
+      "expected" : [
+        145,
+        617
+      ]
+    }
+  },
+  "displayCount" : 2,
+  "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
+  "observedWindowCountAfterFixtureClosed" : 9,
+  "passed" : false
+}

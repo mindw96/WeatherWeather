@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>SUFeedURL</key>
+    <string>https://github.com/mindw96/WeatherWeather/releases/latest/download/appcast.xml</string>
+    <key>SUPublicEDKey</key>
+    <string>myMrWkzR7V9pYmnHRBHhktzwdv+TUaqT9wHL/tHDMuk=</string>
+    <key>SUEnableAutomaticChecks</key><true/>
+    <key>SUAutomaticallyUpdate</key><false/>
+    <key>SUAllowsAutomaticUpdates</key><false/>
+    <key>SUEnableSystemProfiling</key><false/>
+</dict></plist>

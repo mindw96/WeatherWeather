@@ -1,0 +1,267 @@
+{
+  "observation_id": "LOCAL-KOI-METADATA-2026-11-05",
+  "kind": "local-shell-static-observation-not-REA-Evidence",
+  "artifact": {
+    "path": "/Applications/Koi.app/Contents/MacOS/Koi",
+    "sha256": "8f66a563bb75c25220e3862888e8156adf71b8fc68788f2e5a4cf47c078999cb",
+    "format": "Mach-O universal binary with 2 architectures: [x86_64:Mach-O 64-bit executable x86_64] [arm64]\n/Applications/Koi.app/Contents/MacOS/Koi (for architecture x86_64):\tMach-O 64-bit executable x86_64\n/Applications/Koi.app/Contents/MacOS/Koi (for architecture arm64):\tMach-O 64-bit executable arm64"
+  },
+  "plist": {
+    "sha256": "560ef643df50897c5badff29efb70fb9b490c9c40b2f538bb7e357c6058296d3",
+    "fields": {
+      "CFBundleIdentifier": "com.koiscribe.koi",
+      "CFBundleShortVersionString": "4.3.0",
+      "CFBundleVersion": "55",
+      "LSMinimumSystemVersion": "14.0",
+      "LSUIElement": true
+    }
+  },
+  "architecture_selected_for_metadata": "arm64",
+  "classes": [
+    {
+      "class": "_TtC3Koi9RainField",
+      "fields": [
+        "width",
+        "height",
+        "dropShare",
+        "drops",
+        "droplets",
+        "ripples",
+        "ledges",
+        "clock",
+        "cursor",
+        "slow",
+        "reduceMotion",
+        "strikes",
+        "nextStrike"
+      ]
+    },
+    {
+      "class": "_TtC3Koi12RainRenderer",
+      "fields": [
+        "device",
+        "queue",
+        "strokes",
+        "ripples",
+        "flash"
+      ]
+    },
+    {
+      "class": "_TtCC3Koi12RainRenderer6Frames",
+      "fields": [
+        "free",
+        "strokes",
+        "ripples",
+        "next"
+      ]
+    },
+    {
+      "class": "_TtC3Koi14SnowController",
+      "fields": [
+        "settings",
+        "screens",
+        "switched",
+        "observers",
+        "ticker",
+        "polledAt",
+        "movedAt",
+        "spaceChangedAt",
+        "dockReadAt",
+        "dockShelf",
+        "lastFrames",
+        "asleep",
+        "saving",
+        "powerReadAt",
+        "listed",
+        "alphas",
+        "leaving",
+        "buttonWasDown",
+        "pressedMinimize",
+        "shortcutAt"
+      ]
+    },
+    {
+      "class": "_TtC3KoiP33_DE002E9ABBC64C5024A566BE03BE6E6210SnowScreen",
+      "fields": [
+        "frame",
+        "window",
+        "loop",
+        "share",
+        "shown"
+      ]
+    },
+    {
+      "class": "_TtC3KoiP33_DE002E9ABBC64C5024A566BE03BE6E628SnowLoop",
+      "fields": [
+        "link",
+        "fall",
+        "screen",
+        "primaryTop",
+        "lock",
+        "lastFrame"
+      ]
+    },
+    {
+      "class": "_TtC3KoiP33_DE002E9ABBC64C5024A566BE03BE6E628Snowfall",
+      "fields": [
+        "field",
+        "renderer",
+        "frames"
+      ]
+    },
+    {
+      "class": "_TtC3KoiP33_DE002E9ABBC64C5024A566BE03BE6E628Rainfall",
+      "fields": [
+        "field",
+        "renderer",
+        "frames"
+      ]
+    },
+    {
+      "class": "_TtC3Koi9SnowDrift",
+      "fields": [
+        "origin",
+        "offset",
+        "offsetVelocity",
+        "track",
+        "heights",
+        "bed",
+        "visible",
+        "occluders",
+        "spill",
+        "spillAt",
+        "velocity",
+        "agitation",
+        "swingPeak",
+        "previousSwingPeak",
+        "swingDirection",
+        "movedAt",
+        "top",
+        "cornerRadius",
+        "bedDepth",
+        "capacity",
+        "shape",
+        "depth",
+        "opensAtEnds",
+        "phases",
+        "forwardFirst"
+      ]
+    },
+    {
+      "class": "_TtC3Koi9SnowField",
+      "fields": [
+        "width",
+        "height",
+        "ground",
+        "ledges",
+        "ledgeList",
+        "sizes",
+        "away",
+        "flakes",
+        "settles",
+        "landings",
+        "flakeShare",
+        "epoch",
+        "checkedAt",
+        "grains",
+        "puffs",
+        "clock",
+        "settledAt",
+        "cursor",
+        "reduceMotion"
+      ]
+    },
+    {
+      "class": "_TtC3Koi12SnowRenderer",
+      "fields": [
+        "device",
+        "queue",
+        "flakes",
+        "falling",
+        "drifts",
+        "start"
+      ]
+    },
+    {
+      "class": "_TtCC3Koi12SnowRenderer6Frames",
+      "fields": [
+        "free",
+        "heights",
+        "sprites",
+        "flakes",
+        "next"
+      ]
+    }
+  ],
+  "imports": [
+    "_AXIsProcessTrusted",
+    "_AXIsProcessTrustedWithOptions",
+    "_AXObserverAddNotification",
+    "_AXObserverCreate",
+    "_AXObserverGetRunLoopSource",
+    "_AXObserverRemoveNotification",
+    "_AXUIElementCopyAttributeNames",
+    "_AXUIElementCopyAttributeValue",
+    "_AXUIElementCopyElementAtPosition",
+    "_AXUIElementCopyMultipleAttributeValues",
+    "_AXUIElementCopyParameterizedAttributeValue",
+    "_AXUIElementCreateApplication",
+    "_AXUIElementCreateSystemWide",
+    "_AXUIElementGetPid",
+    "_AXUIElementGetTypeID",
+    "_AXUIElementIsAttributeSettable",
+    "_AXUIElementPerformAction",
+    "_AXUIElementSetAttributeValue",
+    "_AXUIElementSetMessagingTimeout",
+    "_CGDisplayBounds",
+    "_CGPreflightScreenCaptureAccess",
+    "_CGRequestScreenCaptureAccess",
+    "_CGWindowLevelForKey",
+    "_CGWindowListCopyWindowInfo",
+    "_MTLCreateSystemDefaultDevice",
+    "_OBJC_CLASS_$_CAMetalDisplayLink",
+    "_OBJC_CLASS_$_CAMetalLayer",
+    "_OBJC_CLASS_$_MTLRenderPassDescriptor",
+    "_OBJC_CLASS_$_MTLRenderPipelineDescriptor",
+    "_OBJC_CLASS_$_MTLSamplerDescriptor",
+    "_OBJC_CLASS_$_MTLTextureDescriptor",
+    "__AXUIElementGetWindow",
+    "__swift_FORCE_LOAD_$_swiftMetal",
+    "_kCGWindowAlpha",
+    "_kCGWindowBounds",
+    "_kCGWindowIsOnscreen",
+    "_kCGWindowLayer",
+    "_kCGWindowName",
+    "_kCGWindowNumber",
+    "_kCGWindowOwnerPID",
+    "_kCGWindowSharingState"
+  ],
+  "messages": [
+    "It settles on your windows and the Dock. The snowflake in the notch stops it.",
+    "It's snowing",
+    "Rain falls",
+    "Rain that splashes on your windows, with lightning now and then",
+    "Snow on your screen",
+    "Snow that piles up on your windows and the Dock"
+  ],
+  "frameworks": [
+    "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit (compatibility version 45.0.0, current version 2775.20.133)",
+    "/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices (compatibility version 1.0.0, current version 66.0.0)",
+    "/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics (compatibility version 64.0.0, current version 2050.1.6)",
+    "/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 383.1.0)",
+    "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1223.10.17)",
+    "/System/Library/Frameworks/SwiftUI.framework/Versions/A/SwiftUI (compatibility version 1.0.0, current version 8.1.13)"
+  ],
+  "resource_names": [
+    "rain.svg",
+    "snow.svg",
+    "wheel-rain.heic",
+    "wheel-snow.heic"
+  ],
+  "limitations": [
+    "Static metadata and symbol declarations do not prove runtime calls.",
+    "Only the arm64 slice was examined for class fields and imports.",
+    "No decompilation, target launch, network request, or asset/code copying was performed.",
+    "Field names suggest architecture but do not establish algorithms, timing, or thresholds."
+  ]
+}

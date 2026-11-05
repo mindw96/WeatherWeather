@@ -1,0 +1,8 @@
+.build/
+dist/
+.DS_Store
+.swiftpm/
+.codex/
+__pycache__/
+docs/validation/*.log
+docs/**/*.png

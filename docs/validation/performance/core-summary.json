@@ -1,0 +1,43 @@
+{
+  "runs": 5,
+  "compiler": "swiftc -O",
+  "workload": "3840x2160, 12 window edges, intensity 1, 900 warmup + 9000 measured updates at 30Hz; setSurfaces every 6 frames. Geometry-only case repeats 24 unchanged windows 20000 times.",
+  "note": "CPU model workload only, not rendering, AppKit, whole app CPU or energy. Sequential alternating before/after runs.",
+  "results": [
+    {
+      "case": "snow",
+      "before_median_seconds": 1.1676276249927469,
+      "after_median_seconds": 0.5811489999759942,
+      "reduction_percent": 50.22822451810317,
+      "identical_state_fingerprint": "2f85c25f478aadd9410a2376d8bb9da8d3bec2e55c9871e21901f1e63728e943"
+    },
+    {
+      "case": "rain",
+      "before_median_seconds": 0.5789453333127312,
+      "after_median_seconds": 0.3155831249896437,
+      "reduction_percent": 45.48999588892551,
+      "identical_state_fingerprint": "1d8f347c5104f90275a4de8d742366525af2f5a82290143606fd88340794d6bb"
+    },
+    {
+      "case": "autumn",
+      "before_median_seconds": 0.8820913750096224,
+      "after_median_seconds": 0.599868958350271,
+      "reduction_percent": 31.99469178080023,
+      "identical_state_fingerprint": "91bab21e38444de4b7ae472ba9c98a47768a478a5878615df34cb39bfc048ab6"
+    },
+    {
+      "case": "cherryBlossom",
+      "before_median_seconds": 1.3607826667139307,
+      "after_median_seconds": 0.9312991249607876,
+      "reduction_percent": 31.561508847718944,
+      "identical_state_fingerprint": "44127a24ae1935326e5971cc49960da83794fa3d304aaeb3fb70d026dc410f60"
+    },
+    {
+      "case": "unchangedGeometry24Windows",
+      "before_median_seconds": 0.08907712501240894,
+      "after_median_seconds": 0.0011059583048336208,
+      "reduction_percent": 98.7584261338929,
+      "identical_state_fingerprint": "6d0755c33b8946e446630ecc05c61260b2bc864a1bfe48dc108da2e64fd51147"
+    }
+  ]
+}

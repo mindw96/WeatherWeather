@@ -1,0 +1,108 @@
+--- WeatherView.swift
++++ WeatherView.swift
+@@ -123,9 +123,31 @@
+         context.translateBy(x: x, y: y)
+         context.rotate(by: rotation)
+         context.scaleBy(x: size * horizontalScale, y: size)
++        let shape = CGMutablePath()
+         if mode == .autumn {
+-            context.setFillColor(Self.autumnColors[abs(variant % Self.autumnColors.count)].withAlphaComponent(opacity).cgColor)
+-            context.addPath(variant % 3 == 2 ? Self.maplePath : Self.leafPath)
++            let colors = [
++                NSColor(calibratedRed: 0.91, green: 0.37, blue: 0.12, alpha: 1),
++                NSColor(calibratedRed: 0.98, green: 0.65, blue: 0.19, alpha: 1),
++                NSColor(calibratedRed: 0.74, green: 0.20, blue: 0.14, alpha: 1)
++            ]
++            context.setFillColor(colors[abs(variant % colors.count)].withAlphaComponent(opacity).cgColor)
++            if variant % 3 == 2 {
++                let points: [CGPoint] = [
++                    .init(x: 0, y: -0.65), .init(x: 0.16, y: -0.28), .init(x: 0.34, y: -0.36),
++                    .init(x: 0.29, y: -0.04), .init(x: 0.55, y: -0.09), .init(x: 0.35, y: 0.20),
++                    .init(x: 0.41, y: 0.31), .init(x: 0.08, y: 0.36), .init(x: 0, y: 0.56),
++                    .init(x: -0.08, y: 0.36), .init(x: -0.41, y: 0.31), .init(x: -0.35, y: 0.20),
++                    .init(x: -0.55, y: -0.09), .init(x: -0.29, y: -0.04), .init(x: -0.34, y: -0.36),
++                    .init(x: -0.16, y: -0.28)
++                ]
++                shape.addLines(between: points)
++            } else {
++                shape.move(to: CGPoint(x: 0, y: -0.65))
++                shape.addCurve(to: CGPoint(x: 0, y: 0.50), control1: CGPoint(x: 0.62, y: -0.25), control2: CGPoint(x: 0.46, y: 0.32))
++                shape.addCurve(to: CGPoint(x: 0, y: -0.65), control1: CGPoint(x: -0.52, y: 0.21), control2: CGPoint(x: -0.41, y: -0.26))
++            }
++            shape.closeSubpath()
++            context.addPath(shape)
+             context.fillPath()
+             context.setStrokeColor(NSColor(calibratedRed: 0.36, green: 0.17, blue: 0.07, alpha: opacity * 0.52).cgColor)
+             context.setLineWidth(0.045)
+@@ -137,57 +159,24 @@
+             context.addLine(to: CGPoint(x: -0.22, y: -0.03))
+             context.strokePath()
+         } else {
+-            context.setFillColor(Self.petalColors[abs(variant % Self.petalColors.count)].withAlphaComponent(opacity).cgColor)
+-            context.addPath(Self.petalPath)
++            let colors = [
++                NSColor(calibratedRed: 1, green: 0.77, blue: 0.86, alpha: 1),
++                NSColor(calibratedRed: 1, green: 0.88, blue: 0.92, alpha: 1),
++                NSColor(calibratedRed: 0.98, green: 0.60, blue: 0.75, alpha: 1)
++            ]
++            context.setFillColor(colors[abs(variant % colors.count)].withAlphaComponent(opacity).cgColor)
++            // A petal's small notch and tapered base remain legible while tumbling.
++            shape.move(to: CGPoint(x: 0, y: 0.60))
++            shape.addCurve(to: CGPoint(x: -0.16, y: -0.54), control1: CGPoint(x: -0.57, y: 0.14), control2: CGPoint(x: -0.47, y: -0.64))
++            shape.addLine(to: CGPoint(x: 0, y: -0.34))
++            shape.addLine(to: CGPoint(x: 0.16, y: -0.54))
++            shape.addCurve(to: CGPoint(x: 0, y: 0.60), control1: CGPoint(x: 0.47, y: -0.64), control2: CGPoint(x: 0.57, y: 0.14))
++            shape.closeSubpath()
++            context.addPath(shape)
+             context.fillPath()
+         }
+         context.restoreGState()
+     }
+-
+-    // Geometry and base colors are identical for every particle and frame.
+-    private static let autumnColors = [
+-        NSColor(calibratedRed: 0.91, green: 0.37, blue: 0.12, alpha: 1),
+-        NSColor(calibratedRed: 0.98, green: 0.65, blue: 0.19, alpha: 1),
+-        NSColor(calibratedRed: 0.74, green: 0.20, blue: 0.14, alpha: 1)
+-    ]
+-    private static let petalColors = [
+-        NSColor(calibratedRed: 1, green: 0.77, blue: 0.86, alpha: 1),
+-        NSColor(calibratedRed: 1, green: 0.88, blue: 0.92, alpha: 1),
+-        NSColor(calibratedRed: 0.98, green: 0.60, blue: 0.75, alpha: 1)
+-    ]
+-    private static let leafPath: CGPath = {
+-        let shape = CGMutablePath()
+-        shape.move(to: CGPoint(x: 0, y: -0.65))
+-        shape.addCurve(to: CGPoint(x: 0, y: 0.50), control1: CGPoint(x: 0.62, y: -0.25), control2: CGPoint(x: 0.46, y: 0.32))
+-        shape.addCurve(to: CGPoint(x: 0, y: -0.65), control1: CGPoint(x: -0.52, y: 0.21), control2: CGPoint(x: -0.41, y: -0.26))
+-        shape.closeSubpath()
+-        return shape
+-    }()
+-    private static let maplePath: CGPath = {
+-        let shape = CGMutablePath()
+-        let points: [CGPoint] = [
+-            .init(x: 0, y: -0.65), .init(x: 0.16, y: -0.28), .init(x: 0.34, y: -0.36),
+-            .init(x: 0.29, y: -0.04), .init(x: 0.55, y: -0.09), .init(x: 0.35, y: 0.20),
+-            .init(x: 0.41, y: 0.31), .init(x: 0.08, y: 0.36), .init(x: 0, y: 0.56),
+-            .init(x: -0.08, y: 0.36), .init(x: -0.41, y: 0.31), .init(x: -0.35, y: 0.20),
+-            .init(x: -0.55, y: -0.09), .init(x: -0.29, y: -0.04), .init(x: -0.34, y: -0.36),
+-            .init(x: -0.16, y: -0.28)
+-        ]
+-        shape.addLines(between: points)
+-        shape.closeSubpath()
+-        return shape
+-    }()
+-    private static let petalPath: CGPath = {
+-        let shape = CGMutablePath()
+-        // A petal's small notch and tapered base remain legible while tumbling.
+-        shape.move(to: CGPoint(x: 0, y: 0.60))
+-        shape.addCurve(to: CGPoint(x: -0.16, y: -0.54), control1: CGPoint(x: -0.57, y: 0.14), control2: CGPoint(x: -0.47, y: -0.64))
+-        shape.addLine(to: CGPoint(x: 0, y: -0.34))
+-        shape.addLine(to: CGPoint(x: 0.16, y: -0.54))
+-        shape.addCurve(to: CGPoint(x: 0, y: 0.60), control1: CGPoint(x: 0.47, y: -0.64), control2: CGPoint(x: 0.57, y: 0.14))
+-        shape.closeSubpath()
+-        return shape
+-    }()
+ 
+     private func subtract(_ cover: CGRect, from source: CGRect) -> [CGRect] {
+         let hit = source.intersection(cover)

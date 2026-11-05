@@ -1,0 +1,99 @@
+{
+  "benchmarks" : [
+    {
+      "afterMillisecondsPerFrameMedian" : 3.8159286465088371,
+      "afterSamples" : [
+        3.7560963537544012,
+        3.8159286465088371,
+        3.819445833505597,
+        3.8718348958354909,
+        3.7813411458046176,
+        3.8833692706248257,
+        3.801069270411972
+      ],
+      "beforeMillisecondsPerFrameMedian" : 4.4507333332148846,
+      "beforeSamples" : [
+        4.3849223955476191,
+        4.4263333336857613,
+        4.4765104168618564,
+        4.5124927077267785,
+        4.4507333332148846,
+        4.4105015629611444,
+        4.6768708336458076
+      ],
+      "changePercent" : -14.262923414634477,
+      "fallingCount" : 75,
+      "mode" : "autumn",
+      "settledCount" : 573
+    },
+    {
+      "afterMillisecondsPerFrameMedian" : 2.7055302089138422,
+      "afterSamples" : [
+        2.7055302089138422,
+        2.9820463547366671,
+        2.7135874996019993,
+        2.698810937727103,
+        2.7173223956197035,
+        2.6207552080450114,
+        2.6683479169150814
+      ],
+      "beforeMillisecondsPerFrameMedian" : 3.4273151039087679,
+      "beforeSamples" : [
+        3.3738593752786983,
+        3.3640567708062008,
+        3.44612708358909,
+        3.4273151039087679,
+        3.5393864585785195,
+        3.4101369790732861,
+        3.4334968746406958
+      ],
+      "changePercent" : -21.059776329633305,
+      "fallingCount" : 145,
+      "mode" : "cherryBlossom",
+      "settledCount" : 702
+    }
+  ],
+  "note" : "800x480 offscreen Core Graphics, same deterministic simulation snapshot and per-object transforms; 7 alternating-order trials of 80 frames. This is not whole-app CPU or battery measurement.",
+  "pixelChecks" : [
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : false,
+      "mode" : "snow"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : true,
+      "mode" : "snow"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : false,
+      "mode" : "rain"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : true,
+      "mode" : "rain"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : false,
+      "mode" : "autumn"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : true,
+      "mode" : "autumn"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : false,
+      "mode" : "cherryBlossom"
+    },
+    {
+      "byteIdentical" : true,
+      "focusedWindowHidden" : true,
+      "mode" : "cherryBlossom"
+    }
+  ]
+}

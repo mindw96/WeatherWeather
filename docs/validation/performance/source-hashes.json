@@ -1,0 +1,15 @@
+{
+  "note": "Baseline is the local 0.4.0 source snapshot before optimization, not a Git commit. Reverse patches reconstruct it from the measured 0.5.0 source files.",
+  "sources": {
+    "core": {
+      "current_path": "Sources/WeatherCore/WeatherSimulation.swift",
+      "current_sha256": "039da51cb52ebecfdf7884baa6f18b26e5024f03761d39bee7108e746dbcbb64",
+      "baseline_sha256": "f2071bb14088ad65abe91a80a2c1d0e853024c34fe98ba66e89153cf29728496"
+    },
+    "render": {
+      "current_path": "Sources/WeatherApp/WeatherView.swift",
+      "current_sha256": "4eecf049bb00e98d4b4bc1c916e8c41531d6972726641ef18a4cd7b8b470542f",
+      "baseline_sha256": "fe28552bee555e0f8c876fdae0ac28163d2e43271c81b16d288c305dcc85b43a"
+    }
+  }
+}

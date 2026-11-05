@@ -1,0 +1,58 @@
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app
+/private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app: valid on disk
+/private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app: satisfies its Designated Requirement
+
+$ /usr/bin/codesign -dvvv /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app
+Executable=/private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1793 flags=0x10000(runtime) hashes=49+3 location=embedded
+Hash type=sha256 size=32
+CandidateCDHash sha256=c77966c6d7ec1e3becea115a2a7981141a81e8be
+CandidateCDHashFull sha256=c77966c6d7ec1e3becea115a2a7981141a81e8be736e7491bd6fdf3a608aa21c
+Hash choices=sha256
+CMSDigest=c77966c6d7ec1e3becea115a2a7981141a81e8be736e7491bd6fdf3a608aa21c
+CMSDigestType=2
+CDHash=c77966c6d7ec1e3becea115a2a7981141a81e8be
+Signature size=8975
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 9:08:58 PM
+Notarization Ticket=stapled
+Info.plist entries=11
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=0
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+$ /usr/bin/plutil -lint /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/Info.plist
+/private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/Info.plist: OK
+
+$ xcrun stapler validate /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app
+Processing: /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app
+/private/tmp/window-weather-release-verify.4pj58ff3/unpacked/WindowWeather-0.4.0-macOS/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.4pj58ff3/WindowWeather-0.4.0-macOS-universal.zip
+Archive:  /private/tmp/window-weather-release-verify.4pj58ff3/WindowWeather-0.4.0-macOS-universal.zip
+    testing: WindowWeather-0.4.0-macOS/   OK
+    testing: WindowWeather-0.4.0-macOS/LICENSE   OK
+    testing: WindowWeather-0.4.0-macOS/RELEASE_NOTES.ko.md   OK
+    testing: WindowWeather-0.4.0-macOS/START_HERE.ko.txt   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/CodeResources   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/_CodeSignature/   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/MacOS/   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/MacOS/WindowWeather   OK
+    testing: WindowWeather-0.4.0-macOS/WindowWeather.app/Contents/Info.plist   OK
+No errors detected in compressed data of /private/tmp/window-weather-release-verify.4pj58ff3/WindowWeather-0.4.0-macOS-universal.zip.
+
+Architectures: x86_64 arm64

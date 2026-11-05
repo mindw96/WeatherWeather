@@ -1,0 +1,31 @@
+[
+  {
+    "case" : "snow",
+    "fingerprint" : "2f85c25f478aadd9410a2376d8bb9da8d3bec2e55c9871e21901f1e63728e943",
+    "particles" : 1598,
+    "seconds" : 0.58114899997599423
+  },
+  {
+    "case" : "rain",
+    "fingerprint" : "1d8f347c5104f90275a4de8d742366525af2f5a82290143606fd88340794d6bb",
+    "particles" : 868,
+    "seconds" : 0.31544466665945947
+  },
+  {
+    "case" : "autumn",
+    "fingerprint" : "91bab21e38444de4b7ae472ba9c98a47768a478a5878615df34cb39bfc048ab6",
+    "particles" : 963,
+    "seconds" : 0.59986895835027099
+  },
+  {
+    "case" : "cherryBlossom",
+    "fingerprint" : "44127a24ae1935326e5971cc49960da83794fa3d304aaeb3fb70d026dc410f60",
+    "particles" : 1599,
+    "seconds" : 0.95762491668574512
+  },
+  {
+    "case" : "unchangedGeometry24Windows",
+    "fingerprint" : "6d0755c33b8946e446630ecc05c61260b2bc864a1bfe48dc108da2e64fd51147",
+    "seconds" : 0.0010916250175796449
+  }
+]
