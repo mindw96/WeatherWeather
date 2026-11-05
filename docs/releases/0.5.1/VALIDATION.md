@@ -35,6 +35,12 @@ Sparkle appcast의 빌드 6, 버전 0.5.1, 업데이트 ZIP URL·길이를 확�
 
 ## 게시와 남은 검증
 
-GitHub 게시와 공개 다운로드 해시 확인은 아직 완료로 기록하지 않았습니다. 공개 후 배포 파일 및 피드를 다시 내려받아 검증 결과를 추가합니다. 실제 Sparkle의 앱 교체·설치·재실행도 이번 로컬 서명·공증 검사에 포함되지 않습니다.
+[v0.5.1 Release](https://github.com/mindw96/WeatherWeather/releases/tag/v0.5.1)를 게시했습니다. 공개 DMG·공유 ZIP·업데이트 ZIP·appcast·체크섬 다섯 파일을 인증 없이 다시 내려받아 모두 HTTP 200과 로컬 SHA-256 일치를 확인했습니다. latest 피드가 0.5.1 appcast와 동일한 것도 확인했습니다. 근거는 `github-release.json`, `public-download-verification.json`입니다.
+
+공식 Sparkle 2.10.1의 실제 피드 조회 결과, 격리된 빌드 5/0.5.0 테스트 호스트는 업데이트 빌드 6/0.5.1과 정확한 ZIP 주소를 받았고 빌드 6/0.5.1 호스트는 `OnLatestVersion`으로 완료했습니다. 자동 확인 ON/OFF 설정 저장도 두 호스트에서 통과했습니다. 소스와 결과는 `update-probe/`에 있습니다. 실제 Sparkle의 앱 교체·설치·재실행은 수행하지 않았습니다.
+
+제품 소스 커밋 `d59c89474361a9aad308a8ac0b8a343ebfa81fd8`의 [main CI](https://github.com/mindw96/WeatherWeather/actions/runs/42035630811)와 [v0.5.1 태그 CI](https://github.com/mindw96/WeatherWeather/actions/runs/42035631429)는 macOS 앱 빌드·업데이트 구성 검사·시뮬레이션 테스트를 모두 통과했습니다.
+
+현재 Mac의 `/Users/mindw/Applications/WindowWeather.app`도 동일한 공증 앱으로 교체했습니다. 이전 설치본을 임시 폴더에 백업하고 새 설치본의 코드 서명·티켓·Gatekeeper를 확인한 뒤 실행했습니다. `NSRunningApplication.localizedName`은 **쌓임쌓임**, 활성화 정책은 일반 Dock 앱입니다. 근거는 `runtime-check.json`입니다.
 
 Intel Mac과 macOS 14 실기기, 모든 모니터 배율·Spaces·Mission Control·잠자기 복귀 조합, 물리 마우스 이벤트 전달은 별도 확인이 필요합니다. 0.5.0의 단위·렌더링·성능 검증은 [이전 기록](../0.5.0/VALIDATION.md)에 보존하며 이번 버전에서 전부 재실행한 것으로 해석하지 않습니다.

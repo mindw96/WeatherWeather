@@ -1,0 +1,48 @@
+{
+  "version": "0.5.1",
+  "download_directory": "/private/tmp/window-weather-051-public.40wakxj8",
+  "all_passed": true,
+  "assets": [
+    {
+      "name": "WindowWeather-0.5.1-macOS-universal.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.zip",
+      "http_status": 200,
+      "size_bytes": 1578828,
+      "sha256": "f5392051d897fc51fd928d44276d143ee815c0daddd681bad239e749efec934b",
+      "matches_local": true
+    },
+    {
+      "name": "WindowWeather-0.5.1-update.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-update.zip",
+      "http_status": 200,
+      "size_bytes": 1578828,
+      "sha256": "f5392051d897fc51fd928d44276d143ee815c0daddd681bad239e749efec934b",
+      "matches_local": true
+    },
+    {
+      "name": "appcast.xml",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/appcast.xml",
+      "http_status": 200,
+      "size_bytes": 817,
+      "sha256": "f3676b01e5adc5fbdc48039654b289eeed3b6a55d7e87d6f35d6e1aee607298b",
+      "matches_local": true
+    },
+    {
+      "name": "WindowWeather-0.5.1-macOS-universal.dmg",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.dmg",
+      "http_status": 200,
+      "size_bytes": 1689455,
+      "sha256": "07912cec61080e97ceaf2f904e19aeab82c8dedd231476b9532262f973dab8ed",
+      "matches_local": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/SHA256SUMS.txt",
+      "http_status": 200,
+      "size_bytes": 387,
+      "sha256": "fc4348cf1405af87946314205f764eead1a46aab1a118324faeb406aac4e6e43",
+      "matches_local": true
+    }
+  ],
+  "latest_feed_matches": true
+}

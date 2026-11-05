@@ -8,7 +8,7 @@ macOS의 창 위에 눈·비·가을 낙엽·봄 벚꽃을 내리는 작은 앱�
 
 ## 다운로드와 업데이트
 
-소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.5.1 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.5.1). 앱과 DMG의 Developer ID 서명·Apple 공증, 업데이트 EdDSA 서명과 로컬 파일 검증을 완료했습니다. 위 링크의 GitHub 게시와 공개 다운로드 무결성 확인은 진행 예정입니다.
+소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.5.1 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.1/WindowWeather-0.5.1-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.5.1). 앱과 DMG의 Developer ID 서명·Apple 공증, 업데이트 EdDSA 서명과 로컬 파일 검증을 완료했습니다. GitHub 게시와 공개 다운로드 다섯 파일의 SHA-256 무결성 확인도 완료했습니다.
 
 0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.5.0 사용자는 앱 안에서 0.5.1로 업데이트하실 수 있습니다. 0.4.0 이하에는 Sparkle가 없으므로 최신 버전을 한 번 직접 설치해 주세요.**
 
