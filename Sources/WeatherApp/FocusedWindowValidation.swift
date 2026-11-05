@@ -41,6 +41,10 @@ enum FocusedWindowValidation {
         checks["focusPreferenceIndependentOfAccumulation"] = !settings.showEffectsOnFocusedWindow
         settings.showEffectsOnFocusedWindow = true
         checks["visiblePreferenceSurvivesReload"] = Preferences(defaults: defaults).showEffectsOnFocusedWindow
+        for mode in [WeatherMode.bubbles, .confetti] {
+            settings.mode = mode
+            checks["\(mode.rawValue)SelectionSurvivesReload"] = Preferences(defaults: defaults).mode == mode
+        }
     }
 
     private static func checkRendering(mode: WeatherMode, output: URL, checks: inout [String: Bool]) throws {

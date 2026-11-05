@@ -9,10 +9,7 @@ struct SettingsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .center) {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(AppIdentity.displayName).font(.system(size: 26, weight: .semibold, design: .rounded))
-                    Text("창 위에 내려앉는 작은 계절").font(.subheadline).foregroundStyle(.secondary)
-                }
+                Text(AppIdentity.displayName).font(.system(size: 26, weight: .semibold, design: .rounded))
                 Spacer()
                 Image(systemName: preferences.mode.symbol)
                     .font(.system(size: 30)).symbolRenderingMode(.hierarchical)
@@ -26,11 +23,19 @@ struct SettingsView: View {
                     Text("미리보기").font(.caption2).foregroundStyle(.white.opacity(0.5)).padding(10)
                 }
 
-            Picker("계절 효과", selection: $preferences.mode) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 6) {
                 ForEach(WeatherMode.allCases, id: \.self) { mode in
-                    Text(mode.title).tag(mode)
+                    Toggle(isOn: Binding(
+                        get: { preferences.mode == mode },
+                        set: { if $0 { preferences.mode = mode } }
+                    )) {
+                        Label(mode.title, systemImage: mode.symbol)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .toggleStyle(.button)
+                    .tint(Color(nsColor: mode.accent))
                 }
-            }.pickerStyle(.segmented).labelsHidden()
+            }
 
             VStack(spacing: 15) {
                 HStack {
@@ -58,7 +63,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Toggle("사용 중인 창에도 효과 표시", isOn: $preferences.showEffectsOnFocusedWindow)
                         .toggleStyle(.switch)
-                        .help("눈·비·낙엽·벚꽃에 모두 적용됩니다. 쌓인 효과는 지우지 않고 잠시 숨깁니다.")
+                        .help("모든 효과에 적용됩니다. 쌓인 효과는 지우지 않고 잠시 숨깁니다.")
                     Text("끄면 작업 중인 창 안의 효과와 창 위에 쌓인 효과를 숨깁니다.")
                         .font(.caption)
                         .foregroundStyle(.secondary)

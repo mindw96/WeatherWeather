@@ -48,8 +48,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>WindowWeather</string>
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.5.1</string>
-<key>CFBundleVersion</key><string>6</string>
+<key>CFBundleShortVersionString</key><string>0.6.0</string>
+<key>CFBundleVersion</key><string>7</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
@@ -80,6 +80,8 @@ case "$MODE" in
     test -s "$ROOT_DIR/docs/validation/rain-preview.png"
     test -s "$ROOT_DIR/docs/validation/autumn-preview.png"
     test -s "$ROOT_DIR/docs/validation/cherryBlossom-preview.png"
+    test -s "$ROOT_DIR/docs/validation/bubbles-preview.png"
+    test -s "$ROOT_DIR/docs/validation/confetti-preview.png"
     ;;
   --validate-focus|--validate-snowman)
     if [[ "$MODE" == "--validate-focus" ]]; then

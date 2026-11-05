@@ -46,7 +46,7 @@ final class WeatherView: NSView {
             // Mounds and settled shapes extend above the window's rectangle.
             guard pile.surfaceID != hiddenFocusedWindow?.id else { continue }
             let settled = settledBySurface[pile.surfaceID] ?? []
-            guard simulation.mode.isSeasonal ? !settled.isEmpty : pile.heights.contains(where: { $0 > 0.01 }) else { continue }
+            guard simulation.mode.hasSettledParticles ? !settled.isEmpty : pile.heights.contains(where: { $0 > 0.01 }) else { continue }
             context.saveGState()
             let clip = CGMutablePath()
             let foreground = pile.surfaceID == 0 ? windowGeometry[...] : windowGeometry.prefix { $0.id != pile.surfaceID }
@@ -61,12 +61,19 @@ final class WeatherView: NSView {
             }
             context.addPath(clip)
             context.clip()
-            if simulation.mode.isSeasonal {
+            if simulation.mode.hasSettledParticles {
                 for item in settled {
-                    drawSeasonal(in: context, mode: item.mode,
-                                 x: pile.x + item.position * pile.width, y: pile.y - item.offsetY,
-                                 size: item.size, rotation: item.rotation, variant: item.variant,
-                                 opacity: min(1, item.life / 8), horizontalScale: 1)
+                    if item.mode == .bubbles {
+                        let pop = max(0, 1 - item.life / 0.45)
+                        drawBubble(in: context, x: pile.x + item.position * pile.width,
+                                   y: pile.y - item.offsetY, size: item.size * (1 + pop * 0.22),
+                                   opacity: 0.85 * (1 - pop))
+                    } else {
+                        drawSeasonal(in: context, mode: item.mode,
+                                     x: pile.x + item.position * pile.width, y: pile.y - item.offsetY,
+                                     size: item.size, rotation: item.rotation, variant: item.variant,
+                                     opacity: min(1, item.life / 8), horizontalScale: 1)
+                    }
                 }
                 context.restoreGState()
                 continue
@@ -91,7 +98,10 @@ final class WeatherView: NSView {
         }
 
         for particle in simulation.particles {
-            if simulation.mode.isSeasonal {
+            if simulation.mode == .bubbles {
+                drawBubble(in: context, x: particle.x, y: particle.y,
+                           size: particle.size, opacity: particle.opacity)
+            } else if simulation.mode.hasSettledParticles {
                 let flip = 0.4 + 0.6 * abs(cos(particle.rotation * 0.7 + particle.phase))
                 drawSeasonal(in: context, mode: simulation.mode,
                              x: particle.x, y: particle.y, size: particle.size,
@@ -115,7 +125,7 @@ final class WeatherView: NSView {
         }
     }
 
-    /// Original vector shapes; no textures or assets are needed for either season.
+    /// Original vector shapes share the existing fall and settlement rendering path.
     private func drawSeasonal(in context: CGContext, mode: WeatherMode, x: Double, y: Double,
                               size: Double, rotation: Double, variant: Int,
                               opacity: Double, horizontalScale: Double) {
@@ -123,7 +133,11 @@ final class WeatherView: NSView {
         context.translateBy(x: x, y: y)
         context.rotate(by: rotation)
         context.scaleBy(x: size * horizontalScale, y: size)
-        if mode == .autumn {
+        if mode == .confetti {
+            context.setFillColor(Self.confettiColors[abs(variant % Self.confettiColors.count)].withAlphaComponent(opacity).cgColor)
+            context.addPath(Self.confettiPaths[abs(variant % Self.confettiPaths.count)])
+            context.fillPath()
+        } else if mode == .autumn {
             context.setFillColor(Self.autumnColors[abs(variant % Self.autumnColors.count)].withAlphaComponent(opacity).cgColor)
             context.addPath(variant % 3 == 2 ? Self.maplePath : Self.leafPath)
             context.fillPath()
@@ -144,7 +158,67 @@ final class WeatherView: NSView {
         context.restoreGState()
     }
 
+    private func drawBubble(in context: CGContext, x: Double, y: Double,
+                            size: Double, opacity: Double) {
+        context.saveGState()
+        context.translateBy(x: x, y: y)
+        context.scaleBy(x: size, y: size)
+        context.setAlpha(opacity)
+        context.setFillColor(Self.bubbleFilm)
+        context.addPath(Self.bubbleOutline)
+        context.fillPath()
+        context.setLineWidth(max(0.75 / size, 0.045))
+        context.setStrokeColor(Self.bubbleRim)
+        context.addPath(Self.bubbleOutline)
+        context.strokePath()
+        context.setStrokeColor(Self.bubbleCyan)
+        context.addPath(Self.bubbleCyanArc)
+        context.strokePath()
+        context.setStrokeColor(Self.bubblePink)
+        context.addPath(Self.bubblePinkArc)
+        context.strokePath()
+        context.setStrokeColor(Self.bubbleHighlight)
+        context.setLineWidth(max(1 / size, 0.055))
+        context.addPath(Self.bubbleHighlightArc)
+        context.strokePath()
+        context.restoreGState()
+    }
+
     // Geometry and base colors are identical for every particle and frame.
+    private static let bubbleFilm = NSColor(calibratedRed: 0.76, green: 0.91, blue: 1, alpha: 0.06).cgColor
+    private static let bubbleRim = NSColor(calibratedRed: 0.77, green: 0.91, blue: 1, alpha: 0.56).cgColor
+    private static let bubbleCyan = NSColor(calibratedRed: 0.35, green: 0.94, blue: 0.95, alpha: 0.82).cgColor
+    private static let bubblePink = NSColor(calibratedRed: 1, green: 0.65, blue: 0.85, alpha: 0.78).cgColor
+    private static let bubbleHighlight = NSColor(calibratedWhite: 1, alpha: 0.9).cgColor
+    private static let bubbleOutline = CGPath(ellipseIn: CGRect(x: -0.5, y: -0.5, width: 1, height: 1), transform: nil)
+    private static let bubbleCyanArc: CGPath = {
+        let path = CGMutablePath()
+        path.addArc(center: .zero, radius: 0.5, startAngle: -.pi * 0.35, endAngle: .pi * 0.18, clockwise: false)
+        return path
+    }()
+    private static let bubblePinkArc: CGPath = {
+        let path = CGMutablePath()
+        path.addArc(center: .zero, radius: 0.5, startAngle: .pi * 0.3, endAngle: .pi * 0.88, clockwise: false)
+        return path
+    }()
+    private static let bubbleHighlightArc: CGPath = {
+        let path = CGMutablePath()
+        path.addArc(center: .zero, radius: 0.36, startAngle: -.pi * 0.87, endAngle: -.pi * 0.58, clockwise: false)
+        return path
+    }()
+    private static let confettiColors = [
+        NSColor(calibratedRed: 1, green: 0.39, blue: 0.49, alpha: 1),
+        NSColor(calibratedRed: 1, green: 0.79, blue: 0.28, alpha: 1),
+        NSColor(calibratedRed: 0.27, green: 0.86, blue: 0.85, alpha: 1),
+        NSColor(calibratedRed: 0.37, green: 0.65, blue: 1, alpha: 1),
+        NSColor(calibratedRed: 0.72, green: 0.52, blue: 0.98, alpha: 1),
+        NSColor(calibratedRed: 1, green: 0.58, blue: 0.8, alpha: 1)
+    ]
+    private static let confettiPaths = [
+        CGPath(rect: CGRect(x: -0.36, y: -0.25, width: 0.72, height: 0.5), transform: nil),
+        CGPath(rect: CGRect(x: -0.17, y: -0.48, width: 0.34, height: 0.96), transform: nil),
+        CGPath(rect: CGRect(x: -0.31, y: -0.31, width: 0.62, height: 0.62), transform: nil)
+    ]
     private static let autumnColors = [
         NSColor(calibratedRed: 0.91, green: 0.37, blue: 0.12, alpha: 1),
         NSColor(calibratedRed: 0.98, green: 0.65, blue: 0.19, alpha: 1),

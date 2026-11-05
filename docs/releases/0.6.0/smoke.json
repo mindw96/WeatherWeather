@@ -1,0 +1,198 @@
+{
+  "checks" : {
+    "accumulationFollowsWindowBetweenDisplays" : true,
+    "animationProducedParticles" : true,
+    "applicationMenuOpensController" : true,
+    "applicationSettingsShortcutAvailable" : true,
+    "autumnClearRemovesShapes" : true,
+    "autumnFallsAndSettles" : true,
+    "bubblesClearRemovesShapes" : true,
+    "bubblesFallsAndSettles" : true,
+    "cherryBlossomClearRemovesShapes" : true,
+    "cherryBlossomFallsAndSettles" : true,
+    "clearRemovesAccumulation" : true,
+    "clickThroughNonactivatingPanels" : true,
+    "closedControllerKeepsWeatherRunning" : true,
+    "closedWindowRemoved" : true,
+    "confettiClearRemovesShapes" : true,
+    "confettiFallsAndSettles" : true,
+    "controllerIsKeyAfterReopen" : true,
+    "controllerVisibleOnConnectedDisplay" : true,
+    "dockActivationEnabled" : true,
+    "dockMenuReopensController" : true,
+    "dockReopenRestoresMinimizedController" : true,
+    "focusedWindowMaskFollowsKeyWindow" : true,
+    "focusedWindowOffHidesActiveWindow" : true,
+    "focusedWindowOffPreservesSurface" : true,
+    "focusedWindowOnRestoresAllEffects" : true,
+    "fullScreenAccumulationDefaultsOff" : true,
+    "fullScreenOffExcludesWindowAndFloor" : true,
+    "fullScreenOffRemovesExistingAccumulation" : true,
+    "fullScreenOnAccumulates" : true,
+    "fullScreenOnRestoresSurface" : true,
+    "fullScreenWindowRemainsOccluder" : true,
+    "menuBarControllerAvailable" : true,
+    "nativeFullScreenEntered" : true,
+    "nativeFullScreenExited" : true,
+    "nativeFullScreenOffExcludesSurface" : true,
+    "nativeFullScreenOnRestoresVisibleSurface" : true,
+    "oneOverlayPerDisplay" : true,
+    "pauseHidesOverlays" : true,
+    "realWindowDetected" : true,
+    "resumeShowsOverlays" : true,
+    "statusMenuReopensController" : true,
+    "windowMoveTracked" : true,
+    "windowResizeTracked" : true,
+    "windowSurfaceCreated" : true
+  },
+  "diagnostics" : {
+    "controllerAccess" : {
+      "activationPolicy" : 0,
+      "note" : "AppKit menu-action dispatch and reopen callbacks; physical Dock\/menu-bar clicks are not injected.",
+      "settingsFrame" : [
+        617,
+        1257,
+        450,
+        774
+      ],
+      "statusItemVisible" : true,
+      "wasMiniaturized" : true
+    },
+    "displayTransfer" : {
+      "after" : 843.62214644386336,
+      "before" : 843.81974817286118,
+      "targetContainsWindowCenter" : true
+    },
+    "guiSession" : {
+      "dictionaryAvailable" : true,
+      "onConsole" : true
+    },
+    "maximizedGeometry" : [
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          0,
+          0,
+          1680,
+          1050
+        ],
+        "visible" : [
+          0,
+          0,
+          1680,
+          1020
+        ],
+        "windowFrame" : [
+          -118,
+          1050,
+          1920,
+          1050
+        ]
+      },
+      {
+        "classified" : true,
+        "localBounds" : [
+          0,
+          30,
+          1920,
+          1050
+        ],
+        "screen" : [
+          -118,
+          1050,
+          1920,
+          1080
+        ],
+        "visible" : [
+          -118,
+          1050,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          -118,
+          1050,
+          1920,
+          1050
+        ]
+      }
+    ],
+    "nativeFullScreenEntryCompletion" : "NSWindowDidEnterFullScreenNotification",
+    "nativeFullScreenExitCompletion" : "NSWindowDidExitFullScreenNotification",
+    "nativeFullScreenGeometry" : [
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          0,
+          0,
+          1680,
+          1050
+        ],
+        "visible" : [
+          0,
+          0,
+          1680,
+          1020
+        ],
+        "windowFrame" : [
+          -118,
+          1050,
+          1920,
+          1080
+        ]
+      },
+      {
+        "classified" : true,
+        "localBounds" : [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "screen" : [
+          -118,
+          1050,
+          1920,
+          1080
+        ],
+        "visible" : [
+          -118,
+          1050,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          -118,
+          1050,
+          1920,
+          1080
+        ]
+      }
+    ],
+    "windowMove" : {
+      "after" : [
+        145,
+        617
+      ],
+      "before" : [
+        100,
+        652
+      ],
+      "expected" : [
+        145,
+        617
+      ]
+    }
+  },
+  "displayCount" : 2,
+  "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
+  "observedWindowCountAfterFixtureClosed" : 10,
+  "passed" : true,
+  "status" : "passed"
+}

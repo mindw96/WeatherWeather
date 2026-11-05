@@ -5,8 +5,11 @@ public enum WeatherMode: String, CaseIterable, Sendable {
     case rain
     case autumn
     case cherryBlossom
+    case bubbles
+    case confetti
 
     public var isSeasonal: Bool { self == .autumn || self == .cherryBlossom }
+    public var hasSettledParticles: Bool { isSeasonal || self == .bubbles || self == .confetti }
 }
 
 /// Coordinates are screen-local points with the origin at the top left.
@@ -60,7 +63,7 @@ public struct Particle: Equatable, Sendable {
     }
 }
 
-/// A leaf or petal resting in window-local coordinates, independent of its display.
+/// A decorative particle resting in window-local coordinates, independent of its display.
 public struct SettledParticle: Equatable, Sendable {
     public var id: UInt64
     public var mode: WeatherMode
@@ -70,7 +73,7 @@ public struct SettledParticle: Equatable, Sendable {
     public var size: Double
     public var rotation: Double
     public var variant: Int
-    /// Remaining lifetime in seconds. Fade during the final eight seconds.
+    /// Remaining lifetime in seconds; the renderer controls the mode's fade or pop.
     public var life: Double
 
     public init(id: UInt64, mode: WeatherMode, surfaceID: UInt32, position: Double,
@@ -119,6 +122,8 @@ public final class WeatherSimulation {
     public static let maximumWaterHeight = 4.0
     public static let maximumLeafHeight = 10.0
     public static let maximumPetalHeight = 7.0
+    public static let maximumBubbleHeight = 10.0
+    public static let maximumConfettiHeight = 8.0
     public static let maximumSettledParticles = 1_200
 
     public var mode: WeatherMode = .snow {
@@ -225,7 +230,7 @@ public final class WeatherSimulation {
     /// Call alongside inheritAccumulation with a fresh snapshot after any global clear.
     /// Stable particle IDs make repeated cross-display synchronization idempotent.
     public func inheritSettledParticles(from sourceParticles: [SettledParticle]) {
-        guard accumulationEnabled, mode.isSeasonal else { return }
+        guard accumulationEnabled, mode.hasSettledParticles else { return }
         let surfaceIDs = Set(surfaces.map(\.id))
         var positions = Dictionary(uniqueKeysWithValues: settledParticles.enumerated().map { ($0.element.id, $0.offset) })
         for particle in sourceParticles {
@@ -234,8 +239,10 @@ public final class WeatherSimulation {
                   particle.position.isFinite, (0...1).contains(particle.position),
                   particle.offsetY.isFinite, particle.offsetY >= 0,
                   particle.offsetY <= maximumAccumulationHeight + 20,
-                  particle.size.isFinite, particle.size > 0, particle.size <= 20,
-                  particle.rotation.isFinite, (0...2).contains(particle.variant),
+                  particle.size.isFinite, particle.size > 0,
+                  particle.size <= (mode == .confetti ? 9 : 20),
+                  mode != .bubbles || particle.size >= 10,
+                  particle.rotation.isFinite, (0..<(mode == .confetti ? 6 : 3)).contains(particle.variant),
                   particle.life.isFinite, particle.life > 0,
                   particle.life <= settledLifetime else { continue }
             if let existing = positions[particle.id] {
@@ -278,6 +285,8 @@ public final class WeatherSimulation {
         case .rain: baseRate = 230
         case .autumn: baseRate = 18
         case .cherryBlossom: baseRate = 25
+        case .bubbles: baseRate = 12
+        case .confetti: baseRate = 35
         }
         let rate = baseRate * min(width / 1_000, 4) * density
         emissionRemainder += rate * dt
@@ -288,7 +297,7 @@ public final class WeatherSimulation {
             for _ in 0..<count { spawnParticle(wind: breeze) }
         }
 
-        let decay = mode == .snow ? 0.006 : (mode == .rain ? 0.07 : 0.08)
+        let decay = mode == .snow ? 0.006 : (mode == .rain ? 0.07 : (mode == .bubbles ? 0.8 : 0.08))
         for index in piles.indices {
             for bin in piles[index].heights.indices {
                 piles[index].heights[bin] = max(0, piles[index].heights[bin] - decay * dt)
@@ -310,14 +319,20 @@ public final class WeatherSimulation {
             case .cherryBlossom:
                 particle.vx = breeze * 80 + sin(elapsed * 1.1 + particle.phase + particle.y * 0.003) * 25
                 particle.rotation += (particle.angularVelocity + sin(elapsed + particle.phase) * 0.2) * dt
+            case .bubbles:
+                particle.vx = breeze * 55 + sin(elapsed * 0.9 + particle.phase + particle.y * 0.005) * 20
+                particle.rotation += particle.angularVelocity * dt
+            case .confetti:
+                particle.vx = breeze * 95 + sin(elapsed * 2.4 + particle.phase + particle.y * 0.006) * 30
+                particle.rotation += (particle.angularVelocity + sin(elapsed * 3 + particle.phase) * 0.6) * dt
             }
             particle.x += particle.vx * dt
-            let flutter = mode.isSeasonal ? 0.85 + 0.15 * sin(elapsed * 2 + particle.phase) : 1
+            let flutter = mode.isSeasonal || mode == .confetti ? 0.85 + 0.15 * sin(elapsed * 2 + particle.phase) : 1
             particle.y += particle.vy * flutter * dt
             if let hit = firstCollision(fromX: oldX, y: oldY, toX: particle.x, y: particle.y) {
                 if accumulationEnabled {
                     accumulate(at: hit)
-                    if mode.isSeasonal { settle(particle, at: hit) }
+                    if mode.hasSettledParticles { settle(particle, at: hit) }
                 }
                 if mode == .rain { addSplashes(at: hit) }
             } else if particle.y < height + 50, particle.x > -80, particle.x < width + 80 {
@@ -334,10 +349,10 @@ public final class WeatherSimulation {
         }
         splashes.removeAll { $0.life <= 0 || $0.y > height + 30 }
 
-        if mode.isSeasonal {
+        if mode.hasSettledParticles {
             for index in settledParticles.indices { settledParticles[index].life -= dt }
             settledParticles.removeAll { $0.life <= 0 }
-            // No invisible collision ridge survives after the last leaf/petal fades.
+            // No invisible collision ridge survives after the last resting particle expires.
             let occupied = Set(settledParticles.map(\.surfaceID))
             for index in piles.indices where !occupied.contains(piles[index].surfaceID) {
                 piles[index].heights = Array(repeating: 0, count: piles[index].heights.count)
@@ -346,6 +361,19 @@ public final class WeatherSimulation {
     }
 
     private func spawnParticle(wind: Double) {
+        if mode == .bubbles || mode == .confetti {
+            let bubble = mode == .bubbles
+            particles.append(Particle(
+                x: random.between(-30, width + 30), y: random.between(-35, -4),
+                vx: wind * (bubble ? 55 : 95),
+                vy: random.between(bubble ? 18 : 45, bubble ? 38 : 100),
+                size: random.between(bubble ? 10 : 5, bubble ? 20 : 9),
+                opacity: random.between(bubble ? 0.45 : 0.85, bubble ? 0.8 : 1),
+                rotation: random.between(-Double.pi, Double.pi),
+                angularVelocity: random.between(bubble ? -0.3 : -4, bubble ? 0.3 : 4),
+                variant: Int(random.between(0, bubble ? 3 : 6)), phase: random.between(0, Double.pi * 2)))
+            return
+        }
         if mode.isSeasonal {
             let leaf = mode == .autumn
             particles.append(Particle(
@@ -430,10 +458,19 @@ public final class WeatherSimulation {
         case .rain: return Self.maximumWaterHeight
         case .autumn: return Self.maximumLeafHeight
         case .cherryBlossom: return Self.maximumPetalHeight
+        case .bubbles: return Self.maximumBubbleHeight
+        case .confetti: return Self.maximumConfettiHeight
         }
     }
 
-    private var settledLifetime: Double { mode == .autumn ? 90 : 60 }
+    private var settledLifetime: Double {
+        switch mode {
+        case .autumn: return 90
+        case .bubbles: return 10
+        case .confetti: return 45
+        default: return 60
+        }
+    }
 
     private func settle(_ particle: Particle, at hit: Collision) {
         let pile = piles[hit.pileIndex]
@@ -441,7 +478,7 @@ public final class WeatherSimulation {
         settledParticles.append(SettledParticle(
             id: random.next(), mode: mode, surfaceID: pile.surfaceID,
             position: localX / pile.width,
-            offsetY: pile.height(at: localX) + particle.size * random.between(0.15, 0.45),
+            offsetY: pile.height(at: localX) + particle.size * (mode == .bubbles ? 0.5 : random.between(0.15, 0.45)),
             size: particle.size, rotation: random.between(-Double.pi, Double.pi),
             variant: particle.variant, life: settledLifetime))
         trimSettledParticles()

@@ -124,7 +124,7 @@ enum Validation {
                         if let transferred { checks["accumulationFollowsWindowBetweenDisplays"] = transferred }
                         checkFocusedWindowOption(fixture: fixture, delegate: delegate) { focusChecks in
                         checks.merge(focusChecks) { _, new in new }
-                        checks.merge(checkSeasonalModes(delegate: delegate)) { _, new in new }
+                        checks.merge(checkDecorativeModes(delegate: delegate)) { _, new in new }
                         checkFullScreenOption(fixture: fixture, delegate: delegate) { fullScreenChecks in
                         checks.merge(fullScreenChecks) { _, new in new }
                         checkNativeFullScreen(fixture: fixture, delegate: delegate) { nativeChecks in
@@ -331,11 +331,11 @@ enum Validation {
         window.toggleFullScreen(nil)
     }
 
-    private static func checkSeasonalModes(delegate: AppDelegate) -> [String: Bool] {
-        guard let overlays = delegate.overlays else { return ["seasonalModesAvailable": false] }
+    private static func checkDecorativeModes(delegate: AppDelegate) -> [String: Bool] {
+        guard let overlays = delegate.overlays else { return ["decorativeModesAvailable": false] }
         let previous = delegate.preferences.mode
         var checks: [String: Bool] = [:]
-        for mode in [WeatherMode.autumn, .cherryBlossom] {
+        for mode in WeatherMode.allCases where mode.hasSettledParticles {
             delegate.preferences.mode = mode
             for display in overlays.displays {
                 for _ in 0..<300 { display.view.simulation.update(deltaTime: 0.1) }

@@ -1,0 +1,11 @@
+{
+  "version": "0.6.0",
+  "path": "/Users/mindw/Applications/WindowWeather.app",
+  "previous_version_backup": "/private/tmp/window-weather-051-backup.652lvii9/WindowWeather.app",
+  "code_signature_verified": true,
+  "notarization_ticket_verified": true,
+  "gatekeeper": "accepted / Notarized Developer ID",
+  "localizedName": "쌓임쌓임",
+  "pid": 35800,
+  "activationPolicy": 0
+}

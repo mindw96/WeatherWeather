@@ -1,0 +1,16 @@
+{
+  "command": "swift test --package-path /private/tmp/window-weather-core-060 --scratch-path /private/tmp/window-weather-core-060/.build",
+  "package_path": "/private/tmp/window-weather-core-060",
+  "package_kind": "Isolated core-only Swift package copied from WeatherCore and WeatherCoreTests; no WeatherApp or Sparkle target",
+  "executed_tests": 68,
+  "failures": 0,
+  "unexpected_failures": 0,
+  "new_tests": 7,
+  "weather_simulation_tests": 34,
+  "test_duration_seconds": 3.904,
+  "build_duration_seconds": 14.04,
+  "observed_date": "2026-11-05",
+  "result": "passed",
+  "evidence_origin": "Observed successful swift test tool output; full stdout log was not retained.",
+  "scope": "Simulation, window geometry, focused-window/fullscreen policies, snowman positions. Does not establish GUI rendering, real pointer input, signing, or distribution."
+}

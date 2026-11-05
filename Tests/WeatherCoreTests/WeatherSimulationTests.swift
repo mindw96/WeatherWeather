@@ -32,7 +32,9 @@ final class WeatherSimulationTests: XCTestCase {
             (.snow, WeatherSimulation.maximumSnowHeight),
             (.rain, WeatherSimulation.maximumWaterHeight),
             (.autumn, WeatherSimulation.maximumLeafHeight),
-            (.cherryBlossom, WeatherSimulation.maximumPetalHeight)
+            (.cherryBlossom, WeatherSimulation.maximumPetalHeight),
+            (.bubbles, WeatherSimulation.maximumBubbleHeight),
+            (.confetti, WeatherSimulation.maximumConfettiHeight)
         ]
         for (mode, maximum) in cases {
             let simulation = WeatherSimulation(width: 500, height: 400)
@@ -385,6 +387,149 @@ final class WeatherSimulationTests: XCTestCase {
             let cap = mode == .autumn ? WeatherSimulation.maximumLeafHeight : WeatherSimulation.maximumPetalHeight
             XCTAssertLessThanOrEqual(simulation.piles[0].heights.max() ?? 0, cap)
             XCTAssertTrue(simulation.settledParticles.allSatisfy { $0.offsetY.isFinite && $0.rotation.isFinite })
+        }
+    }
+
+    func testBubblesAndConfettiHaveDistinctMotionAndSizes() throws {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let simulation = WeatherSimulation(width: 1_000, height: 1_000, seed: 51)
+            simulation.mode = mode
+            simulation.intensity = 1
+            simulation.wind = 0.4
+            for _ in 0..<10 { simulation.update(deltaTime: 0.1) }
+            let bubble = mode == .bubbles
+            XCTAssertFalse(simulation.particles.isEmpty)
+            XCTAssertTrue(simulation.particles.allSatisfy {
+                (bubble ? 10...20 : 5...9).contains($0.size)
+                    && (bubble ? 18...38 : 45...100).contains($0.vy)
+                    && (0..<(bubble ? 3 : 6)).contains($0.variant)
+            })
+            let first = try XCTUnwrap(simulation.particles.first)
+            simulation.update(deltaTime: 0.1)
+            let moved = try XCTUnwrap(simulation.particles.first)
+            XCTAssertGreaterThan(moved.y, first.y)
+            XCTAssertNotEqual(moved.x, first.x)
+            XCTAssertNotEqual(moved.rotation, first.rotation)
+            XCTAssertTrue(simulation.splashes.isEmpty)
+        }
+    }
+
+    func testNewEffectsSettleDeterministicallyAndFollowMovingWindows() {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let simulation = populatedSimulation(mode: mode, seed: 55)
+            let duplicate = populatedSimulation(mode: mode, seed: 55)
+            let items = simulation.settledParticles
+            XCTAssertFalse(items.isEmpty)
+            XCTAssertEqual(items, duplicate.settledParticles)
+            XCTAssertTrue(items.allSatisfy {
+                $0.mode == mode && $0.surfaceID == 10 && (0...1).contains($0.position)
+                    && $0.life > 0 && $0.life <= (mode == .bubbles ? 10 : 45)
+            })
+            if mode == .bubbles {
+                XCTAssertTrue(items.allSatisfy { $0.offsetY >= $0.size / 2 })
+            }
+            simulation.setSurfaces([Surface(id: 10, x: 75, y: 140, width: 1_700)])
+            XCTAssertEqual(simulation.settledParticles, items)
+            XCTAssertEqual(simulation.piles[0].x, 75)
+            simulation.setSurfaces([])
+            XCTAssertTrue(simulation.settledParticles.isEmpty)
+        }
+    }
+
+    func testNewEffectsExpireWithoutLeavingInvisibleCollisionRidges() {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let simulation = populatedSimulation(mode: mode)
+            XCTAssertFalse(simulation.settledParticles.isEmpty)
+            simulation.intensity = 0
+            for _ in 0..<(mode == .bubbles ? 200 : 550) { simulation.update(deltaTime: 0.1) }
+            XCTAssertTrue(simulation.particles.isEmpty)
+            XCTAssertTrue(simulation.settledParticles.isEmpty)
+            XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.allSatisfy { $0 == 0 } })
+        }
+    }
+
+    func testNewEffectsClearDisableAndModeChangeRemoveRestingParticles() {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let simulation = populatedSimulation(mode: mode)
+            let snapshot = simulation.settledParticles
+            XCTAssertFalse(snapshot.isEmpty)
+            simulation.clearAccumulation()
+            XCTAssertTrue(simulation.settledParticles.isEmpty)
+            simulation.inheritSettledParticles(from: snapshot)
+            XCTAssertFalse(simulation.settledParticles.isEmpty)
+            simulation.accumulationEnabled = false
+            for _ in 0..<60 { simulation.update(deltaTime: 0.1) }
+            simulation.inheritSettledParticles(from: snapshot)
+            XCTAssertTrue(simulation.settledParticles.isEmpty)
+            XCTAssertFalse(simulation.particles.isEmpty)
+            XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.allSatisfy { $0 == 0 } })
+            simulation.accumulationEnabled = true
+            simulation.inheritSettledParticles(from: snapshot)
+            simulation.mode = .snow
+            XCTAssertTrue(simulation.settledParticles.isEmpty)
+            XCTAssertTrue(simulation.particles.isEmpty)
+        }
+    }
+
+    func testNewEffectTransferKeepsAllVariantsWithoutExtendingLifetime() {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let destination = WeatherSimulation(width: 1_200, height: 800)
+            destination.mode = mode
+            destination.intensity = 0
+            destination.setSurfaces([Surface(id: 10, x: 40, y: 200, width: 1_400)])
+            let count = mode == .bubbles ? 3 : 6
+            let items = (0..<count).map { variant in
+                SettledParticle(id: UInt64(variant), mode: mode, surfaceID: 10,
+                                position: Double(variant) / Double(count), offsetY: 10,
+                                size: mode == .bubbles ? 16 : 7, rotation: 0,
+                                variant: variant, life: mode == .bubbles ? 10 : 45)
+            }
+            destination.inheritSettledParticles(from: items)
+            XCTAssertEqual(destination.settledParticles, items)
+            destination.update(deltaTime: 0.1)
+            let aged = destination.settledParticles
+            destination.inheritSettledParticles(from: items + items)
+            XCTAssertEqual(destination.settledParticles, aged)
+            destination.mode = .snow
+            destination.inheritSettledParticles(from: items)
+            XCTAssertTrue(destination.settledParticles.isEmpty)
+        }
+    }
+
+    func testNewEffectTransferRejectsInvalidVariantsSizesAndLifetimes() throws {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let item = try XCTUnwrap(populatedSimulation(mode: mode).settledParticles.first)
+            let destination = WeatherSimulation(width: 800, height: 500)
+            destination.mode = mode
+            destination.setSurfaces([Surface(id: 10, x: 20, y: 100, width: 500)])
+            var badVariant = item; badVariant.variant = mode == .bubbles ? 3 : 6
+            var tooLarge = item; tooLarge.size = mode == .bubbles ? 21 : 10
+            var tooOld = item; tooOld.life = mode == .bubbles ? 11 : 46
+            var invalid = item; invalid.position = .nan
+            var floor = item; floor.surfaceID = 0
+            var unknown = item; unknown.surfaceID = 999
+            destination.inheritSettledParticles(from: [badVariant, tooLarge, tooOld, invalid, floor, unknown])
+            XCTAssertTrue(destination.settledParticles.isEmpty)
+            destination.inheritSettledParticles(from: [item])
+            XCTAssertEqual(destination.settledParticles, [item])
+        }
+    }
+
+    func testHeavyNewEffectsRespectParticleAndHeightBudgets() {
+        for mode in [WeatherMode.bubbles, .confetti] {
+            let simulation = WeatherSimulation(width: 8_000, height: 200, seed: 33)
+            simulation.mode = mode
+            simulation.intensity = 100
+            simulation.wind = .infinity
+            simulation.setSurfaces([Surface(id: 10, x: 0, y: 10, width: 8_000)])
+            for _ in 0..<600 { simulation.update(deltaTime: 0.1) }
+            XCTAssertFalse(simulation.settledParticles.isEmpty)
+            XCTAssertLessThanOrEqual(simulation.settledParticles.count, WeatherSimulation.maximumSettledParticles)
+            XCTAssertLessThanOrEqual(simulation.particles.count, WeatherSimulation.maximumParticles)
+            let cap = mode == .bubbles ? WeatherSimulation.maximumBubbleHeight : WeatherSimulation.maximumConfettiHeight
+            XCTAssertLessThanOrEqual(simulation.piles[0].heights.max() ?? 0, cap)
+            XCTAssertTrue(simulation.settledParticles.allSatisfy { $0.offsetY.isFinite && $0.rotation.isFinite })
+            XCTAssertTrue(simulation.particles.allSatisfy { $0.x.isFinite && $0.y.isFinite })
         }
     }
 
