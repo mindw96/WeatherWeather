@@ -1,0 +1,16 @@
+{
+  "version": "0.5.1",
+  "build": "6",
+  "zip_root": [
+    "WindowWeather.app"
+  ],
+  "shared_and_update_zip_identical": true,
+  "own_license_inside_app": true,
+  "artifact_sha256": {
+    "WindowWeather-0.5.1-macOS-universal.zip": "f5392051d897fc51fd928d44276d143ee815c0daddd681bad239e749efec934b",
+    "WindowWeather-0.5.1-update.zip": "f5392051d897fc51fd928d44276d143ee815c0daddd681bad239e749efec934b",
+    "appcast.xml": "f3676b01e5adc5fbdc48039654b289eeed3b6a55d7e87d6f35d6e1aee607298b",
+    "WindowWeather-0.5.1-macOS-universal.dmg": "07912cec61080e97ceaf2f904e19aeab82c8dedd231476b9532262f973dab8ed"
+  },
+  "release_resume_verified": true
+}

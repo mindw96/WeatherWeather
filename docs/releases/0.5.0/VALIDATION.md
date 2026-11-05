@@ -37,7 +37,19 @@ Sparkle이 자동 확인 주기와 저장된 선택을 관리합니다. 정상 �
 
 동기화된 Documents 실행본에 FinderInfo가 다시 붙는 문제가 재현되어, 최종 실행 앱은 `/Users/mindw/Applications/WindowWeather.app`에 설치했습니다. 해당 설치본의 엄격 코드 서명·공증 티켓·Gatekeeper 허용을 확인하고 실행했습니다. 실제 프로세스·일반 Dock 앱 정책·화면 내 설정창은 `runtime-check.json`으로 확인합니다. 동기화 폴더의 개발용 `dist` 앱과 공증된 사용자 Applications 설치본을 구분합니다.
 
-0.4.0에는 Sparkle이 없어 0.4.0 → 0.5.0 설치는 수동 교체입니다. 향후 업데이트는 공증된 앱 하나를 담은 업데이트 ZIP과 EdDSA 서명된 appcast를 사용합니다. 공유 안내·라이선스가 함께 담긴 universal ZIP과 업데이트 전용 ZIP은 별도 산출물입니다.
+0.4.0에는 Sparkle이 없어 0.4.0 → 0.5.0 설치는 수동 교체입니다. 향후 업데이트는 공증된 앱 하나를 담은 업데이트 ZIP과 EdDSA 서명된 appcast를 사용합니다. 최초 공유 ZIP에는 사용 안내·라이선스가 함께 있었으며, 아래 포장 정리에서 앱만 담는 방식으로 변경했습니다.
+
+## 0.5.0 설치 파일 정리
+
+앱을 다시 빌드하거나 서명하지 않고 공유 ZIP의 중간 폴더·별도 안내문을 제거하고 DMG를 추가했습니다. ZIP 최상위 항목은 `WindowWeather.app` 하나이며 원본 공증 앱과 해제본의 161개 항목에 대해 파일 bytes·권한·심볼릭 링크가 동일합니다. 기존 `WindowWeather-0.5.0-update.zip`와 `appcast.xml`의 SHA-256은 최초 배포와 같습니다. 프로젝트 MIT 고지는 공유 ZIP comment와 DMG의 숨김 `.LICENSE.txt`에 보존했습니다. 다음 앱 빌드부터는 서명 전에 앱 Resources에 넣습니다.
+
+DMG에는 앱과 `/Applications` 바로가기가 있습니다. DMG 자체를 Developer ID로 서명하고 Apple에 제출한 결과 `2fd12c81-3f7b-4ae3-b495-588e96fc8763`이 `Accepted`로 완료됐으며 공증 로그의 `issues`는 `null`입니다. 티켓을 첨부한 최종 DMG의 코드 서명·티켓·Gatekeeper·디스크 이미지 무결성 검사가 통과했습니다. 읽기 전용으로 마운트하여 내부 앱의 서명·티켓·Gatekeeper·arm64/x86_64·실행 파일 hash와 Applications 링크를 확인한 뒤 디스크를 해제했습니다.
+
+`package_dmg.py`를 같은 인자로 다시 실행하고 `release.sh --resume`도 실행해, 추가 공증 제출 없이 최종 해시를 확인하고 종료함을 검증했습니다. 새 DMG helper의 실제 생성부터 검증까지와 셸·내장 Python 구문 검사를 통과했습니다. 새 앱을 다시 빌드하는 전체 파이프라인은 이번 포장 작업에서 실행하지 않았습니다.
+
+GitHub Release에 DMG를 추가하고 공유 ZIP·체크섬·설치 안내를 갱신했습니다. 공개 URL에서 다섯 파일을 인증 없이 내려받아 모두 HTTP 200과 로컬 SHA-256 일치를 확인했습니다. 결과는 `github-packaging-release.json`, `public-packaging-verification.json`에 있습니다.
+
+근거: `packaging-verification.json`, `dmg-notarization.json`, `dmg-notarization-log.json`, `dmg-artifact-verification.txt`. 기존 ZIP SHA-256은 위 packaging 보고서의 `previous_share_sha256`, 현재 네 배포 파일의 해시는 `artifact_sha256`에 기록했습니다.
 
 ## 남은 실제 사용 검증
 

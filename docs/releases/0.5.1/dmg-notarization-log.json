@@ -1,0 +1,174 @@
+{
+  "logFormatVersion": 1,
+  "jobId": "0af668f8-20b5-4f7f-b4cb-15db090c65b4",
+  "status": "Accepted",
+  "statusSummary": "Ready for distribution",
+  "statusCode": 0,
+  "archiveFilename": "WindowWeather-0.5.1-macOS-universal.dmg",
+  "uploadDate": "2026-11-05T13:21:07.552Z",
+  "sha256": "c6690a0a0c7d162aea83b6154e98ba61566ca965d1be9580bb33cd00e4be22c6",
+  "ticketContents": [
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "25adff61a0c71d050b2627dbdd8847169e726b36",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "cfbe307d1fb7f5d8018409175d4e8da31089e18e",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "25adff61a0c71d050b2627dbdd8847169e726b36",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "cfbe307d1fb7f5d8018409175d4e8da31089e18e",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "ddc24e390380ac25a1f07f968a6695ed940f6eed",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "b80700e6bf8a8c695bd9b612d60d7ddafbe78e33",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "6f1a376afef7f0cf37f4422be666124934ea7dfc",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "5aa25d4595a3fcbc19d10e53fb8fcd828df18ef4",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "4c476f7fd3f1f27825a9e5c0c4b22235ec94ec13",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "25adff61a0c71d050b2627dbdd8847169e726b36",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "cfbe307d1fb7f5d8018409175d4e8da31089e18e",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "037564fc99ba909ef4067038211b59f79ff05135",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "1f5e67177ca4978a40f6fd5da56523a375081a0c",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "ef907f892d30d747a6ea877ee732228f5554516a",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "b824d48889b51e17644198dfe2738fecaae54e9d",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "6f1a376afef7f0cf37f4422be666124934ea7dfc",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "5aa25d4595a3fcbc19d10e53fb8fcd828df18ef4",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "ddc24e390380ac25a1f07f968a6695ed940f6eed",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "b80700e6bf8a8c695bd9b612d60d7ddafbe78e33",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "037564fc99ba909ef4067038211b59f79ff05135",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "1f5e67177ca4978a40f6fd5da56523a375081a0c",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "ef907f892d30d747a6ea877ee732228f5554516a",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "b824d48889b51e17644198dfe2738fecaae54e9d",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/MacOS/WindowWeather",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "4c476f7fd3f1f27825a9e5c0c4b22235ec94ec13",
+      "arch": "x86_64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg/WindowWeather.app/Contents/MacOS/WindowWeather",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54",
+      "arch": "arm64"
+    },
+    {
+      "path": "WindowWeather-0.5.1-macOS-universal.dmg",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "08717bf00e8e78594146c640e3de4886dd25c674"
+    }
+  ],
+  "issues": null
+}

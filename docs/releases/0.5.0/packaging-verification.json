@@ -1,0 +1,18 @@
+{
+  "version": "0.5.0",
+  "change": "Packaging only; app bundle and Sparkle payload/feed unchanged",
+  "zip_root": [
+    "WindowWeather.app"
+  ],
+  "app_bundle_entries_compared": 161,
+  "app_bundle_files_permissions_symlinks_identical": true,
+  "license_notice": "Share ZIP comment and hidden .LICENSE.txt in DMG; sealed legacy app unchanged",
+  "dmg_notarization_id": "2fd12c81-3f7b-4ae3-b495-588e96fc8763",
+  "artifact_sha256": {
+    "WindowWeather-0.5.0-macOS-universal.zip": "14343f480dfeff577fffc8754c1b233c6f7d264cf1e2e27fa52f7d8f9237798c",
+    "WindowWeather-0.5.0-update.zip": "38849d83c5a0347a85b588a3d082f71cd2b962e6646e497f43115096185bf2e1",
+    "appcast.xml": "00a4244c5888e632bd43b6d1b9804d38b9eeb91efba030ff39228ea7ae7c8a88",
+    "WindowWeather-0.5.0-macOS-universal.dmg": "593c3c67ae677beae503b4128041620e22a84157562bb2c8938b7fc62dfebf12"
+  },
+  "previous_share_sha256": "3b1285e76a1edafce74b0fe5206ed436b94c78cfaa36ccebab9ab150448cc5ac"
+}

@@ -78,11 +78,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func refreshMenu(mode: WeatherMode, paused: Bool) {
-        statusItem?.button?.image = NSImage(systemSymbolName: paused ? "pause.circle" : mode.symbol, accessibilityDescription: "Window Weather")
-        statusItem?.button?.title = statusItem?.button?.image == nil ? "WW" : ""
-        statusItem?.button?.toolTip = "Window Weather"
+        statusItem?.button?.image = NSImage(systemSymbolName: paused ? "pause.circle" : mode.symbol, accessibilityDescription: AppIdentity.displayName)
+        statusItem?.button?.title = statusItem?.button?.image == nil ? String(AppIdentity.displayName.prefix(1)) : ""
+        statusItem?.button?.toolTip = AppIdentity.displayName
         let menu = NSMenu()
-        menu.addItem(withTitle: "Window Weather", action: nil, keyEquivalent: "")
+        menu.addItem(withTitle: AppIdentity.displayName, action: nil, keyEquivalent: "")
         menu.addItem(.separator())
         for (index, weather) in WeatherMode.allCases.enumerated() {
             let item = menu.addItem(withTitle: "\(weather.title) 내리기", action: #selector(selectWeather(_:)), keyEquivalent: String(index + 1))
@@ -102,19 +102,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func installApplicationMenu() {
         let mainMenu = NSMenu()
-        let applicationItem = mainMenu.addItem(withTitle: "Window Weather", action: nil, keyEquivalent: "")
-        let applicationMenu = NSMenu(title: "Window Weather")
+        let applicationItem = mainMenu.addItem(withTitle: AppIdentity.displayName, action: nil, keyEquivalent: "")
+        let applicationMenu = NSMenu(title: AppIdentity.displayName)
         applicationItem.submenu = applicationMenu
         let settings = applicationMenu.addItem(withTitle: "설정…", action: #selector(showSettings), keyEquivalent: ",")
         settings.target = self
         applicationMenu.addItem(updater.menuItem())
         applicationMenu.addItem(.separator())
-        applicationMenu.addItem(withTitle: "Window Weather 가리기", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        applicationMenu.addItem(withTitle: "\(AppIdentity.displayName) 가리기", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
         let hideOthers = applicationMenu.addItem(withTitle: "다른 앱 가리기", action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")
         hideOthers.keyEquivalentModifierMask = [.command, .option]
         applicationMenu.addItem(withTitle: "모두 보기", action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: "")
         applicationMenu.addItem(.separator())
-        applicationMenu.addItem(withTitle: "Window Weather 종료", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        applicationMenu.addItem(withTitle: "\(AppIdentity.displayName) 종료", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
 
         let windowItem = mainMenu.addItem(withTitle: "윈도우", action: nil, keyEquivalent: "")
         let windowMenu = NSMenu(title: "윈도우")
@@ -145,7 +145,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let view = SettingsView(preferences: preferences, updater: updater) { [weak self] in self?.overlays?.clear() }
             let host = NSHostingController(rootView: view)
             let window = NSWindow(contentViewController: host)
-            window.title = "Window Weather"
+            window.title = AppIdentity.displayName
             window.styleMask = [.titled, .closable, .miniaturizable]
             window.collectionBehavior = [.moveToActiveSpace]
             window.isReleasedWhenClosed = false

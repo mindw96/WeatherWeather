@@ -1,0 +1,10 @@
+{
+  "bundleName" : "Window Weather",
+  "displayName" : "Window Weather",
+  "expected" : "Window Weather",
+  "finderName" : "WindowWeather.app",
+  "passed" : true,
+  "preferredLocalizations" : [
+    "en"
+  ]
+}

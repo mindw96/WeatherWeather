@@ -4,6 +4,14 @@
 
 배포 상태: Developer ID 서명과 Apple 공증을 완료했습니다.
 
+## 다운로드와 설치
+
+**[DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.0/WindowWeather-0.5.0-macOS-universal.dmg)** · [앱만 담은 ZIP 다운로드](https://github.com/mindw96/WeatherWeather/releases/download/v0.5.0/WindowWeather-0.5.0-macOS-universal.zip)
+
+DMG를 열고 `WindowWeather.app`을 옆의 `Applications` 폴더로 끌어 옮긴 뒤, 응용 프로그램 폴더에서 실행해 주세요. 설치 후 Finder에서 DMG를 꺼내셔도 됩니다. ZIP은 압축을 풀면 앱 하나만 나오며 응용 프로그램 폴더로 옮겨 실행합니다. [자세한 사용 안내](https://github.com/mindw96/WeatherWeather/blob/main/docs/releases/0.5.0/START_HERE.ko.txt)는 저장소에서 확인하실 수 있습니다.
+
+이번 포장 정리로 DMG를 추가하고 ZIP에서 별도 안내 파일과 중간 폴더를 제거했습니다. 앱 자체는 동일한 0.5.0이며, 기존에 설치하셨다면 다시 설치할 필요가 없습니다.
+
 ## 새 기능: Sparkle 업데이트 확인
 
 - Sparkle 2.10.1을 사용해 새 버전을 확인합니다.
@@ -13,7 +21,7 @@
 - 업데이트 확인과 다운로드에만 인터넷을 사용합니다. 날씨 효과에 계정이나 서버 연결이 필요하지 않습니다.
 - 업데이트 배포 위치는 [GitHub mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather)입니다.
 
-**0.4.0에는 업데이트 기능이 없으므로 이번 0.5.0은 ZIP을 받아 직접 설치해 주세요.** 기존 앱을 종료하고 새 `WindowWeather.app`으로 교체합니다. 계속 사용하실 경우 응용 프로그램 폴더에 두시는 것이 편합니다. 저장된 날씨 설정과 눈사람 위치는 유지합니다.
+**0.4.0 이하에는 업데이트 기능이 없으므로 이번 0.5.0은 DMG 또는 ZIP을 받아 직접 설치해 주세요.** 기존 앱을 종료하고 응용 프로그램 폴더의 `WindowWeather.app`을 새 앱으로 교체합니다. 저장된 날씨 설정과 눈사람 위치는 유지합니다.
 
 ## 성능 개선
 

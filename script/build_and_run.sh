@@ -42,19 +42,21 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>CFBundleName</key><string>Window Weather</string>
-<key>CFBundleDisplayName</key><string>Window Weather</string>
+<key>CFBundleName</key><string>WindowWeather</string>
+<key>CFBundleDisplayName</key><string>WindowWeather</string>
+<key>CFBundleDevelopmentRegion</key><string>en</string>
 <key>CFBundleExecutable</key><string>WindowWeather</string>
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.5.0</string>
-<key>CFBundleVersion</key><string>5</string>
+<key>CFBundleShortVersionString</key><string>0.5.1</string>
+<key>CFBundleVersion</key><string>6</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 <key>NSHighResolutionCapable</key><true/>
 </dict></plist>
 PLIST
+/usr/bin/ditto --norsrc --noextattr "$ROOT_DIR/Resources" "$STAGED_APP/Contents/Resources"
 /usr/bin/python3 "$ROOT_DIR/script/embed_sparkle.py" "$BUILD_ROOT" "$STAGED_APP" -
 /usr/bin/codesign --force --sign - "$STAGED_APP"
 mkdir -p "$ROOT_DIR/dist"

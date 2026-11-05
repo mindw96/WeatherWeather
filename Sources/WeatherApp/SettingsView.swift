@@ -10,7 +10,7 @@ struct SettingsView: View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .center) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("Window Weather").font(.system(size: 26, weight: .semibold, design: .rounded))
+                    Text(AppIdentity.displayName).font(.system(size: 26, weight: .semibold, design: .rounded))
                     Text("창 위에 내려앉는 작은 계절").font(.subheadline).foregroundStyle(.secondary)
                 }
                 Spacer()

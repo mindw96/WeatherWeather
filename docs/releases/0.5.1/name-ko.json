@@ -1,0 +1,10 @@
+{
+  "bundleName" : "쌓임쌓임",
+  "displayName" : "쌓임쌓임",
+  "expected" : "쌓임쌓임",
+  "finderName" : "WindowWeather.app",
+  "passed" : true,
+  "preferredLocalizations" : [
+    "ko"
+  ]
+}

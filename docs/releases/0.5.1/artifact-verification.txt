@@ -1,0 +1,421 @@
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app: valid on disk
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app: satisfies its Designated Requirement
+
+$ /usr/bin/codesign -dvvv /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app
+Executable=/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1889 flags=0x10000(runtime) hashes=52+3 location=embedded
+Hash type=sha256 size=32
+CandidateCDHash sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+CandidateCDHashFull sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+Hash choices=sha256
+CMSDigest=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+CMSDigestType=2
+CDHash=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+Signature size=8974
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 10:17:52 PM
+Notarization Ticket=stapled
+Info.plist entries=18
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=5
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+$ /usr/bin/plutil -lint /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Info.plist
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app/Contents/Info.plist: OK
+
+$ xcrun stapler validate /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app
+Processing: /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.jzd_xsaq/WindowWeather-0.5.1-macOS-universal.zip
+Archive:  /private/tmp/window-weather-release-verify.jzd_xsaq/WindowWeather-0.5.1-macOS-universal.zip
+    testing: WindowWeather.app/       OK
+    testing: WindowWeather.app/Contents/   OK
+    testing: WindowWeather.app/Contents/CodeResources   OK
+    testing: WindowWeather.app/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/MacOS/WindowWeather   OK
+    testing: WindowWeather.app/Contents/Resources/   OK
+    testing: WindowWeather.app/Contents/Resources/en.lproj/   OK
+    testing: WindowWeather.app/Contents/Resources/en.lproj/InfoPlist.strings   OK
+    testing: WindowWeather.app/Contents/Resources/.DS_Store   OK
+    testing: WindowWeather.app/Contents/Resources/ko.lproj/   OK
+    testing: WindowWeather.app/Contents/Resources/ko.lproj/InfoPlist.strings   OK
+    testing: WindowWeather.app/Contents/Resources/THIRD_PARTY_NOTICES.txt   OK
+    testing: WindowWeather.app/Contents/Resources/LICENSE.txt   OK
+    testing: WindowWeather.app/Contents/Frameworks/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Resources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcast.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUExport.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUErrors.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/Sparkle.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdater.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdater.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.private.modulemap   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.modulemap   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Autoupdate   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Updater.app   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Headers   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/XPCServices   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Modules   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Sparkle   OK
+    testing: WindowWeather.app/Contents/Info.plist   OK
+No errors detected in compressed data of /private/tmp/window-weather-release-verify.jzd_xsaq/WindowWeather-0.5.1-macOS-universal.zip.
+
+Architectures: x86_64 arm64
+
+
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app: valid on disk
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app: satisfies its Designated Requirement
+
+$ xcrun stapler validate /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app
+Processing: /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app
+/private/tmp/window-weather-release-verify.jzd_xsaq/unpacked-update/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.jzd_xsaq/sparkle/WindowWeather-0.5.1-update.zip
+Archive:  /private/tmp/window-weather-release-verify.jzd_xsaq/sparkle/WindowWeather-0.5.1-update.zip
+    testing: WindowWeather.app/       OK
+    testing: WindowWeather.app/Contents/   OK
+    testing: WindowWeather.app/Contents/CodeResources   OK
+    testing: WindowWeather.app/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/MacOS/WindowWeather   OK
+    testing: WindowWeather.app/Contents/Resources/   OK
+    testing: WindowWeather.app/Contents/Resources/en.lproj/   OK
+    testing: WindowWeather.app/Contents/Resources/en.lproj/InfoPlist.strings   OK
+    testing: WindowWeather.app/Contents/Resources/.DS_Store   OK
+    testing: WindowWeather.app/Contents/Resources/ko.lproj/   OK
+    testing: WindowWeather.app/Contents/Resources/ko.lproj/InfoPlist.strings   OK
+    testing: WindowWeather.app/Contents/Resources/THIRD_PARTY_NOTICES.txt   OK
+    testing: WindowWeather.app/Contents/Resources/LICENSE.txt   OK
+    testing: WindowWeather.app/Contents/Frameworks/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Resources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/de.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/he.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ar.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/el.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ja.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fa.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/uk.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_CN.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nb.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/es.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/is.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/da.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/it.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sk.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/sv.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/cs.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ko.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Base.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hu.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_HK.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/tr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/zh_TW.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-BR.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/vi.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ru.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdatePermissionPrompt.nib   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/SUUpdateAlert.nib   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/fi.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nl.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/th.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/nn.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/pt-PT.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ro.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/hr.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ca.lproj/Sparkle.strings   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/MacOS/Updater   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcast.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUExport.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUErrors.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/Sparkle.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdater.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdater.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/MacOS/Installer   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.private.modulemap   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.modulemap   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Autoupdate   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Updater.app   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Headers   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/XPCServices   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Modules   OK
+    testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Sparkle   OK
+    testing: WindowWeather.app/Contents/Info.plist   OK
+No errors detected in compressed data of /private/tmp/window-weather-release-verify.jzd_xsaq/sparkle/WindowWeather-0.5.1-update.zip.
+
+Sparkle appcast verified: build 6, version 0.5.1, 1578828 bytes, EdDSA signature valid.

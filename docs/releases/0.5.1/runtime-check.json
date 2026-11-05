@@ -1,0 +1,11 @@
+{
+  "version": "0.5.1",
+  "path": "/Users/mindw/Applications/WindowWeather.app",
+  "localizedName": "쌓임쌓임",
+  "pid": 17768,
+  "activationPolicy": 0,
+  "code_signature_verified": true,
+  "notarization_ticket_verified": true,
+  "gatekeeper": "accepted / Notarized Developer ID",
+  "previous_version_backup": "/private/tmp/window-weather-installed-backup.c292vohm/WindowWeather.app"
+}

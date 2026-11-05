@@ -1,0 +1,204 @@
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app
+--prepared:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app: valid on disk
+/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app: satisfies its Designated Requirement
+
+$ xcrun stapler validate /private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app
+Processing: /private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app
+/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+Executable=/private/tmp/window-weather-package.mqSC9I/WindowWeather-0.5.1-macOS/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1889 flags=0x10000(runtime) hashes=52+3 location=embedded
+VersionPlatform=1
+VersionMin=917504
+VersionSDK=917504
+Hash type=sha256 size=32
+CandidateCDHash sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+CandidateCDHashFull sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+Hash choices=sha256
+CMSDigest=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+CMSDigestType=2
+Executable Segment base=0
+Executable Segment limit=327680
+Executable Segment flags=0x1
+Page size=16384
+CDHash=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+Signature size=8974
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 10:17:52 PM
+Notarization Ticket=stapled
+Info.plist entries=18
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=5
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+Architectures: x86_64 arm64
+
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app: valid on disk
+/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app: satisfies its Designated Requirement
+
+$ xcrun stapler validate /private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app
+Processing: /private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app
+/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+Executable=/private/tmp/window-weather-dmg.o2mmhp5q/payload/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1889 flags=0x10000(runtime) hashes=52+3 location=embedded
+VersionPlatform=1
+VersionMin=917504
+VersionSDK=917504
+Hash type=sha256 size=32
+CandidateCDHash sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+CandidateCDHashFull sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+Hash choices=sha256
+CMSDigest=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+CMSDigestType=2
+Executable Segment base=0
+Executable Segment limit=327680
+Executable Segment flags=0x1
+Page size=16384
+CDHash=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+Signature size=8974
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 10:17:52 PM
+Notarization Ticket=stapled
+Info.plist entries=18
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=5
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+Architectures: x86_64 arm64
+
+$ xcrun stapler validate /private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg
+Processing: /private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg
+The validate action worked!
+
+$ /usr/bin/codesign --verify --verbose=2 /private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg
+/private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg: valid on disk
+/private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg: satisfies its Designated Requirement
+
+$ /usr/sbin/spctl -a -t open --context context:primary-signature -vv /private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg
+/private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg: accepted
+source=Notarized Developer ID
+origin=Developer ID Application: Dongwook Min (4J7HGK26PF)
+
+$ /usr/bin/hdiutil verify /private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg
+Protective Master Boot Record(MBR : 0) 체크섬 처리 중…
+Protective Master Boot Record(MBR : : 확인됨 CRC32 $B5BD76C9
+GPT Header(Primary GPT Header : 1) 체크섬 처리 중…
+  GPT Header(Primary GPT Header : 1): 확인됨 CRC32 $FC935A88
+GPT Partition Data(Primary GPT Table : 2) 체크섬 처리 중…
+GPT Partition Data(Primary GPT Table: 확인됨 CRC32 $D8D242E1
+(Apple_Free : 3) 체크섬 처리 중…
+                    (Apple_Free : 3): 확인됨 CRC32 $00000000
+disk image(Apple_HFS : 4) 체크섬 처리 중…
+           disk image(Apple_HFS : 4): 확인됨 CRC32 $89C07ED7
+(Apple_Free : 5) 체크섬 처리 중…
+                    (Apple_Free : 5): 확인됨 CRC32 $00000000
+GPT Partition Data(Backup GPT Table : 6) 체크섬 처리 중…
+GPT Partition Data(Backup GPT Table : 확인됨 CRC32 $D8D242E1
+GPT Header(Backup GPT Header : 7) 체크섬 처리 중…
+   GPT Header(Backup GPT Header : 7): 확인됨 CRC32 $66665076
+확인됨 CRC32 $EB75D55B
+hdiutil: verify: checksum of "/private/tmp/window-weather-dmg.o2mmhp5q/stapled.dmg" is VALID
+
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app: valid on disk
+/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app: satisfies its Designated Requirement
+
+$ xcrun stapler validate /private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app
+Processing: /private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app
+The validate action worked!
+
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app
+/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app: accepted
+source=Notarized Developer ID
+
+Executable=/private/tmp/window-weather-dmg.o2mmhp5q/mounted/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=1889 flags=0x10000(runtime) hashes=52+3 location=embedded
+VersionPlatform=1
+VersionMin=917504
+VersionSDK=917504
+Hash type=sha256 size=32
+CandidateCDHash sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+CandidateCDHashFull sha256=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+Hash choices=sha256
+CMSDigest=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54a4cbc6f04d9f2751d3dfefb5
+CMSDigestType=2
+Executable Segment base=0
+Executable Segment limit=327680
+Executable Segment flags=0x1
+Page size=16384
+CDHash=8d2f94efc4ffd77d774c3a14a7753fc2cedf9e54
+Signature size=8974
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 5, 2026 at 10:17:52 PM
+Notarization Ticket=stapled
+Info.plist entries=18
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=5
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+Architectures: x86_64 arm64
+
+Mounted app code signature, executable bytes, universal architectures, and Applications link verified.
+
+DMG SHA-256: 07912cec61080e97ceaf2f904e19aeab82c8dedd231476b9532262f973dab8ed

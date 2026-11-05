@@ -1,4 +1,4 @@
-# WindowWeather 구현 계획
+# 쌓임쌓임 (Window Weather) 구현 계획
 
 기준일: 2026-11-05 (Asia/Seoul)
 
@@ -17,10 +17,10 @@ Koi 분석 결과는 [REA.md](REA.md)에 보관합니다. 관찰한 구조와 �
 | 3. macOS 앱 | MVP 완료 | 화면별 클릭 통과 패널, 메뉴 막대 설정, geometry 추적, 화면/Space/잠자기 수명 관리 |
 | 4. 빌드와 자동 검증 | 자동 검증 완료 | 0.5.0 단위 61개, 포커스 렌더링·설정 42개, 눈사람 그림·드래그 콜백·저장 26개, 실제 창·컨트롤러 통합 40개 통과. 물리 입력·기기 조합 수동 QA 별도 |
 | 5. 실제 데스크톱 QA | 부분 완료 | 두 화면의 실제 테스트 창 감지·이동·크기 변경·닫기·화면 간 적설 전달·전체 화면 진입/복귀·누적 옵션 전환 확인. 수동 입력·다른 앱의 모든 Spaces 조합·절전·배율 조합은 남음 |
-| 6. 공개 배포 준비 | 0.5.0 GitHub Release 완료 | Developer ID·공증·티켓·Gatekeeper·Sparkle EdDSA 서명 확인. 공유/업데이트 ZIP·appcast 공개, 다운로드 해시와 실제 피드 조회 검증. Core/렌더링 측정 완료, 전체 앱 에너지·실제 자동 교체 검증 별도 |
+| 6. 공개 배포 준비 | 0.5.1 로컬 검증 완료 · 게시 대기 | 한·영 이름과 한국어 설정창 확인, 창·컨트롤러 통합 40개 검사 통과. 앱·DMG Developer ID·공증·티켓·Gatekeeper와 Sparkle EdDSA 서명 검증 완료. GitHub 게시·공개 파일 검증 대기 |
 | 7. Windows 조사와 구현 | 로드맵 | 도구 체인 검증 → Win32 어댑터 → 렌더러 → 다중 모니터/입력 검증 |
 
-검증 결과와 남은 범위는 [개발 빌드 기록](docs/validation/VALIDATION.md)과 [최신 공유 패키지 기록](docs/releases/0.5.0/VALIDATION.md)에 보관합니다. 생성 미리보기나 단위 테스트만으로 단계 5를 완료 처리하지 않습니다.
+검증 결과와 남은 범위는 [개발 빌드 기록](docs/validation/VALIDATION.md)과 [최신 공유 패키지 기록](docs/releases/0.5.1/VALIDATION.md)에 보관합니다. 생성 미리보기나 단위 테스트만으로 단계 5를 완료 처리하지 않습니다.
 
 ## macOS 구현 결정
 
@@ -119,4 +119,15 @@ Windows 배포일이나 현재 코드의 이식 비용은 아직 확정하지 �
 - [x] HTTPS 피드와 공개 키 구성, 키체인 EdDSA 키, 프레임워크·헬퍼 서명, 공증 후 앱 전용 ZIP·서명 appcast 생성.
 - [x] 사용자 지정 `mindw96/WeatherWeather`를 origin으로 연결. 이후 코드 및 GitHub Releases의 기준 저장소로 사용.
 - [x] 0.5.0 공증·GitHub Release 게시, 공개 다운로드 3개 해시 일치, 실제 Sparkle의 최신/새 버전 판별 및 자동 확인 설정 저장 확인. 제품 소스·태그 CI 성공.
+- [x] 공유 ZIP을 앱 하나로 단순화하고 Applications 바로가기를 포함한 DMG 추가. DMG 별도 서명·공증·마운트 검사와 재개 검증을 배포 스크립트에 통합. 기존 0.5.0 앱과 Sparkle 업데이트 파일은 유지.
 - [ ] 향후 실제 두 배포 버전 사이의 설치·재실행 검증. 0.4.0에는 Sparkle가 없어 첫 설치는 수동.
+
+## 0.5.1 한글 이름과 설치 파일
+
+- [x] 한글 앱 이름을 **쌓임쌓임**, 영문 이름을 **Window Weather**로 정리. 저장소는 `mindw96/WeatherWeather`, 앱 파일은 `WindowWeather.app`을 유지.
+- [x] 한국어 환경의 앱 표시 이름·설정창·메뉴에 쌓임쌓임을 반영하고 한·영 번들 이름 검사 통과. 한국어 설정창 표시 확인. Finder 파일명은 `WindowWeather.app` 유지.
+- [x] README와 0.5.1 사용 안내·릴리스 노트에 한글 이름과 DMG 권장 설치 방법, 앱만 담은 ZIP 안내 반영.
+- [x] 0.5.1 앱·DMG의 Developer ID 서명·Apple 공증·티켓과 Gatekeeper, ZIP·DMG 내부 앱을 검증. 공유 ZIP과 업데이트 ZIP의 바이트 일치, 빌드 6 EdDSA 서명 확인.
+- [ ] GitHub Release에 DMG·공유 ZIP·업데이트 ZIP·appcast·체크섬을 게시하고 공개 다운로드 해시 및 0.5.0의 새 버전 확인 검증.
+
+0.5.0부터의 업데이트는 기존 Sparkle 경로를 사용합니다. 기존 날씨 설정과 눈사람 위치를 유지하도록 앱 식별자는 변경하지 않습니다. 0.5.0 검증 기록을 0.5.1의 검증 완료 근거로 대신하지 않습니다.

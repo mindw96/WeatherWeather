@@ -11,13 +11,13 @@ import json
 import os
 import pathlib
 import plistlib
-import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import time
 import xml.etree.ElementTree as ET
+import zipfile
 
 root = pathlib.Path(sys.argv[1])
 arguments = sys.argv[2:]
@@ -172,22 +172,15 @@ try:
     run('xcrun', 'stapler', 'validate', app)
     run('/usr/bin/codesign', '--verify', '--deep', '--strict', '--verbose=2', app)
     run('/usr/sbin/spctl', '--assess', '--type', 'execute', '--verbose=2', app)
-    # These files are outside the signed app. Never rebuild or re-sign the
-    # executable after notarization; only the ticket and packaging change.
-    for name in ('START_HERE.ko.txt', 'RELEASE_NOTES.ko.md'):
-        source = (evidence / name).read_text()
-        text, count = re.subn(r'^배포 상태:.*$', '배포 상태: Developer ID 서명과 Apple 공증을 완료했습니다.',
-                              source, flags=re.MULTILINE)
-        if count != 1:
-            raise RuntimeError(f'{name}: expected exactly one 배포 상태: line')
-        (package / name).write_text(text)
-
     with tempfile.TemporaryDirectory(prefix='window-weather-release-verify.', dir='/private/tmp') as temporary:
         check_dir = pathlib.Path(temporary)
         final_zip = check_dir / archive.name
-        run('/usr/bin/ditto', '-c', '-k', '--keepParent', '--norsrc', '--noextattr', package, final_zip)
+        run('/usr/bin/ditto', '-c', '-k', '--keepParent', '--norsrc', '--noextattr', app, final_zip)
+        with zipfile.ZipFile(final_zip) as zipped:
+            if {name.split('/')[0] for name in zipped.namelist()} != {app.name}:
+                raise RuntimeError('The shared ZIP must contain only the app at its root.')
         run('/usr/bin/ditto', '-x', '-k', final_zip, check_dir / 'unpacked')
-        final_app = check_dir / 'unpacked' / package.name / app.name
+        final_app = check_dir / 'unpacked' / app.name
         commands = [
             ['/usr/bin/codesign', '--verify', '--deep', '--strict', '--verbose=2', final_app],
             ['/usr/bin/codesign', '-dvvv', final_app],
@@ -226,7 +219,7 @@ try:
         update_zip = updates / f'WindowWeather-{version}-update.zip'
         appcast = updates / 'appcast.xml'
         download_prefix = f'https://github.com/mindw96/WeatherWeather/releases/download/v{version}/'
-        run('/usr/bin/ditto', '-c', '-k', '--keepParent', '--norsrc', '--noextattr', final_app, update_zip)
+        shutil.copyfile(final_zip, update_zip)
         run(generators[0], '--account', account, '--download-url-prefix', download_prefix,
             '--maximum-deltas', '0', '-o', appcast, updates)
         signature = validate_appcast(appcast, update_zip, bundle, download_prefix)
@@ -249,6 +242,10 @@ try:
             shutil.copyfile(source, staged_output)
             staged_output.replace(destination)
 
+    dmg = output / f'WindowWeather-{version}-macOS-universal.dmg'
+    run('/usr/bin/python3', root / 'script/package_dmg.py', '--app', app,
+        '--output', dmg, '--evidence', evidence)
+    artifacts.append(dmg)
     final_hash = digest(archive)
     hashes = {artifact.name: digest(artifact) for artifact in artifacts}
     (output / 'SHA256SUMS.txt').write_text(''.join(f'{sha256}  {name}\n' for name, sha256 in hashes.items()))
