@@ -8,9 +8,9 @@ macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이를 표시�
 
 ## 다운로드와 업데이트
 
-소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.0 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.0). 로컬 앱과 DMG의 Developer ID 서명·Apple 공증·공증 티켓·Gatekeeper 검사, 업데이트 EdDSA 서명을 완료했습니다. 위 링크의 GitHub 게시와 공개 다운로드 무결성 확인은 진행 예정입니다.
+소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.0 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.0). 로컬 앱과 DMG의 Developer ID 서명·Apple 공증·공증 티켓·Gatekeeper 검사, 업데이트 EdDSA 서명을 완료했습니다. GitHub 공개 게시와 다운로드 다섯 파일의 SHA-256 무결성 검증, 실제 Sparkle의 최신/새 버전 판별도 완료했습니다.
 
-0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.5.0 이상 사용자는 배포 후 앱 안에서 0.6.0을 확인하실 수 있습니다. 0.4.0 이하에는 Sparkle가 없으므로 최신 버전을 한 번 직접 설치해 주세요.**
+0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.5.0 이상 사용자는 앱 안에서 0.6.0을 확인하실 수 있습니다. 0.4.0 이하에는 Sparkle가 없으므로 최신 버전을 한 번 직접 설치해 주세요.**
 
 DMG를 열고 앱을 옆의 `Applications` 폴더로 끌어 옮긴 다음, 응용 프로그램 폴더에서 실행해 주세요. 한국어 환경의 표시 이름은 **쌓임쌓임**이며 앱 파일 이름은 `WindowWeather.app`입니다. 설치 후 Finder에서 DMG를 꺼내셔도 됩니다. ZIP은 압축을 풀면 앱 하나만 나오며, 같은 방법으로 응용 프로그램 폴더에 옮겨 실행합니다. 사용 안내와 변경 내역은 릴리스 페이지에 있습니다.
 

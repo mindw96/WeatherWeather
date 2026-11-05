@@ -42,6 +42,12 @@ Sparkle appcast의 빌드 7·버전 0.6.0·업데이트 ZIP 주소·크기를 �
 
 ## 게시와 남은 검증
 
-GitHub 게시·공개 다운로드 해시·latest 피드와 이전 버전의 업데이트 탐지는 아직 완료로 기록하지 않았습니다. 게시 후 공개 파일과 실제 Sparkle 조회 결과를 추가합니다. 실제 Sparkle의 앱 교체·설치·재실행도 이번 로컬 검증에 포함되지 않습니다.
+[v0.6.0 Release](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.0)를 공개했습니다. DMG·공유 ZIP·업데이트 ZIP·appcast·체크섬을 인증 없이 다시 내려받아 모두 HTTP 200과 로컬 SHA-256 일치를 확인했습니다. latest 피드도 같은 appcast와 일치했습니다. 근거는 `github-release.json`, `public-download-verification.json`입니다.
+
+공식 Sparkle 테스트 호스트에서 빌드 6/0.5.1은 업데이트 빌드 7/0.6.0과 정확한 ZIP 주소를 받았고, 빌드 7/0.6.0은 `OnLatestVersion`으로 완료됐습니다. 두 호스트의 자동 확인 ON/OFF 저장 검사도 통과했습니다. 결과와 소스는 `update-probe/`에 있습니다. 실제 Sparkle 앱 교체·설치·재실행은 수행하지 않았습니다.
+
+제품 소스 커밋 `d7d1b410b5f6ca469fb872bc42beb089a12e2582`의 [main CI](https://github.com/mindw96/WeatherWeather/actions/runs/42042851528)와 [v0.6.0 태그 CI](https://github.com/mindw96/WeatherWeather/actions/runs/42042851585)는 macOS 앱 빌드·업데이트 설정 검사·XCTest를 모두 통과했습니다.
+
+현재 Mac의 `/Users/mindw/Applications/WindowWeather.app`을 이전 버전 백업 후 동일한 공증 0.6.0으로 교체하고 실행했습니다. 새 설치본의 엄격 코드 서명·티켓·Gatekeeper를 확인했고, macOS가 실행 앱을 `쌓임쌓임`, 일반 Dock 앱으로 인식했습니다. 근거는 `runtime-check.json`입니다.
 
 Intel Mac과 macOS 14 실기기, 실제 물리 마우스의 눈사람 드래그·클릭 전달, 모든 모니터 배율·Spaces·Mission Control·잠자기 복귀 조합은 별도 확인이 필요합니다. 기존 [0.5.0 성능 측정](../../PERFORMANCE.md)을 새 두 효과나 앱 전체 CPU·배터리 성능의 근거로 확대하지 않습니다.

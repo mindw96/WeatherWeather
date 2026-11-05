@@ -2,7 +2,7 @@
 
 macOS 14 이상용 Apple Silicon(arm64)·Intel(x86_64) 통합 앱입니다. 회원가입이나 로그인 없이 사용할 수 있으며 효과는 오프라인에서도 동작합니다.
 
-배포 상태: Developer ID 서명과 Apple 공증, 로컬 배포 파일 검증을 완료했습니다.
+배포 상태: Developer ID 서명·Apple 공증과 공개 배포 파일 검증을 완료했습니다.
 
 ## 이번 변경
 
@@ -21,9 +21,9 @@ macOS 14 이상용 Apple Silicon(arm64)·Intel(x86_64) 통합 앱입니다. 회�
 
 **[DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.zip)
 
-위 다운로드 링크는 배포 완료 후 제공됩니다. 기존 앱을 종료한 뒤 DMG를 열고 앱을 `Applications` 폴더로 끌어 옮겨 주세요. 응용 프로그램 폴더에서 실행하고, 설치 후에는 Finder에서 DMG를 꺼내셔도 됩니다. ZIP으로 받으셨다면 압축을 풀어 나온 앱을 응용 프로그램 폴더에 옮깁니다. 앱 파일 이름은 `WindowWeather.app`입니다.
+기존 앱을 종료한 뒤 DMG를 열고 앱을 `Applications` 폴더로 끌어 옮겨 주세요. 응용 프로그램 폴더에서 실행하고, 설치 후에는 Finder에서 DMG를 꺼내셔도 됩니다. ZIP으로 받으셨다면 압축을 풀어 나온 앱을 응용 프로그램 폴더에 옮깁니다. 앱 파일 이름은 `WindowWeather.app`입니다.
 
-**0.5.0 이상 사용자는 배포 후 앱의 ‘업데이트 확인…’에서 새 버전을 확인하고 설치하실 수 있습니다.** 0.4.0 이하에는 업데이트 기능이 없으므로 DMG 또는 ZIP으로 직접 설치해 주세요. 자동 업데이트 확인은 설정에서 끌 수 있으며 다운로드와 설치는 사용자가 선택합니다.
+**0.5.0 이상 사용자는 앱의 ‘업데이트 확인…’에서 새 버전을 확인하고 설치하실 수 있습니다.** 0.4.0 이하에는 업데이트 기능이 없으므로 DMG 또는 ZIP으로 직접 설치해 주세요. 자동 업데이트 확인은 설정에서 끌 수 있으며 다운로드와 설치는 사용자가 선택합니다.
 
 설정창은 Dock 아이콘 클릭, Dock 오른쪽 클릭 → **설정 열기…**, 메뉴 막대의 **설정…**, 앱이 활성 상태일 때 **⌘,**로 다시 열 수 있습니다. [자세한 사용 안내](https://github.com/mindw96/WeatherWeather/blob/main/docs/releases/0.6.0/START_HERE.ko.txt)를 함께 제공합니다.
 
