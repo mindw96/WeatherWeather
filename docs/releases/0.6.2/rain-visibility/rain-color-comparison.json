@@ -1,0 +1,41 @@
+{
+  "checks" : {
+    "autumnGeometryAndOpacityUnchanged" : true,
+    "autumnParticleStateUnchanged" : true,
+    "autumnPixelsUnchanged" : true,
+    "bubblesGeometryAndOpacityUnchanged" : true,
+    "bubblesParticleStateUnchanged" : true,
+    "bubblesPixelsUnchanged" : true,
+    "cherryBlossomGeometryAndOpacityUnchanged" : true,
+    "cherryBlossomParticleStateUnchanged" : true,
+    "cherryBlossomPixelsUnchanged" : true,
+    "confettiGeometryAndOpacityUnchanged" : true,
+    "confettiParticleStateUnchanged" : true,
+    "confettiPixelsUnchanged" : true,
+    "darkContrastRequirement" : true,
+    "darkRainRemainsVisible" : true,
+    "lightContrastRequirement" : true,
+    "lightRainRemainsVisible" : true,
+    "rainGeometryAndOpacityUnchanged" : true,
+    "rainParticleStateUnchanged" : true,
+    "snowGeometryAndOpacityUnchanged" : true,
+    "snowParticleStateUnchanged" : true,
+    "snowPixelsUnchanged" : true
+  },
+  "passed" : true,
+  "samples" : [
+    {
+      "afterRGBDistance" : 7251,
+      "background" : "light",
+      "beforeRGBDistance" : 4295,
+      "ratio" : 1.6882421420256111
+    },
+    {
+      "afterRGBDistance" : 22503,
+      "background" : "dark",
+      "beforeRGBDistance" : 25459,
+      "ratio" : 0.88389174751561339
+    }
+  ],
+  "scope" : "Same deterministic scene rendered to 800x480 Core Graphics bitmaps. RGB distance of falling rain pixels on solid backgrounds is a comparison metric, not WCAG contrast or a human perception threshold. No screen capture or performance claim."
+}

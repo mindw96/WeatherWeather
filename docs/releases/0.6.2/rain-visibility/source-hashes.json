@@ -1,0 +1,10 @@
+{
+  "WeatherView.before.swift": "aa39e2f0bbb1c360e66a40bead5f61a1f59822091d039321960f95db593d9caa",
+  "WeatherView.swift": "8fcf78343be61f736a72660086153dc954b7af92ab8b6873a9c563e8ab4b9d2d",
+  "WeatherCore/FullScreenPolicy.swift": "8623a1bd7c8f5d0a08f86a4c3fd2bc7c9e606963fc30a65a706824b90eeef76a",
+  "WeatherCore/FocusedWindowPolicy.swift": "5a550c8e3c9bb1e60936474e2f70d88aee2b9bb7ec087a0d717453dd512f8f4e",
+  "WeatherCore/WindowGeometry.swift": "36c3a9dacc0e8909d1bd8cc510571abe39d952e325317fd7006e39c461c55c96",
+  "WeatherCore/SnowmanPosition.swift": "8ac3d0bbb62c8e666742cbf56c89b72fad4b26b27427e5d3a20fb0c90592d3e9",
+  "WeatherCore/WeatherSimulation.swift": "5dc15d9dad88520eca1495f6eca6c099ab4ea50eb55d426ef82c4457c1946466",
+  "SnowmanRenderer.swift": "292920f75a25d0971e49dc3f8e43e8817675dd497e0b26994eb8ecebd7621f2f"
+}

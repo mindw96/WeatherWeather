@@ -115,6 +115,11 @@ struct SettingsView: View {
         .padding(24)
         .frame(width: 450)
         .background(Color(nsColor: .windowBackgroundColor))
+        .overlay(alignment: .bottomTrailing) {
+            Text("버전 \(AppIdentity.version)")
+                .font(.caption).foregroundStyle(.secondary)
+                .padding(.trailing, 24).padding(.bottom, 6)
+        }
     }
 }
 
@@ -134,8 +139,8 @@ private struct DemoView: NSViewRepresentable {
         let view = WeatherView(frame: NSRect(x: 0, y: 0, width: 402, height: 160))
         view.demoBackground = true
         view.simulation.setSurfaces([
-            Surface(id: 1, x: 30, y: 105, width: 180),
-            Surface(id: 2, x: 233, y: 75, width: 145),
+            Surface(id: 1, x: 30, y: 105, width: 180, cornerRadius: WindowTracker.estimatedCornerRadius),
+            Surface(id: 2, x: 233, y: 75, width: 145, cornerRadius: WindowTracker.estimatedCornerRadius),
             Surface(id: 0, x: 0, y: 159, width: 402)
         ])
         context.coordinator.view = view

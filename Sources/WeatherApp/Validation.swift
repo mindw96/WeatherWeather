@@ -55,8 +55,8 @@ enum Validation {
                 view.simulation.intensity = 0.8
                 view.simulation.wind = 0.2
                 view.simulation.setSurfaces([
-                    Surface(id: 1, x: 65, y: 270, width: 370, cornerRadius: 26),
-                    Surface(id: 2, x: 460, y: 170, width: 280, cornerRadius: 26),
+                    Surface(id: 1, x: 65, y: 270, width: 370, cornerRadius: WindowTracker.estimatedCornerRadius),
+                    Surface(id: 2, x: 460, y: 170, width: 280, cornerRadius: WindowTracker.estimatedCornerRadius),
                     Surface(id: 0, x: 0, y: 479, width: 800)
                 ])
                 for _ in 0..<3600 { view.simulation.update(deltaTime: 1.0 / 30.0) }

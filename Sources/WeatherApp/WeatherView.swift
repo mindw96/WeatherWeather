@@ -96,7 +96,7 @@ final class WeatherView: NSView {
             }
             path.closeSubpath()
             let snow = simulation.mode == .snow
-            context.setFillColor((snow ? NSColor(calibratedRed: 0.94, green: 0.98, blue: 1, alpha: 0.96) : NSColor(calibratedRed: 0.48, green: 0.77, blue: 1, alpha: 0.46)).cgColor)
+            context.setFillColor((snow ? NSColor(calibratedRed: 0.94, green: 0.98, blue: 1, alpha: 0.96) : NSColor(calibratedRed: 0.34, green: 0.68, blue: 0.98, alpha: 0.46)).cgColor)
             context.addPath(path)
             context.fillPath()
             context.restoreGState()
@@ -121,7 +121,7 @@ final class WeatherView: NSView {
                 context.fillEllipse(in: CGRect(x: particle.x - particle.size / 2, y: particle.y - particle.size / 2, width: particle.size, height: particle.size))
             } else {
                 let length = 9 + particle.size * 4
-                context.setStrokeColor(NSColor(calibratedRed: 0.68, green: 0.85, blue: 1, alpha: particle.opacity * 0.72).cgColor)
+                context.setStrokeColor(NSColor(calibratedRed: 0.48, green: 0.75, blue: 1, alpha: particle.opacity * 0.72).cgColor)
                 context.setLineWidth(max(0.6, particle.size * 0.4))
                 context.move(to: CGPoint(x: particle.x, y: particle.y))
                 context.addLine(to: CGPoint(x: particle.x - particle.vx / max(1, particle.vy) * length, y: particle.y - length))
@@ -129,7 +129,7 @@ final class WeatherView: NSView {
             }
         }
         for splash in simulation.splashes {
-            context.setFillColor(NSColor(calibratedRed: 0.72, green: 0.88, blue: 1, alpha: min(0.8, splash.life * 1.8)).cgColor)
+            context.setFillColor(NSColor(calibratedRed: 0.52, green: 0.78, blue: 1, alpha: min(0.8, splash.life * 1.8)).cgColor)
             context.fillEllipse(in: CGRect(x: splash.x - 1, y: splash.y - 1, width: 2, height: 2.8))
         }
     }

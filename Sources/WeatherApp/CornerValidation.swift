@@ -33,7 +33,7 @@ enum CornerValidation {
                 view.hiddenFocusedWindow = WindowGeometry(id: 7, x: 30, y: 50, width: 180, height: 80)
                 checks["\(prefix)FocusedPileHidden"] = alphaSum(try render(view), in: view.bounds) == 0
             }
-            for (label, radius) in [("before", 0.0), ("after", 26.0)] {
+            for (label, radius) in [("before", 26.0), ("after", WindowTracker.estimatedCornerRadius)] {
                 let bitmap = try render(fixture(mode: .snow, radius: radius), scale: 3, background: true)
                 guard let png = bitmap.representation(using: .png, properties: [:]) else {
                     throw NSError(domain: "CornerValidation", code: 2)
@@ -91,7 +91,8 @@ enum CornerValidation {
             context.setBlendMode(.destinationOver)
             context.setFillColor(NSColor(calibratedWhite: 0.28, alpha: 1).cgColor)
             context.addPath(CGPath(roundedRect: CGRect(x: 30, y: 50, width: 180, height: 120),
-                                  cornerWidth: 26, cornerHeight: 26, transform: nil))
+                                  cornerWidth: WindowTracker.estimatedCornerRadius,
+                                  cornerHeight: WindowTracker.estimatedCornerRadius, transform: nil))
             context.fillPath()
             context.setFillColor(NSColor(calibratedRed: 0.06, green: 0.10, blue: 0.17, alpha: 1).cgColor)
             context.fill(view.bounds)

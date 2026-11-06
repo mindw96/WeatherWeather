@@ -6,7 +6,7 @@ enum WindowTracker {
     // shortcut: public window metadata has no corner radius; use an OS-style
     // estimate until a permission-free per-window contour API is available.
     static var estimatedCornerRadius: Double {
-        if #available(macOS 26, *) { return 26 }
+        if #available(macOS 26, *) { return 16 }
         return 10
     }
 
