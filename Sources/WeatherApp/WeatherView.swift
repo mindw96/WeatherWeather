@@ -51,7 +51,7 @@ final class WeatherView: NSView {
             let clip = CGMutablePath()
             let foreground = pile.surfaceID == 0 ? windowGeometry[...] : windowGeometry.prefix { $0.id != pile.surfaceID }
             for segment in pile.segments {
-                var regions = [CGRect(x: pile.x + segment.minX, y: pile.y - 36, width: segment.maxX - segment.minX, height: 44)]
+                var regions = [CGRect(x: pile.x + segment.minX, y: pile.y - 36, width: segment.maxX - segment.minX, height: 44 + pile.cornerRadius)]
                 // Clip the full mound, including an occluder ending just above its baseline.
                 for window in foreground {
                     let cover = CGRect(x: window.x, y: window.y, width: window.width, height: window.height)
@@ -59,18 +59,22 @@ final class WeatherView: NSView {
                 }
                 for region in regions { clip.addRect(region) }
             }
+            // An empty Core Graphics path does not reliably establish an empty clip.
+            guard !clip.isEmpty else { context.restoreGState(); continue }
             context.addPath(clip)
             context.clip()
             if simulation.mode.hasSettledParticles {
                 for item in settled {
+                    let localX = item.position * pile.width
+                    let restingY = pile.baselineY(at: localX) - item.offsetY
                     if item.mode == .bubbles {
                         let pop = max(0, 1 - item.life / 0.45)
-                        drawBubble(in: context, x: pile.x + item.position * pile.width,
-                                   y: pile.y - item.offsetY, size: item.size * (1 + pop * 0.22),
+                        drawBubble(in: context, x: pile.x + localX,
+                                   y: restingY, size: item.size * (1 + pop * 0.22),
                                    opacity: 0.85 * (1 - pop))
                     } else {
                         drawSeasonal(in: context, mode: item.mode,
-                                     x: pile.x + item.position * pile.width, y: pile.y - item.offsetY,
+                                     x: pile.x + localX, y: restingY,
                                      size: item.size, rotation: item.rotation, variant: item.variant,
                                      opacity: min(1, item.life / 8), horizontalScale: 1)
                     }
@@ -80,11 +84,16 @@ final class WeatherView: NSView {
             }
             let step = pile.width / Double(max(1, pile.heights.count - 1))
             let path = CGMutablePath()
-            path.move(to: CGPoint(x: pile.x, y: pile.y + 0.4))
+            path.move(to: CGPoint(x: pile.x, y: pile.baselineY(at: 0) + 0.4))
             for (index, height) in pile.heights.enumerated() {
-                path.addLine(to: CGPoint(x: pile.x + Double(index) * step, y: pile.y - height))
+                let localX = Double(index) * step
+                path.addLine(to: CGPoint(x: pile.x + localX, y: pile.baselineY(at: localX) - height))
             }
-            path.addLine(to: CGPoint(x: pile.x + pile.width, y: pile.y + 0.4))
+            // Close along the same curve so the underside cannot bridge the empty corner.
+            for index in pile.heights.indices.reversed() {
+                let localX = Double(index) * step
+                path.addLine(to: CGPoint(x: pile.x + localX, y: pile.baselineY(at: localX) + 0.4))
+            }
             path.closeSubpath()
             let snow = simulation.mode == .snow
             context.setFillColor((snow ? NSColor(calibratedRed: 0.94, green: 0.98, blue: 1, alpha: 0.96) : NSColor(calibratedRed: 0.48, green: 0.77, blue: 1, alpha: 0.46)).cgColor)
@@ -280,7 +289,8 @@ final class WeatherView: NSView {
         for surface in simulation.surfaces where surface.id != 0 {
             let rect = CGRect(x: surface.x, y: surface.y, width: surface.width, height: bounds.height * 0.48)
             context.setFillColor(NSColor(calibratedRed: 0.13, green: 0.19, blue: 0.28, alpha: 1).cgColor)
-            context.addPath(CGPath(roundedRect: rect, cornerWidth: 10, cornerHeight: 10, transform: nil))
+            context.addPath(CGPath(roundedRect: rect, cornerWidth: surface.cornerRadius,
+                                  cornerHeight: surface.cornerRadius, transform: nil))
             context.fillPath()
             for (index, color) in [NSColor.systemRed, .systemYellow, .systemGreen].enumerated() {
                 context.setFillColor(color.withAlphaComponent(0.85).cgColor)

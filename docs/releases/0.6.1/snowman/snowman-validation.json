@@ -1,0 +1,32 @@
+{
+  "checks" : {
+    "clearingSnowDoesNotDisableSnowman" : true,
+    "focusedWindowCanFullyHideSnowman" : true,
+    "focusedWindowClipsOnlyOverlappingPart" : true,
+    "movingOneDisplayDoesNotOverwriteAnotherPosition" : true,
+    "returningToSnowRestoresSnowman" : true,
+    "snowmanAppearsImmediatelyAtBottomRight" : true,
+    "snowmanChoiceSurvivesModeAndAccumulationChanges" : true,
+    "snowmanDefaultsOn" : true,
+    "snowmanHiddenPixelsCannotStartDrag" : true,
+    "snowmanHitTestAcceptsBodyButNotTransparentCorner" : true,
+    "snowmanIndependentOfSnowAccumulation" : true,
+    "snowmanNativeViewDragCallbacksMoveAndFinish" : true,
+    "snowmanOffRemovesAllArtwork" : true,
+    "snowmanOffSurvivesReload" : true,
+    "snowmanOnlyAppearsInSnowMode" : true,
+    "snowmanOnRestoresSameArtwork" : true,
+    "snowmanPanelDoesNotTakeKeyboardFocus" : true,
+    "snowmanPanelDragClampsToItsDisplay" : true,
+    "snowmanPanelFixtureRemainsUnshown" : true,
+    "snowmanPanelRendererHonorsFocusMask" : true,
+    "snowmanPanelRendererPaintsArtwork" : true,
+    "snowmanPanelRestoresSavedDragAfterReload" : true,
+    "snowmanPositionsPersistSeparatelyForEachDisplay" : true,
+    "snowmanRejectsEmptyAndInvalidBounds" : true,
+    "snowmanStaysWithinTallNarrowAndPreviewBounds" : true,
+    "unrelatedFocusedWindowLeavesSnowmanVisible" : true
+  },
+  "note" : "Generated offscreen WeatherView artwork, isolated preferences, and directly invoked native view drag callbacks on an unshown panel. Does not prove Window Server mouse routing, physical dragging, desktop panel composition, or display transitions.",
+  "passed" : true
+}

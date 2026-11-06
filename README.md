@@ -4,17 +4,17 @@ macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이를 표시�
 
 첫 macOS 버전을 개발 중입니다. 창 이동, 전체 화면, Spaces, 여러 모니터에서의 실제 사용 검증은 아래 체크리스트를 따릅니다. Windows 지원은 향후 계획이며 현재 실행 파일을 제공하지 않습니다.
 
-**0.6.0**은 **비눗방울과 색종이**를 추가한 버전입니다. 핵심 테스트 **68개**, 포커스 렌더링·설정 검사 **62개**, 눈사람 검사 **26개**, 창·컨트롤러 통합 검사 **44개**와 로컬 앱·DMG 서명·공증 검증을 완료했습니다. [0.6.0 검증 기록](docs/releases/0.6.0/VALIDATION.md)에 확인 범위를 정리했습니다. 설정창에서는 여섯 효과를 두 줄로 나누어 선택합니다. 한국어 이름은 **쌓임쌓임**, 영문 이름은 **Window Weather**이며, 기존 눈사람·설정 저장·Sparkle 업데이트 기능을 이어서 제공합니다. 이전 버전의 [0.5.1 검증 기록](docs/releases/0.5.1/VALIDATION.md), [0.5.0 검증 기록](docs/releases/0.5.0/VALIDATION.md), [성능 측정](docs/PERFORMANCE.md)은 해당 버전의 결과로 보관합니다.
+**0.6.1**은 창 모서리를 따라 쌓이도록 개선한 버전입니다. 눈·물막과 네 정착 효과의 경계를 같은 곡선으로 계산하고, 완전히 가려진 적설선의 렌더링도 수정했습니다. [곡률 구현 범위](docs/CORNER_GEOMETRY.md)와 [0.6.1 검증 기록](docs/releases/0.6.1/VALIDATION.md)을 제공합니다. 다른 앱의 실제 곡률을 읽는 공개 API가 없어 OS 스타일에 맞춘 추정 곡선을 사용합니다. 여섯 효과와 눈사람, 저장된 설정, Sparkle 업데이트를 유지합니다. 이전 [0.6.0 검증 기록](docs/releases/0.6.0/VALIDATION.md)과 [성능 측정](docs/PERFORMANCE.md)은 해당 버전의 근거로 보관합니다.
 
 ## 다운로드와 업데이트
 
-소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.0 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.0/WindowWeather-0.6.0-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.0). 로컬 앱과 DMG의 Developer ID 서명·Apple 공증·공증 티켓·Gatekeeper 검사, 업데이트 EdDSA 서명을 완료했습니다. GitHub 공개 게시와 다운로드 다섯 파일의 SHA-256 무결성 검증, 실제 Sparkle의 최신/새 버전 판별도 완료했습니다.
+소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.1 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/WindowWeather-0.6.1-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/WindowWeather-0.6.1-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.1). 0.6.1 배포 검증을 진행 중입니다.
 
-0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.5.0 이상 사용자는 앱 안에서 0.6.0을 확인하실 수 있습니다. 0.4.0 이하에는 Sparkle가 없으므로 최신 버전을 한 번 직접 설치해 주세요.**
+0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있으며, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 자동 다운로드·설치는 끄고 새 버전 알림에서 사용자가 설치를 선택하도록 했습니다. **0.5.0 이상 사용자는 앱 안에서 0.6.1을 확인하실 수 있습니다. 0.4.0 이하에는 Sparkle가 없으므로 최신 버전을 한 번 직접 설치해 주세요.**
 
 DMG를 열고 앱을 옆의 `Applications` 폴더로 끌어 옮긴 다음, 응용 프로그램 폴더에서 실행해 주세요. 한국어 환경의 표시 이름은 **쌓임쌓임**이며 앱 파일 이름은 `WindowWeather.app`입니다. 설치 후 Finder에서 DMG를 꺼내셔도 됩니다. ZIP은 압축을 풀면 앱 하나만 나오며, 같은 방법으로 응용 프로그램 폴더에 옮겨 실행합니다. 사용 안내와 변경 내역은 릴리스 페이지에 있습니다.
 
-`./script/release.sh`는 통합 Release 빌드·앱과 DMG의 Developer ID 서명·Apple 공증·티켓 첨부·EdDSA 업데이트 서명·최종 검증을 자동 진행합니다. 결과는 `dist/releases/0.6.0/`의 DMG, 앱만 담은 공유 ZIP과 업데이트 ZIP, `appcast.xml`, `SHA256SUMS.txt`입니다. 중단 후에는 `--resume`으로 같은 제출을 이어갑니다. 새 버전 번호·안내문 갱신과 GitHub 게시 절차는 [배포 문서](docs/RELEASING.md)에 있습니다.
+`./script/release.sh`는 통합 Release 빌드·앱과 DMG의 Developer ID 서명·Apple 공증·티켓 첨부·EdDSA 업데이트 서명·최종 검증을 자동 진행합니다. 결과는 `dist/releases/0.6.1/`의 DMG, 앱만 담은 공유 ZIP과 업데이트 ZIP, `appcast.xml`, `SHA256SUMS.txt`입니다. 중단 후에는 `--resume`으로 같은 제출을 이어갑니다. 새 버전 번호·안내문 갱신과 GitHub 게시 절차는 [배포 문서](docs/RELEASING.md)에 있습니다.
 
 ## 실행하기
 
@@ -64,7 +64,7 @@ Codex의 **Run** 버튼도 같은 스크립트에 연결되어 있습니다. 생
 - **WeatherApp:** AppKit 오버레이, SwiftUI 설정, Sparkle 업데이트 확인, 읽기 전용 창 geometry 수집을 제공합니다. 화면당 투명 패널을 사용하며, 창 정보는 초당 5회, 애니메이션은 일반 상태 초당 30회·저전력 상태 초당 20회 갱신하도록 구성했습니다.
 - **검증:** 자동 테스트는 물리 규칙과 창 가림 계산을 검증합니다. 미리보기는 실제 데스크톱 화면 캡처가 아닌 생성된 예시이므로 OS의 창 합성과 동일한 검증으로 보지 않습니다. 최종 실행 검증 상태는 [PLAN.md](PLAN.md)에 기록합니다.
 
-Dock 위 적설, 번개, 로그인 시 자동 실행과 Windows 버전은 첫 구현에 포함하지 않습니다. 최신 공유 패키지의 서명·공증 상태는 위 배포 안내를 따릅니다. 창 모서리와 비정형 창은 사각형 geometry를 기준으로 근사합니다.
+Dock 위 적설, 번개, 로그인 시 자동 실행과 Windows 버전은 첫 구현에 포함하지 않습니다. 최신 공유 패키지의 서명·공증 상태는 위 배포 안내를 따릅니다. 일반 창의 모서리는 OS 스타일에 맞춘 곡선으로 근사합니다. 화면 바닥과 전체 화면으로 판정한 창은 평평하게 유지하며, 앞 창의 가림과 작업 창 숨김 경계는 사각형으로 보수적으로 처리합니다. 독자적인 창 외곽과는 차이가 있을 수 있습니다.
 
 실제 날씨에 따라 눈·비를 자동 선택하는 기능은 이번에는 **가능성만 검토**했습니다. [날씨 연동 검토](docs/WEATHER_INTEGRATION.md)에 공급자·배포 방식·위치 선택·비용과 오프라인 처리를 정리합니다. 앱에는 날씨 조회나 위치 권한 요청을 추가하지 않았으며 효과는 사용자가 선택합니다.
 

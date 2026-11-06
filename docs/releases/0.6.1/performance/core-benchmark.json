@@ -1,0 +1,472 @@
+{
+  "displayPoints": [
+    3840,
+    2160
+  ],
+  "intensity": 1,
+  "measuredFramesPerSample": 3000,
+  "order": "Alternate flat/rounded order each trial, all six effects each trial",
+  "samples": [
+    {
+      "fallingParticles": 1593,
+      "millisecondsPerSimulatedFrame": 0.0625743055716157,
+      "mode": "snow",
+      "radius": 0,
+      "seconds": 0.1877229167148471,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.06805827777134255,
+      "mode": "snow",
+      "radius": 26,
+      "seconds": 0.20417483331402764,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 898,
+      "millisecondsPerSimulatedFrame": 0.03419309722570082,
+      "mode": "rain",
+      "radius": 0,
+      "seconds": 0.10257929167710245,
+      "settledParticles": 0,
+      "splashes": 359,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 943,
+      "millisecondsPerSimulatedFrame": 0.044982319445504494,
+      "mode": "rain",
+      "radius": 26,
+      "seconds": 0.1349469583365135,
+      "settledParticles": 0,
+      "splashes": 361,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.06479661110400532,
+      "mode": "autumn",
+      "radius": 0,
+      "seconds": 0.19438983331201598,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.07208883331622928,
+      "mode": "autumn",
+      "radius": 26,
+      "seconds": 0.21626649994868785,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1597,
+      "millisecondsPerSimulatedFrame": 0.09520706943779562,
+      "mode": "cherryBlossom",
+      "radius": 0,
+      "seconds": 0.2856212083133869,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.10173226388481756,
+      "mode": "cherryBlossom",
+      "radius": 26,
+      "seconds": 0.3051967916544527,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1336,
+      "millisecondsPerSimulatedFrame": 0.05478062500090649,
+      "mode": "bubbles",
+      "radius": 0,
+      "seconds": 0.16434187500271946,
+      "settledParticles": 421,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1366,
+      "millisecondsPerSimulatedFrame": 0.061202541672779866,
+      "mode": "bubbles",
+      "radius": 26,
+      "seconds": 0.1836076250183396,
+      "settledParticles": 402,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1595,
+      "millisecondsPerSimulatedFrame": 0.09827038888276245,
+      "mode": "confetti",
+      "radius": 0,
+      "seconds": 0.2948111666482873,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1598,
+      "millisecondsPerSimulatedFrame": 0.10713529167696834,
+      "mode": "confetti",
+      "radius": 26,
+      "seconds": 0.321405875030905,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 1
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.0706075833295472,
+      "mode": "snow",
+      "radius": 26,
+      "seconds": 0.2118227499886416,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1593,
+      "millisecondsPerSimulatedFrame": 0.06062999998296922,
+      "mode": "snow",
+      "radius": 0,
+      "seconds": 0.18188999994890764,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 943,
+      "millisecondsPerSimulatedFrame": 0.044817888895825796,
+      "mode": "rain",
+      "radius": 26,
+      "seconds": 0.13445366668747738,
+      "settledParticles": 0,
+      "splashes": 361,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 898,
+      "millisecondsPerSimulatedFrame": 0.03407784724064792,
+      "mode": "rain",
+      "radius": 0,
+      "seconds": 0.10223354172194377,
+      "settledParticles": 0,
+      "splashes": 359,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.0729671388786907,
+      "mode": "autumn",
+      "radius": 26,
+      "seconds": 0.2189014166360721,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.06604897221162294,
+      "mode": "autumn",
+      "radius": 0,
+      "seconds": 0.19814691663486883,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.10253447222445781,
+      "mode": "cherryBlossom",
+      "radius": 26,
+      "seconds": 0.30760341667337343,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1597,
+      "millisecondsPerSimulatedFrame": 0.09502856943678732,
+      "mode": "cherryBlossom",
+      "radius": 0,
+      "seconds": 0.28508570831036195,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1366,
+      "millisecondsPerSimulatedFrame": 0.0613795972118775,
+      "mode": "bubbles",
+      "radius": 26,
+      "seconds": 0.18413879163563251,
+      "settledParticles": 402,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1336,
+      "millisecondsPerSimulatedFrame": 0.055119597217223294,
+      "mode": "bubbles",
+      "radius": 0,
+      "seconds": 0.1653587916516699,
+      "settledParticles": 421,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1598,
+      "millisecondsPerSimulatedFrame": 0.10593913889412458,
+      "mode": "confetti",
+      "radius": 26,
+      "seconds": 0.31781741668237373,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1595,
+      "millisecondsPerSimulatedFrame": 0.09896052778155233,
+      "mode": "confetti",
+      "radius": 0,
+      "seconds": 0.296881583344657,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 2
+    },
+    {
+      "fallingParticles": 1593,
+      "millisecondsPerSimulatedFrame": 0.06052311110155036,
+      "mode": "snow",
+      "radius": 0,
+      "seconds": 0.18156933330465108,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.06745840277289972,
+      "mode": "snow",
+      "radius": 26,
+      "seconds": 0.20237520831869915,
+      "settledParticles": 0,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 898,
+      "millisecondsPerSimulatedFrame": 0.03387634721972669,
+      "mode": "rain",
+      "radius": 0,
+      "seconds": 0.10162904165918007,
+      "settledParticles": 0,
+      "splashes": 359,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 943,
+      "millisecondsPerSimulatedFrame": 0.0444385555650418,
+      "mode": "rain",
+      "radius": 26,
+      "seconds": 0.1333156666951254,
+      "settledParticles": 0,
+      "splashes": 361,
+      "totalHeightBins": 3260,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.06596616667229682,
+      "mode": "autumn",
+      "radius": 0,
+      "seconds": 0.19789850001689047,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1028,
+      "millisecondsPerSimulatedFrame": 0.0724959999982578,
+      "mode": "autumn",
+      "radius": 26,
+      "seconds": 0.21748799999477342,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1597,
+      "millisecondsPerSimulatedFrame": 0.09551824999895568,
+      "mode": "cherryBlossom",
+      "radius": 0,
+      "seconds": 0.28655474999686703,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1600,
+      "millisecondsPerSimulatedFrame": 0.13450797222321853,
+      "mode": "cherryBlossom",
+      "radius": 26,
+      "seconds": 0.4035239166696556,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1336,
+      "millisecondsPerSimulatedFrame": 0.15593312500277534,
+      "mode": "bubbles",
+      "radius": 0,
+      "seconds": 0.467799375008326,
+      "settledParticles": 421,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1366,
+      "millisecondsPerSimulatedFrame": 0.08087548611608024,
+      "mode": "bubbles",
+      "radius": 26,
+      "seconds": 0.2426264583482407,
+      "settledParticles": 402,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1595,
+      "millisecondsPerSimulatedFrame": 0.11212229167964931,
+      "mode": "confetti",
+      "radius": 0,
+      "seconds": 0.3363668750389479,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 1100,
+      "trial": 3
+    },
+    {
+      "fallingParticles": 1598,
+      "millisecondsPerSimulatedFrame": 0.11256999999750406,
+      "mode": "confetti",
+      "radius": 26,
+      "seconds": 0.33770999999251217,
+      "settledParticles": 1200,
+      "splashes": 0,
+      "totalHeightBins": 3260,
+      "trial": 3
+    }
+  ],
+  "scope": "Optimized Core simulation only, same current code with radius 0 versus 26. Not app CPU, rendering, Window Server, battery, or a comparison against the old release.",
+  "seed": 17,
+  "simulatedFramesPerSecond": 30,
+  "trials": 3,
+  "warmupFramesPerSample": 900,
+  "wind": 0.15,
+  "windows": 10,
+  "windowWidthPoints": 650,
+  "host": {
+    "system": "Darwin",
+    "release": "27.2",
+    "machine": "arm64"
+  },
+  "compilerFlags": [
+    "swiftc",
+    "-O"
+  ],
+  "sourceSHA256": {
+    "WeatherSimulation.swift": "5dc15d9dad88520eca1495f6eca6c099ab4ea50eb55d426ef82c4457c1946466",
+    "benchmark.swift": "f46fb110446cc48a91be996efa5f29d6a309ed89991b4110888f7bc55768c039"
+  },
+  "summary": [
+    {
+      "mode": "snow",
+      "radius0MedianMillisecondsPerFrame": 0.06062999998296922,
+      "radius26MedianMillisecondsPerFrame": 0.06805827777134255,
+      "extraMillisecondsPerFrame": 0.007428277788373329,
+      "radius26To0Ratio": 1.1225181888579896
+    },
+    {
+      "mode": "rain",
+      "radius0MedianMillisecondsPerFrame": 0.03407784724064792,
+      "radius26MedianMillisecondsPerFrame": 0.044817888895825796,
+      "extraMillisecondsPerFrame": 0.010740041655177876,
+      "radius26To0Ratio": 1.315161975442134
+    },
+    {
+      "mode": "autumn",
+      "radius0MedianMillisecondsPerFrame": 0.06596616667229682,
+      "radius26MedianMillisecondsPerFrame": 0.0724959999982578,
+      "extraMillisecondsPerFrame": 0.006529833325960979,
+      "radius26To0Ratio": 1.098987612216419
+    },
+    {
+      "mode": "cherryBlossom",
+      "radius0MedianMillisecondsPerFrame": 0.09520706943779562,
+      "radius26MedianMillisecondsPerFrame": 0.10253447222445781,
+      "extraMillisecondsPerFrame": 0.0073274027866621905,
+      "radius26To0Ratio": 1.0769628015013066
+    },
+    {
+      "mode": "bubbles",
+      "radius0MedianMillisecondsPerFrame": 0.055119597217223294,
+      "radius26MedianMillisecondsPerFrame": 0.0613795972118775,
+      "extraMillisecondsPerFrame": 0.006259999994654208,
+      "radius26To0Ratio": 1.1135712216833495
+    },
+    {
+      "mode": "confetti",
+      "radius0MedianMillisecondsPerFrame": 0.09896052778155233,
+      "radius26MedianMillisecondsPerFrame": 0.10713529167696834,
+      "extraMillisecondsPerFrame": 0.008174763895416007,
+      "radius26To0Ratio": 1.082606308582561
+    }
+  ]
+}

@@ -66,6 +66,7 @@ public struct FullScreenPolicy: Sendable {
         let excludedIDs = accumulateOnFullScreen ? Set<UInt32>() : screenFillingIDs
         var surfaces = visibleTopSegments(for: windows).map { original in
             var surface = original
+            if screenFillingIDs.contains(surface.id) { surface.cornerRadius = 0 }
             if accumulateOnFullScreen, screenFillingIDs.contains(surface.id), surface.y < 20 {
                 surface.y = min(20, height - 1)
             }

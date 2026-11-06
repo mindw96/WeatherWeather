@@ -3,6 +3,13 @@ import WeatherCore
 
 /// Reads geometry and owner PID only. Never requests a title, image, or AX access.
 enum WindowTracker {
+    // shortcut: public window metadata has no corner radius; use an OS-style
+    // estimate until a permission-free per-window contour API is available.
+    static var estimatedCornerRadius: Double {
+        if #available(macOS 26, *) { return 26 }
+        return 10
+    }
+
     static func fullScreenPolicy(screen: NSScreen) -> FullScreenPolicy {
         let frame = screen.frame
         let visible = screen.visibleFrame
@@ -30,7 +37,8 @@ enum WindowTracker {
                   rect.width >= 80, rect.height >= 50,
                   rect.origin.x.isFinite, rect.origin.y.isFinite else { return nil }
             return WindowGeometry(id: id, x: rect.minX, y: rect.minY, width: rect.width, height: rect.height,
-                                  ownerProcessID: (row[kCGWindowOwnerPID as String] as? NSNumber)?.int32Value)
+                                  ownerProcessID: (row[kCGWindowOwnerPID as String] as? NSNumber)?.int32Value,
+                                  cornerRadius: estimatedCornerRadius)
         }
     }
 
@@ -52,7 +60,7 @@ enum WindowTracker {
             guard x < screen.frame.width, x + window.width > 0,
                   y < screen.frame.height, y + window.height > 0 else { return nil }
             return WindowGeometry(id: window.id, x: x, y: y, width: window.width, height: window.height,
-                                  ownerProcessID: window.ownerProcessID)
+                                  ownerProcessID: window.ownerProcessID, cornerRadius: window.cornerRadius)
         }
     }
 }

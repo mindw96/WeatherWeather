@@ -1,0 +1,213 @@
+warning: /Users/mindw/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/mindw/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+Building for debugging...
+[Planning deferred tasks]
+[27 / 50]
+[28 / 51] WeatherCore
+[37 / 92]
+[38 / 92]
+[43 / 92]
+[46 / 92]
+[47 / 92]
+[51 / 92]
+[53 / 92]
+[56 / 92]
+[59 / 92]
+[62 / 92]
+[63 / 92]
+[69 / 92] WeatherCore
+[77 / 92] WeatherCore
+[82 / 93] WeatherCoreTests-product
+[91 / 133]
+[98 / 133]
+[102 / 133]
+[105 / 133]
+[107 / 133]
+[109 / 133]
+[110 / 133]
+[113 / 133]
+[114 / 133]
+[122 / 133] WeatherCoreTests-product
+[127 / 133] WeatherCoreTests-product
+[129 / 133] WeatherCoreTests-product
+Build complete! (16.21초)
+Test Suite 'All tests' started at 2026-11-06 11:16:20.950.
+Test Suite 'WeatherCoreTests.xctest' started at 2026-11-06 11:16:20.952.
+Test Suite 'CurvedSurfaceTests' started at 2026-11-06 11:16:20.952.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testAccumulatedHeightAndSettledOffsetsFollowMovingResizedCurvedWindow]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testAccumulatedHeightAndSettledOffsetsFollowMovingResizedCurvedWindow]' passed (0.002 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testAllEffectsHitCurvedCornersWithoutAnInvisibleFlatLedge]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testAllEffectsHitCurvedCornersWithoutAnInvisibleFlatLedge]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testCrossDisplayTransferPreservesDestinationCurveAndLocalHeight]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testCrossDisplayTransferPreservesDestinationCurveAndLocalHeight]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testFastDiagonalSweepFindsCurveEvenWhenBothEndpointsMissItsRectangleTop]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testFastDiagonalSweepFindsCurveEvenWhenBothEndpointsMissItsRectangleTop]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testInvalidRadiiAreSanitizedAndFloorsRemainFlat]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testInvalidRadiiAreSanitizedAndFloorsRemainFlat]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testNearestCurvedSurfaceWinsAndOccludedCornerDoesNotIntercept]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testNearestCurvedSurfaceWinsAndOccludedCornerDoesNotIntercept]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testRoundedBaselineUsesOneSymmetricProfileForDrawingAndCollision]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testRoundedBaselineUsesOneSymmetricProfileForDrawingAndCollision]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testWindowRadiusPropagationClampsHeightAndScreenFillingSurfacesStayFlat]' started.
+Test Case '-[WeatherCoreTests.CurvedSurfaceTests testWindowRadiusPropagationClampsHeightAndScreenFillingSurfacesStayFlat]' passed (0.000 seconds).
+Test Suite 'CurvedSurfaceTests' passed at 2026-11-06 11:16:20.957.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
+Test Suite 'FocusedWindowPolicyTests' started at 2026-11-06 11:16:20.957.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testChoosesActiveApplicationsFrontmostWindowDespiteAnotherAppAboveIt]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testChoosesActiveApplicationsFrontmostWindowDespiteAnotherAppAboveIt]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testDisabledOptionReturnsMatchingWindowWithDisplayLocalCoordinates]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testDisabledOptionReturnsMatchingWindowWithDisplayLocalCoordinates]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testEnabledOptionLeavesWorkingWindowVisible]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testEnabledOptionLeavesWorkingWindowVisible]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testInvalidHiddenWindowBoundsNeverProduceAnExclusionRegion]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testInvalidHiddenWindowBoundsNeverProduceAnExclusionRegion]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testInvalidWindowGeometryIsSkippedBeforeSelectingWorkingWindow]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testInvalidWindowGeometryIsSkippedBeforeSelectingWorkingWindow]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testMissingOrInvalidActiveProcessDoesNotFallBackToAnotherWindow]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testMissingOrInvalidActiveProcessDoesNotFallBackToAnotherWindow]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testMissingOwnerMetadataCannotBeMistakenForActiveApplication]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testMissingOwnerMetadataCannotBeMistakenForActiveApplication]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testNoTargetOnDisplayDoesNotHideOtherWindows]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testNoTargetOnDisplayDoesNotHideOtherWindows]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testSwitchingActiveApplicationDoesNotRetainPreviousWindow]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testSwitchingActiveApplicationDoesNotRetainPreviousWindow]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testSwitchingWindowsWithinSameApplicationChangesOnlyTheHiddenTarget]' started.
+Test Case '-[WeatherCoreTests.FocusedWindowPolicyTests testSwitchingWindowsWithinSameApplicationChangesOnlyTheHiddenTarget]' passed (0.000 seconds).
+Test Suite 'FocusedWindowPolicyTests' passed at 2026-11-06 11:16:20.959.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'FullScreenPolicyTests' started at 2026-11-06 11:16:20.959.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testDisablingOptionRemovesExistingPilesWithoutRestoringSnapshot]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testDisablingOptionRemovesExistingPilesWithoutRestoringSnapshot]' passed (0.016 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEdgeToleranceDoesNotBecomePercentageHeuristic]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEdgeToleranceDoesNotBecomePercentageHeuristic]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEnabledNativeFullScreenUsesVisibleInsetWithoutMovingNormalWindows]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEnabledNativeFullScreenUsesVisibleInsetWithoutMovingNormalWindows]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEnabledOptionIncludesWorkAreaWindowAndFloor]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testEnabledOptionIncludesWorkAreaWindowAndFloor]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testExcludedWindowStillOccludesRearAccumulation]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testExcludedWindowStillOccludesRearAccumulation]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testInvalidAreasAndWindowsDoNotSuppressTheFloor]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testInvalidAreasAndWindowsDoNotSuppressTheFloor]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testLargeNormalAndAdjacentDisplayWindowsRemainEligible]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testLargeNormalAndAdjacentDisplayWindowsRemainEligible]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testNativeFullScreenExcludesItsTopAndDisplayFloorByDefault]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testNativeFullScreenExcludesItsTopAndDisplayFloorByDefault]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testNotchSafeAreaAndWorkAreaAreRecognized]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testNotchSafeAreaAndWorkAreaAreRecognized]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testSideDockWorkAreaUsesAllFourEdges]' started.
+Test Case '-[WeatherCoreTests.FullScreenPolicyTests testSideDockWorkAreaUsesAllFourEdges]' passed (0.000 seconds).
+Test Suite 'FullScreenPolicyTests' passed at 2026-11-06 11:16:20.977.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.017 (0.018) seconds
+Test Suite 'SnowmanPositionTests' started at 2026-11-06 11:16:20.977.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testCodableRoundTripPreservesPlacement]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testCodableRoundTripPreservesPlacement]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testDragOutsideDisplayClampsToNearestEdges]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testDragOutsideDisplayClampsToNearestEdges]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testEdgePositionsKeepEntireSnowmanInsideDisplay]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testEdgePositionsKeepEntireSnowmanInsideDisplay]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testInvalidGeometryIsRejected]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testInvalidGeometryIsRejected]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testMalformedPositionsCannotPlaceSnowmanOffscreen]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testMalformedPositionsCannotPlaceSnowmanOffscreen]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testOversizedSnowmanShrinksWithoutOverflow]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testOversizedSnowmanShrinksWithoutOverflow]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testRelativePositionSurvivesDisplayResizeAndOriginChange]' started.
+Test Case '-[WeatherCoreTests.SnowmanPositionTests testRelativePositionSurvivesDisplayResizeAndOriginChange]' passed (0.000 seconds).
+Test Suite 'SnowmanPositionTests' passed at 2026-11-06 11:16:20.978.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'WeatherSimulationTests' started at 2026-11-06 11:16:20.978.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testAccumulationTransfersToAnotherDisplayAndResizes]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testAccumulationTransfersToAnotherDisplayAndResizes]' passed (0.033 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testBubblesAndConfettiHaveDistinctMotionAndSizes]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testBubblesAndConfettiHaveDistinctMotionAndSizes]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testDisabledAccumulationCannotBeRestoredByTransfer]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testDisabledAccumulationCannotBeRestoredByTransfer]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testDisablingAccumulationClearsItAndKeepsRainImpacts]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testDisablingAccumulationClearsItAndKeepsRainImpacts]' passed (0.072 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testFastParticleHitsFirstExposedEdge]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testFastParticleHitsFirstExposedEdge]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testFreshSnapshotsAfterGlobalClearDoNotRestoreAccumulation]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testFreshSnapshotsAfterGlobalClearDoNotRestoreAccumulation]' passed (0.033 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHeavyNewEffectsRespectParticleAndHeightBudgets]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHeavyNewEffectsRespectParticleAndHeightBudgets]' passed (0.798 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHeavySeasonalWeatherRespectsRestingShapeAndHeightBudgets]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHeavySeasonalWeatherRespectsRestingShapeAndHeightBudgets]' passed (0.869 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHiddenWindowRetainsAccumulationButHasNoCollision]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testHiddenWindowRetainsAccumulationButHasNoCollision]' passed (0.033 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testInvalidAndDuplicateSurfacesAreRejected]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testInvalidAndDuplicateSurfacesAreRejected]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testInvalidAndLongFrameTimesDoNotBurst]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testInvalidAndLongFrameTimesDoNotBurst]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testLongRunningSnowKeepsAnUnevenRidgeAndTaperedEdges]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testLongRunningSnowKeepsAnUnevenRidgeAndTaperedEdges]' passed (0.202 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testModeChangeResetsWeatherAndPreservesGeometry]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testModeChangeResetsWeatherAndPreservesGeometry]' passed (0.040 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsClearDisableAndModeChangeRemoveRestingParticles]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsClearDisableAndModeChangeRemoveRestingParticles]' passed (0.100 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsExpireWithoutLeavingInvisibleCollisionRidges]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsExpireWithoutLeavingInvisibleCollisionRidges]' passed (0.198 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsSettleDeterministicallyAndFollowMovingWindows]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectsSettleDeterministicallyAndFollowMovingWindows]' passed (0.187 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectTransferKeepsAllVariantsWithoutExtendingLifetime]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectTransferKeepsAllVariantsWithoutExtendingLifetime]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectTransferRejectsInvalidVariantsSizesAndLifetimes]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testNewEffectTransferRejectsInvalidVariantsSizesAndLifetimes]' passed (0.093 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testOccludedPartDoesNotInterceptParticle]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testOccludedPartDoesNotInterceptParticle]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testPartialDisplayPilesMergeByMaximumWithoutDoubleCounting]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testPartialDisplayPilesMergeByMaximumWithoutDoubleCounting]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testParticleBudgetAndInvalidSettingsRemainFinite]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testParticleBudgetAndInvalidSettingsRemainFinite]' passed (0.288 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testRainPoolsEvaporateAndStayWithinCap]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testRainPoolsEvaporateAndStayWithinCap]' passed (0.074 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalClearDisableAndModeChangeRemoveRestingShapes]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalClearDisableAndModeChangeRemoveRestingShapes]' passed (0.053 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalModesHaveDistinctFallingShapesAndMotion]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalModesHaveDistinctFallingShapesAndMotion]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalParticlesSettleDeterministicallyAndFollowTheirWindow]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalParticlesSettleDeterministicallyAndFollowTheirWindow]' passed (0.182 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalRestingShapesExpireWithoutAnInvisibleCollisionRidge]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalRestingShapesExpireWithoutAnInvisibleCollisionRidge]' passed (0.315 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalTransferKeepsUniqueItemsAndDoesNotExtendLifetime]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalTransferKeepsUniqueItemsAndDoesNotExtendLifetime]' passed (0.040 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalTransferRejectsFloorsUnknownSurfacesAndInvalidValues]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeasonalTransferRejectsFloorsUnknownSurfacesAndInvalidValues]' passed (0.039 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeededSimulationIsReproducible]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSeededSimulationIsReproducible]' passed (0.065 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSnowMovesAndResizesWithStableWindowID]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSnowMovesAndResizesWithStableWindowID]' passed (0.034 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSweptCollisionIncludesMaximumRidgeAndHorizontalCrossing]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testSweptCollisionIncludesMaximumRidgeAndHorizontalCrossing]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testTransferIgnoresOtherModesFloorsAndMissingIDs]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testTransferIgnoresOtherModesFloorsAndMissingIDs]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testTransferSanitizesHeightsAndRespectsModeCap]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testTransferSanitizesHeightsAndRespectsModeCap]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testUnchangedWindowRefreshKeepsEveryWeatherState]' started.
+Test Case '-[WeatherCoreTests.WeatherSimulationTests testUnchangedWindowRefreshKeepsEveryWeatherState]' passed (0.302 seconds).
+Test Suite 'WeatherSimulationTests' passed at 2026-11-06 11:16:25.033.
+	 Executed 34 tests, with 0 failures (0 unexpected) in 4.052 (4.055) seconds
+Test Suite 'WindowGeometryTests' started at 2026-11-06 11:16:25.033.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testEqualTopEdgesRespectFrontToBackOrdering]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testEqualTopEdgesRespectFrontToBackOrdering]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testForegroundBelowRearTopDoesNotHideIt]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testForegroundBelowRearTopDoesNotHideIt]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testForegroundWindowSplitsRearTopIntoLocalIntervals]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testForegroundWindowSplitsRearTopIntoLocalIntervals]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testFullOcclusionRetainsSurfaceWithNoVisibleSegments]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testFullOcclusionRetainsSurfaceWithNoVisibleSegments]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testInvalidBoundsAreNotSurfacesOrOccluders]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testInvalidBoundsAreNotSurfacesOrOccluders]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testMultipleOverlappingOccludersAreSubtractedOnce]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testMultipleOverlappingOccludersAreSubtractedOnce]' passed (0.000 seconds).
+Test Case '-[WeatherCoreTests.WindowGeometryTests testTouchingBottomAndSideEdgesRemainVisible]' started.
+Test Case '-[WeatherCoreTests.WindowGeometryTests testTouchingBottomAndSideEdgesRemainVisible]' passed (0.000 seconds).
+Test Suite 'WindowGeometryTests' passed at 2026-11-06 11:16:25.035.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'WeatherCoreTests.xctest' passed at 2026-11-06 11:16:25.035.
+	 Executed 76 tests, with 0 failures (0 unexpected) in 4.076 (4.082) seconds
+Test Suite 'All tests' passed at 2026-11-06 11:16:25.035.
+	 Executed 76 tests, with 0 failures (0 unexpected) in 4.076 (4.085) seconds
+◇ Test run started.
+↳ Testing Library Version: 2403
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

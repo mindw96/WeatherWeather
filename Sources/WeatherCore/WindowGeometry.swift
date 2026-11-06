@@ -8,15 +8,18 @@ public struct WindowGeometry: Equatable, Sendable {
     public var width: Double
     public var height: Double
     public var ownerProcessID: Int32?
+    public var cornerRadius: Double
 
     public init(id: UInt32, x: Double, y: Double, width: Double, height: Double,
-                ownerProcessID: Int32? = nil) {
+                ownerProcessID: Int32? = nil, cornerRadius: Double = 0) {
         self.id = id
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.ownerProcessID = ownerProcessID
+        self.cornerRadius = cornerRadius.isFinite && width.isFinite && height.isFinite
+            ? min(max(0, cornerRadius), max(0, min(width, height) / 2)) : 0
     }
 
     var valid: Bool {
@@ -69,7 +72,8 @@ public func visibleTopSegments(for windows: [WindowGeometry]) -> [Surface] {
         }
 
         result.append(Surface(id: window.id, x: window.x, y: window.y,
-                              width: window.width, segments: intervals))
+                              width: window.width, segments: intervals,
+                              cornerRadius: window.cornerRadius.isFinite ? min(window.cornerRadius, window.height / 2) : 0))
         foreground.append(window)
     }
     return result

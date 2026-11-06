@@ -30,14 +30,16 @@ public struct Surface: Equatable, Sendable {
     public var width: Double
     /// Visible intervals relative to x. An empty list means a fully covered edge.
     public var segments: [SurfaceSegment]
+    public var cornerRadius: Double
 
     public init(id: UInt32, x: Double, y: Double, width: Double,
-                segments: [SurfaceSegment]? = nil) {
+                segments: [SurfaceSegment]? = nil, cornerRadius: Double = 0) {
         self.id = id
         self.x = x
         self.y = y
         self.width = width
         self.segments = segments ?? [.init(minX: 0, maxX: width)]
+        self.cornerRadius = cornerRadius.isFinite && width.isFinite ? min(max(0, cornerRadius), max(0, width / 2)) : 0
     }
 }
 
@@ -92,6 +94,24 @@ public struct Pile: Equatable, Sendable {
     public var heights: [Double]
     public var segments: [SurfaceSegment]
     public var mode: WeatherMode
+    public var cornerRadius: Double = 0
+
+    /// Drawing and swept collisions use the same sampled, rounded upper edge.
+    public func baselineY(at localX: Double) -> Double {
+        guard cornerRadius > 0, cornerRadius.isFinite, width > 0, width.isFinite,
+              heights.count > 1, localX.isFinite else { return y }
+        let radius = min(cornerRadius, width / 2)
+        let spacing = width / Double(heights.count - 1)
+        let position = min(max(localX / width, 0), 1) * Double(heights.count - 1)
+        let lower = Int(position), upper = min(lower + 1, heights.count - 1)
+        func offset(_ bin: Int) -> Double {
+            let x = Double(bin) * spacing
+            let distance = max(0, radius - min(x, width - x))
+            return radius - sqrt(max(0, radius * radius - distance * distance))
+        }
+        let fraction = position - Double(lower)
+        return y + offset(lower) * (1 - fraction) + offset(upper) * fraction
+    }
 
     public func height(at localX: Double) -> Double {
         guard width > 0, !heights.isEmpty, localX.isFinite else { return 0 }
@@ -168,6 +188,8 @@ public final class WeatherSimulation {
                   surface.width.isFinite, surface.width >= 1,
                   surface.width <= 65_536, ids.insert(surface.id).inserted else { return nil }
             var result = surface
+            result.cornerRadius = surface.id != 0 && surface.cornerRadius.isFinite
+                ? min(max(0, surface.cornerRadius), surface.width / 2) : 0
             result.segments = surface.segments.compactMap { segment in
                 guard segment.minX.isFinite, segment.maxX.isFinite else { return nil }
                 let start = max(0, segment.minX), end = min(surface.width, segment.maxX)
@@ -177,7 +199,7 @@ public final class WeatherSimulation {
         }
         let previous = Dictionary(uniqueKeysWithValues: piles.map { ($0.surfaceID, $0) })
         piles = surfaces.map { surface in
-            let count = min(2_048, max(2, Int(ceil(surface.width / 6)) + 1))
+            let count = min(2_048, max(2, Int(ceil(surface.width / (surface.cornerRadius > 0 ? 2 : 6))) + 1))
             let old = previous[surface.id]
             let heights: [Double]
             if let old, old.width == surface.width, old.heights.count == count {
@@ -190,7 +212,7 @@ public final class WeatherSimulation {
             }
             return Pile(surfaceID: surface.id, x: surface.x, y: surface.y,
                         width: surface.width, heights: heights,
-                        segments: surface.segments, mode: mode)
+                        segments: surface.segments, mode: mode, cornerRadius: surface.cornerRadius)
         }
         settledParticles.removeAll { !ids.contains($0.surfaceID) }
     }
@@ -405,27 +427,47 @@ public final class WeatherSimulation {
 
     /// Swept intersection prevents fast rain from tunnelling through window edges.
     func firstCollision(fromX x0: Double, y y0: Double, toX x1: Double, y y1: Double) -> Collision? {
-        guard y1 > y0 else { return nil }
+        guard x0.isFinite, y0.isFinite, x1.isFinite, y1.isFinite, y1 > y0 else { return nil }
         var nearest: Collision?
         let maximumHeight = maximumAccumulationHeight
+        let dx = x1 - x0, dy = y1 - y0
         for index in piles.indices {
             let pile = piles[index]
             // Skip edges outside the swept particle bounds before sampling the ridge.
             guard !pile.segments.isEmpty,
-                  y0 <= pile.y, y1 >= pile.y - maximumHeight,
+                  y0 <= pile.y + pile.cornerRadius, y1 >= pile.y - maximumHeight,
                   max(x0, x1) >= pile.x, min(x0, x1) <= pile.x + pile.width else { continue }
-            var top = pile.y - pile.height(at: x1 - pile.x)
-            var t = (top - y0) / (y1 - y0)
-            guard t >= 0, t <= 1 else { continue }
-            var x = x0 + (x1 - x0) * t
-            top = pile.y - pile.height(at: x - pile.x)
-            t = (top - y0) / (y1 - y0)
-            x = x0 + (x1 - x0) * t
-            let localX = x - pile.x
-            guard t >= 0, t <= 1,
-                  pile.segments.contains(where: { localX >= $0.minX && localX <= $0.maxX }),
-                  nearest == nil || t < nearest!.fraction else { continue }
-            nearest = Collision(pileIndex: index, x: x, y: top, fraction: t)
+            if dx == 0 {
+                let localX = x0 - pile.x
+                let top = pile.baselineY(at: localX) - pile.height(at: localX)
+                let t = (top - y0) / dy
+                if t >= 0, t <= 1,
+                   pile.segments.contains(where: { localX >= $0.minX && localX <= $0.maxX }),
+                   nearest == nil || t < nearest!.fraction {
+                    nearest = Collision(pileIndex: index, x: x0, y: top, fraction: t)
+                }
+                continue
+            }
+            let spacing = pile.width / Double(pile.heights.count - 1)
+            let first = min(pile.heights.count - 2, max(0, Int(floor((min(x0, x1) - pile.x) / spacing))))
+            let last = min(pile.heights.count - 2, max(0, Int(floor((max(x0, x1) - pile.x) / spacing))))
+            // Visit only the profile bins crossed by this step; each is an exact line intersection.
+            for bin in first...last {
+                let left = Double(bin) * spacing, right = Double(bin + 1) * spacing
+                let t0 = (pile.x + left - x0) / dx, t1 = (pile.x + right - x0) / dx
+                let start = max(0, min(t0, t1)), end = min(1, max(t0, t1))
+                guard start <= end, nearest == nil || start <= nearest!.fraction else { continue }
+                let topLeft = pile.baselineY(at: left) - pile.heights[bin]
+                let topRight = pile.baselineY(at: right) - pile.heights[bin + 1]
+                let slope = (topRight - topLeft) / spacing
+                let crossingSpeed = dy - slope * dx
+                guard crossingSpeed > 0 else { continue }
+                let t = (topLeft + slope * (x0 - pile.x - left) - y0) / crossingSpeed
+                guard t >= start, t <= end, nearest == nil || t < nearest!.fraction else { continue }
+                let x = x0 + dx * t, localX = x - pile.x
+                guard pile.segments.contains(where: { localX >= $0.minX && localX <= $0.maxX }) else { continue }
+                nearest = Collision(pileIndex: index, x: x, y: y0 + dy * t, fraction: t)
+            }
         }
         return nearest
     }
@@ -514,7 +556,7 @@ public final class WeatherSimulation {
            let segment = pile.segments.first(where: { hit.x - pile.x >= $0.minX && hit.x - pile.x <= $0.maxX }) {
             let localX = hit.x - pile.x
             let edge = localX - segment.minX < segment.maxX - localX ? segment.minX : segment.maxX
-            splashes.append(Splash(x: pile.x + edge, y: pile.y + 2,
+            splashes.append(Splash(x: pile.x + edge, y: pile.baselineY(at: edge) + 2,
                                    vx: 0, vy: 55, life: 0.75))
         }
     }

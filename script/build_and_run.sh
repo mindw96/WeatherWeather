@@ -48,8 +48,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>WindowWeather</string>
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.6.0</string>
-<key>CFBundleVersion</key><string>7</string>
+<key>CFBundleShortVersionString</key><string>0.6.1</string>
+<key>CFBundleVersion</key><string>8</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
@@ -75,6 +75,7 @@ case "$MODE" in
     /usr/bin/python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print(json.dumps(r,indent=2)); sys.exit(0 if r["passed"] else 1)' "$REPORT"
     ;;
   --previews)
+    rm -f "$ROOT_DIR/docs/validation/corner-validation.json"
     /usr/bin/open -n -W "$APP_BUNDLE" --args --render-previews "$ROOT_DIR/docs/validation"
     test -s "$ROOT_DIR/docs/validation/snow-preview.png"
     test -s "$ROOT_DIR/docs/validation/rain-preview.png"
@@ -82,6 +83,7 @@ case "$MODE" in
     test -s "$ROOT_DIR/docs/validation/cherryBlossom-preview.png"
     test -s "$ROOT_DIR/docs/validation/bubbles-preview.png"
     test -s "$ROOT_DIR/docs/validation/confetti-preview.png"
+    /usr/bin/python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print(json.dumps(r,indent=2)); sys.exit(0 if r["passed"] else 1)' "$ROOT_DIR/docs/validation/corner-validation.json"
     ;;
   --validate-focus|--validate-snowman)
     if [[ "$MODE" == "--validate-focus" ]]; then

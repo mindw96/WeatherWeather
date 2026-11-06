@@ -55,8 +55,8 @@ enum Validation {
                 view.simulation.intensity = 0.8
                 view.simulation.wind = 0.2
                 view.simulation.setSurfaces([
-                    Surface(id: 1, x: 65, y: 270, width: 370),
-                    Surface(id: 2, x: 460, y: 170, width: 280),
+                    Surface(id: 1, x: 65, y: 270, width: 370, cornerRadius: 26),
+                    Surface(id: 2, x: 460, y: 170, width: 280, cornerRadius: 26),
                     Surface(id: 0, x: 0, y: 479, width: 800)
                 ])
                 for _ in 0..<3600 { view.simulation.update(deltaTime: 1.0 / 30.0) }
@@ -73,6 +73,7 @@ enum Validation {
                 }
             }
         } catch { fputs("Preview failed: \(error)\n", stderr) }
+        CornerValidation.run(to: directory)
     }
 
     static func smokeTest(delegate: AppDelegate, output: String) {
@@ -99,6 +100,10 @@ enum Validation {
             overlays.refreshSurfaces()
             checks["realWindowDetected"] = WindowTracker.windows().contains { $0.id == id }
             checks["windowSurfaceCreated"] = overlays.displays.contains { $0.view.simulation.surfaces.contains { $0.id == id } }
+            let curvedSurface = overlays.displays.flatMap { $0.view.simulation.surfaces }.first { $0.id == id }
+            checks["trackedWindowUsesEstimatedCurve"] = curvedSurface?.cornerRadius == WindowTracker.estimatedCornerRadius
+            checks["screenFloorsRemainFlat"] = overlays.displays.flatMap { $0.view.simulation.piles }
+                .filter { $0.surfaceID == 0 }.allSatisfy { $0.cornerRadius == 0 }
             let before = WindowTracker.windows().first { $0.id == id }
             let frameBeforeMove = fixture.frame
             fixture.setFrameOrigin(NSPoint(x: fixture.frame.minX + 45, y: fixture.frame.minY + 35))
