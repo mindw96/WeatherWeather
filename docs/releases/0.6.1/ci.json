@@ -1,0 +1,14 @@
+[
+  {
+    "conclusion": "success",
+    "headSha": "04c2e28f6ce7d555fd7775b2834947158fb61059",
+    "status": "completed",
+    "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42150165650"
+  },
+  {
+    "conclusion": "success",
+    "headSha": "04c2e28f6ce7d555fd7775b2834947158fb61059",
+    "status": "completed",
+    "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42150165748"
+  }
+]

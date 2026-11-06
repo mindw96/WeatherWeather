@@ -2,7 +2,7 @@
 
 창 모서리 위에서 눈이 일직선으로 떠 보이던 부분을 개선했습니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다.
 
-배포 상태: Developer ID 서명·Apple 공증과 로컬 배포 파일 검증을 완료했습니다.
+배포 상태: Developer ID 서명·Apple 공증과 공개 배포 파일 검증을 완료했습니다.
 
 ## 이번 변경
 

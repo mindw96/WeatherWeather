@@ -1,0 +1,49 @@
+{
+  "version": "0.6.1",
+  "anonymous": true,
+  "downloadDirectory": "/private/tmp/window-weather-061-public.0b7oc2et",
+  "assets": [
+    {
+      "file": "WindowWeather-0.6.1-macOS-universal.dmg",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/WindowWeather-0.6.1-macOS-universal.dmg",
+      "status": "200",
+      "sha256": "06975bf2301985185fbe91358402d7eb761897e2be62dbab7f871713c7acb19b",
+      "expected": "06975bf2301985185fbe91358402d7eb761897e2be62dbab7f871713c7acb19b",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.6.1-macOS-universal.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/WindowWeather-0.6.1-macOS-universal.zip",
+      "status": "200",
+      "sha256": "1be729d106e28828d93dd54b3e467dba97056e49dcc6b71d104802fd5fb13f23",
+      "expected": "1be729d106e28828d93dd54b3e467dba97056e49dcc6b71d104802fd5fb13f23",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.6.1-update.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/WindowWeather-0.6.1-update.zip",
+      "status": "200",
+      "sha256": "1be729d106e28828d93dd54b3e467dba97056e49dcc6b71d104802fd5fb13f23",
+      "expected": "1be729d106e28828d93dd54b3e467dba97056e49dcc6b71d104802fd5fb13f23",
+      "passed": true
+    },
+    {
+      "file": "appcast.xml",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/appcast.xml",
+      "status": "200",
+      "sha256": "46b177c2ee01220fd84f55f2035548a0784044910f3fa0f4a73ace52fdcc06e4",
+      "expected": "46b177c2ee01220fd84f55f2035548a0784044910f3fa0f4a73ace52fdcc06e4",
+      "passed": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.6.1/SHA256SUMS.txt",
+      "status": "200",
+      "sha256": "6578ca34d4d6d79339918545d0bf2f1a4d146a78806e2ad71a4697cabcda3ec9",
+      "expected": "6578ca34d4d6d79339918545d0bf2f1a4d146a78806e2ad71a4697cabcda3ec9",
+      "passed": true
+    }
+  ],
+  "latestMatches": true,
+  "passed": true
+}

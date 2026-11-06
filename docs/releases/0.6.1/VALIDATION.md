@@ -27,7 +27,13 @@ Core 결과는 소스를 격리한 SwiftPM 패키지에서 수행했으며 원�
 
 공유 ZIP에는 앱 하나만 있으며 업데이트 ZIP과 바이트가 같습니다. Sparkle appcast의 빌드8·0.6.1·ZIP URL·크기 및 EdDSA 서명을 확인했습니다. DMG의 서명·티켓·마운트와 내부 앱·Applications 바로가기를 검증했습니다. `notarization.json`, `dmg-notarization.json`, `artifact-verification.txt`, `dmg-artifact-verification.txt`에 근거가 있습니다.
 
-공개 게시·다운로드 검증은 진행 중입니다.
+현재 Mac의 `~/Applications/WindowWeather.app`을 백업 후 같은 공증 0.6.1로 교체했습니다. 새 설치본의 엄격 서명·티켓·Gatekeeper와 실행 앱의 표시 이름 `쌓임쌓임`·Dock 정책을 확인했습니다. `runtime-check.json`에 기록했습니다. 이번 실제 창 검증의 연결 화면은 1개이며 모니터 간 상태 전달은 핵심 테스트로 확인했습니다.
+
+[v0.6.1 Release](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.1)를 공개했습니다. DMG·공유 ZIP·업데이트 ZIP·appcast·체크섬을 인증 없이 다시 받아 모두 HTTP 200과 로컬 SHA-256 일치를 확인했습니다. latest 피드도 같은 appcast와 바이트가 같습니다. 결과는 `public-download-verification.json`에 기록합니다.
+
+실제 Sparkle의 분리된 테스트 호스트에서 빌드7(0.6.0)은 빌드8(0.6.1)과 정확한 업데이트 ZIP URL을 받았고, 빌드8은 OnLatestVersion으로 완료됐습니다. 자동 확인 ON/OFF 설정 저장도 통과했습니다. 소스와 원시 결과는 `update-probe/`에 보관합니다. Sparkle를 통한 실제 앱 교체·설치·재실행은 수행하지 않았습니다.
+
+제품 소스 커밋 `04c2e28f6ce7d555fd7775b2834947158fb61059`의 [main CI](https://github.com/mindw96/WeatherWeather/actions/runs/42150165650)와 [v0.6.1 태그 CI](https://github.com/mindw96/WeatherWeather/actions/runs/42150165748)는 앱 빌드·업데이트 설정·핵심 테스트를 통과했습니다. `ci.json`에 결과를 보관합니다.
 
 ## 한계
 
