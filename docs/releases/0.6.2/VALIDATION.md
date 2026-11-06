@@ -20,7 +20,11 @@
 
 ## 배포
 
-앱·DMG 서명·공증, GitHub 게시·CI, 공개 다운로드·업데이트 확인과 로컬 설치를 진행 중입니다. 실제 결과를 확인한 뒤 갱신합니다.
+통합 Release 앱 빌드와 중첩 Sparkle 코드 및 앱의 Developer ID 서명·엄격 코드 서명 검사를 통과했습니다. iCloud 읽기 지연을 피하려고 해시를 기록한 임시 소스 사본에서 같은 배포 스크립트를 사용했습니다. 제품·테스트·설정·패키지 파일이 원본 작업 폴더와 일치하는 것을 확인했으며 `release-source-snapshot.json`에 보관합니다.
+
+Apple 제출 단계에서 기존 키체인 프로필 `DdayNotary`를 찾지 못해 exit69로 중단됐습니다. 로그인 키체인을 명시한 조회도 같은 결과입니다. Apple 제출 ID는 없고 앱·상태 파일을 보존했습니다. `notarization-blocker.json`에 재개 경로를 기록합니다. 사용자에게 사용할 프로필 또는 기존 프로필 복원을 요청했습니다.
+
+공증·DMG 완성·공개 Release·latest 피드 변경·현재 설치본 교체는 아직 진행하지 않았습니다. 기존 공개 0.6.1과 설치본을 유지합니다. 0.6.2 테스트 앱은 별도 임시 경로에서 검증했습니다. 소스 커밋 `7a05e02357e51323e544ef0ac6b2d22719afa407`과 v0.6.2 태그를 push했습니다. [main CI](https://github.com/mindw96/WeatherWeather/actions/runs/42155508580)와 [태그 CI](https://github.com/mindw96/WeatherWeather/actions/runs/42155508728)는 앱 빌드·업데이트 구성·전체 XCTest를 모두 통과했습니다. `ci.json`에 결과를 기록했습니다.
 
 ## 남은 범위
 

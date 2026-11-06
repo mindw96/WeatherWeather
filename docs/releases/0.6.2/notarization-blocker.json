@@ -1,0 +1,13 @@
+{
+  "phase": "notarization-authentication",
+  "status": "blocked",
+  "profile": "DdayNotary",
+  "exitCode": 69,
+  "error": "No Keychain password item found for profile: DdayNotary",
+  "appSigned": true,
+  "submissionID": null,
+  "statePath": "/private/tmp/window-weather-062-release-source.xtt5bu28/dist/releases/0.6.2/release-state.json",
+  "appPath": "/private/tmp/window-weather-package.AldpnA/WindowWeather-0.6.2-macOS/WindowWeather.app",
+  "automaticNotarizationAlreadyAuthorized": true,
+  "needed": "Restore existing profile or supply an existing usable profile name; no credentials in chat."
+}
