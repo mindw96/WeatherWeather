@@ -1,0 +1,51 @@
+{
+  "version": "0.7.0",
+  "anonymous": true,
+  "downloadDirectory": "/private/tmp/window-weather-070-public.6d8om_yl",
+  "assets": [
+    {
+      "file": "WindowWeather-0.7.0-macOS-universal.dmg",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/WindowWeather-0.7.0-macOS-universal.dmg",
+      "status": "200",
+      "sha256": "b20d428b286b83185434a3378ba746069552377f805aaedb06bcf3bac97a92e7",
+      "expected": "b20d428b286b83185434a3378ba746069552377f805aaedb06bcf3bac97a92e7",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.7.0-macOS-universal.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/WindowWeather-0.7.0-macOS-universal.zip",
+      "status": "200",
+      "sha256": "b5003a4d555ed40007e9d4d6bae943ffe17da8b2cf56f66ed023be045d808be8",
+      "expected": "b5003a4d555ed40007e9d4d6bae943ffe17da8b2cf56f66ed023be045d808be8",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.7.0-update.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/WindowWeather-0.7.0-update.zip",
+      "status": "200",
+      "sha256": "b5003a4d555ed40007e9d4d6bae943ffe17da8b2cf56f66ed023be045d808be8",
+      "expected": "b5003a4d555ed40007e9d4d6bae943ffe17da8b2cf56f66ed023be045d808be8",
+      "passed": true
+    },
+    {
+      "file": "appcast.xml",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/appcast.xml",
+      "status": "200",
+      "sha256": "d678065d96b8d87a07de4796d1716cbd982e0a794fd78fc248a2abe60c48f0c7",
+      "expected": "d678065d96b8d87a07de4796d1716cbd982e0a794fd78fc248a2abe60c48f0c7",
+      "passed": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/SHA256SUMS.txt",
+      "status": "200",
+      "sha256": "e291133d6a31caaa63120f3f42c8bfaaed224744f3b66634a96804eb7c65296c",
+      "expected": "e291133d6a31caaa63120f3f42c8bfaaed224744f3b66634a96804eb7c65296c",
+      "passed": true
+    }
+  ],
+  "latestMatches": false,
+  "passed": false,
+  "observedLatestVersion": "0.6.3",
+  "observedLatestBuild": "10"
+}

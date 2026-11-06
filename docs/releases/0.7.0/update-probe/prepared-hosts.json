@@ -1,5 +1,5 @@
 {
-  "status": "prepared-not-executed",
+  "status": "executed-after-publication-passed",
   "frameworkVersion": "2.10.1",
   "frameworkSource": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework",
   "architecture": "arm64",
@@ -56,7 +56,9 @@
         "--args",
         "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/available.json",
         "available"
-      ]
+      ],
+      "feedSelectionPassed": true,
+      "elapsedSeconds": 0.9814120531082153
     },
     {
       "app": "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build11.app",
@@ -81,8 +83,10 @@
         "--args",
         "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/current.json",
         "current"
-      ]
+      ],
+      "feedSelectionPassed": true,
+      "elapsedSeconds": 0.4511899948120117
     }
   ],
-  "scope": "Compiled and ad-hoc signature verified only. No Sparkle feed requests, payload download, or install. Existing application preferences, caches, and signing keys were not changed."
+  "scope": "Compiled and ad-hoc signature verified. After publication, both isolated hosts passed actual Sparkle feed selection and automatic-check preference persistence. No update presentation, payload download, or installation. Existing product preferences, caches, and signing keys were not changed."
 }

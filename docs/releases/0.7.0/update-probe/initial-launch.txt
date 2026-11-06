@@ -1,0 +1,12 @@
+2026-11-07: Initial LaunchServices calls from the execution sandbox.
+Both commands exited 1 before the probe started. No probe JSON was produced.
+
+/usr/bin/open -n -W /private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build10.app --args /Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/available.json available
+The application cannot be opened for an unexpected reason, error=Error Domain=NSOSStatusErrorDomain Code=-10827 "kLSNoExecutableErr: The executable is missing" UserInfo={_LSLine=4357, _LSFunction=_LSOpenStuffCallLocal, _LSFile=LSOpenCore.mm, _LSErrorMessage=kLSNoExecutableErr}
+
+/usr/bin/open -n -W /private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build11.app --args /Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/current.json current
+The application cannot be opened for an unexpected reason, error=Error Domain=NSOSStatusErrorDomain Code=-10827 "kLSNoExecutableErr: The executable is missing" UserInfo={_LSLine=4357, _LSFunction=_LSOpenStuffCallLocal, _LSFile=LSOpenCore.mm, _LSErrorMessage=kLSNoExecutableErr}
+
+The two executables existed with executable permissions, were Mach-O arm64 binaries,
+and matched CFBundleExecutable. The identical app paths and commands then ran
+successfully outside the execution sandbox. See available.json and current.json.

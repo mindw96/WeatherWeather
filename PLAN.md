@@ -184,4 +184,4 @@ Windows 배포일이나 현재 코드의 이식 비용은 아직 확정하지 �
 - [x] [모니터 선택 동작](docs/DISPLAY_SELECTION.md)에 재연결·미러링·UUID 없는 세션 ID 대체의 한계 기록.
 - [x] 핵심 76개·업데이트 구성 6개·모서리/겹침 96개·포커스 62개·눈사람 26개·AppKit 69개 통과. 연결된 3개 화면에서 모니터 선택 관련 22개 검사 및 설정 미리보기 확인. 물리 케이블 재연결·CPU 실측은 미수행.
 - [x] 통합 Release 빌드·Developer ID 서명·WindowWeatherNotary 앱/DMG 공증 Accepted·Sparkle EdDSA 서명·설치 파일 검증. ZIP과 DMG의 앱 서명·공증 티켓·Gatekeeper 및 통합 아키텍처 확인.
-- [ ] GitHub 0.7.0 게시 후 공개 다운로드 해시·latest 피드·실제 Sparkle 버전 판별과 설치본 확인.
+- [x] GitHub 0.7.0 공개, 다섯 다운로드 해시·latest 피드·실제 Sparkle 빌드10→11 및 최신 판별 확인. 현재 Mac에 공증 앱 설치·실행. 게시 직후 latest 피드 지연과 동일 URL 재확인 결과 보존.
