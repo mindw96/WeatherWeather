@@ -26,7 +26,7 @@ if arguments not in ([], ['--resume']):
 resume = bool(arguments)
 environment = dict(os.environ)
 environment.setdefault('WEATHER_SIGN_IDENTITY', 'Developer ID Application: Dongwook Min (4J7HGK26PF)')
-profile = environment.get('WEATHER_NOTARY_PROFILE', 'DdayNotary')
+profile = environment.get('WEATHER_NOTARY_PROFILE', 'WindowWeatherNotary')
 timeout = int(environment.get('WEATHER_NOTARY_TIMEOUT_SECONDS', '1200'))
 if timeout < 30:
     raise SystemExit('WEATHER_NOTARY_TIMEOUT_SECONDS must be at least 30.')

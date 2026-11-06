@@ -42,27 +42,28 @@ final class WeatherView: NSView {
         context.setLineCap(.round)
         let settledBySurface = Dictionary(grouping: simulation.settledParticles, by: \.surfaceID)
 
-        for pile in simulation.piles {
+        // Paint rear accumulation first, just like the windows carrying it.
+        for pile in simulation.piles.reversed() {
             // Mounds and settled shapes extend above the window's rectangle.
             guard pile.surfaceID != hiddenFocusedWindow?.id else { continue }
             let settled = settledBySurface[pile.surfaceID] ?? []
             guard simulation.mode.hasSettledParticles ? !settled.isEmpty : pile.heights.contains(where: { $0 > 0.01 }) else { continue }
             context.saveGState()
-            let clip = CGMutablePath()
+            let band = CGRect(x: pile.x, y: pile.y - 36, width: pile.width, height: 44 + pile.cornerRadius)
+            context.clip(to: band)
             let foreground = pile.surfaceID == 0 ? windowGeometry[...] : windowGeometry.prefix { $0.id != pile.surfaceID }
-            for segment in pile.segments {
-                var regions = [CGRect(x: pile.x + segment.minX, y: pile.y - 36, width: segment.maxX - segment.minX, height: 44 + pile.cornerRadius)]
-                // Clip the full mound, including an occluder ending just above its baseline.
-                for window in foreground {
-                    let cover = CGRect(x: window.x, y: window.y, width: window.width, height: window.height)
-                    regions = regions.flatMap { subtract(cover, from: $0) }
-                }
-                for region in regions { clip.addRect(region) }
+            // Baseline collision intervals cannot describe visibility above a mound.
+            for window in foreground {
+                let cover = CGRect(x: window.x, y: window.y, width: window.width, height: window.height)
+                guard band.intersects(cover) else { continue }
+                let visible = CGMutablePath()
+                visible.addRect(band)
+                visible.addRoundedRect(in: cover, cornerWidth: window.cornerRadius, cornerHeight: window.cornerRadius)
+                context.addPath(visible)
+                // Sequential clips subtract the union; one even-odd path would reopen overlaps.
+                context.clip(using: .evenOdd)
             }
-            // An empty Core Graphics path does not reliably establish an empty clip.
-            guard !clip.isEmpty else { context.restoreGState(); continue }
-            context.addPath(clip)
-            context.clip()
+            guard !context.boundingBoxOfClipPath.isEmpty else { context.restoreGState(); continue }
             if simulation.mode.hasSettledParticles {
                 for item in settled {
                     let localX = item.position * pile.width
@@ -271,17 +272,6 @@ final class WeatherView: NSView {
         shape.closeSubpath()
         return shape
     }()
-
-    private func subtract(_ cover: CGRect, from source: CGRect) -> [CGRect] {
-        let hit = source.intersection(cover)
-        guard !hit.isNull, !hit.isEmpty else { return [source] }
-        return [
-            CGRect(x: source.minX, y: source.minY, width: source.width, height: hit.minY - source.minY),
-            CGRect(x: source.minX, y: hit.maxY, width: source.width, height: source.maxY - hit.maxY),
-            CGRect(x: source.minX, y: hit.minY, width: hit.minX - source.minX, height: hit.height),
-            CGRect(x: hit.maxX, y: hit.minY, width: source.maxX - hit.maxX, height: hit.height)
-        ].filter { $0.width > 0 && $0.height > 0 }
-    }
 
     private func drawDemo(in context: CGContext) {
         context.setFillColor(NSColor(calibratedRed: 0.06, green: 0.10, blue: 0.17, alpha: 1).cgColor)

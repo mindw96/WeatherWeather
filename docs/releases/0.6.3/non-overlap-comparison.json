@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "note": "Deterministic non-overlapping previews; exact PNG byte equality with 0.6.2 renderer.",
+  "checks": {
+    "snow": {
+      "samePNGBytes": true,
+      "before": "1d11550ea3d737d0866979554f12a0628cbb0e8db11d26ce8e3e1a528ebe870c",
+      "after": "1d11550ea3d737d0866979554f12a0628cbb0e8db11d26ce8e3e1a528ebe870c"
+    },
+    "rain": {
+      "samePNGBytes": true,
+      "before": "b9468f47a62468724edebc335851d25ac7b5a5a3899cc05d2eac93ece1109a67",
+      "after": "b9468f47a62468724edebc335851d25ac7b5a5a3899cc05d2eac93ece1109a67"
+    },
+    "autumn": {
+      "samePNGBytes": true,
+      "before": "3236d9e482f0fa9b875fce20647931f8bc9e0c191b47dcd81db0c04d35e3ad6b",
+      "after": "3236d9e482f0fa9b875fce20647931f8bc9e0c191b47dcd81db0c04d35e3ad6b"
+    },
+    "cherryBlossom": {
+      "samePNGBytes": true,
+      "before": "f33eb153b53b1b085cf56634b8d1570160cb380fa5807aa1e1e45de26ce152dc",
+      "after": "f33eb153b53b1b085cf56634b8d1570160cb380fa5807aa1e1e45de26ce152dc"
+    },
+    "bubbles": {
+      "samePNGBytes": true,
+      "before": "d16a5fec54a6d55a4977e5c3f61478ff971c6a7e7ae7658f73f499005f60c7f1",
+      "after": "d16a5fec54a6d55a4977e5c3f61478ff971c6a7e7ae7658f73f499005f60c7f1"
+    },
+    "confetti": {
+      "samePNGBytes": true,
+      "before": "34d6ecf77b620762ff8b5ce5735f27a0b56abd9e15cb98c88d360e41c48a8632",
+      "after": "34d6ecf77b620762ff8b5ce5735f27a0b56abd9e15cb98c88d360e41c48a8632"
+    }
+  }
+}

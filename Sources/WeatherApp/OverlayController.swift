@@ -98,7 +98,12 @@ final class OverlayController {
         let accumulated = displays.flatMap { $0.view.simulation.piles }.filter { $0.surfaceID != 0 }
         let settled = displays.flatMap { $0.view.simulation.settledParticles }.filter { $0.surfaceID != 0 }
         for display in displays {
-            let local = WindowTracker.localWindows(windows, screen: display.screen)
+            let policy = WindowTracker.fullScreenPolicy(screen: display.screen)
+            let local = WindowTracker.localWindows(windows, screen: display.screen).map { window in
+                var window = window
+                if policy.isScreenFilling(window) { window.cornerRadius = 0 }
+                return window
+            }
             display.view.windowGeometry = local
             // Visibility only: leave collisions and existing piles intact so a
             // focus switch or re-enabling the option restores the scene naturally.
@@ -106,8 +111,7 @@ final class OverlayController {
                 in: local, focusedWindowID: focusedID,
                 showEffectsOnFocusedWindow: preferences.showEffectsOnFocusedWindow
             )
-            let surfaces = WindowTracker.fullScreenPolicy(screen: display.screen)
-                .surfaces(for: local, accumulateOnFullScreen: preferences.accumulateOnFullScreen)
+            let surfaces = policy.surfaces(for: local, accumulateOnFullScreen: preferences.accumulateOnFullScreen)
             display.view.simulation.setSurfaces(surfaces)
             display.view.simulation.inheritAccumulation(from: accumulated)
             display.view.simulation.inheritSettledParticles(from: settled)

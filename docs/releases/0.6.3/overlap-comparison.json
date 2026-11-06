@@ -1,0 +1,26 @@
+{
+  "baseline": "v0.6.2 WeatherView.swift and OverlayController.swift with identical new fixtures",
+  "beforePassed": false,
+  "afterPassed": true,
+  "regressionsReproduced": [
+    "autumnCoveredBaselineRetainsVisibleRidge",
+    "autumnEqualTopRidgeHasNoVerticalCut",
+    "autumnRearVisibleThroughRoundedCorner",
+    "bubblesCoveredBaselineRetainsVisibleRidge",
+    "bubblesEqualTopRidgeHasNoVerticalCut",
+    "bubblesRearVisibleThroughRoundedCorner",
+    "cherryBlossomCoveredBaselineRetainsVisibleRidge",
+    "cherryBlossomEqualTopRidgeHasNoVerticalCut",
+    "cherryBlossomRearVisibleThroughRoundedCorner",
+    "confettiCoveredBaselineRetainsVisibleRidge",
+    "confettiEqualTopRidgeHasNoVerticalCut",
+    "confettiRearVisibleThroughRoundedCorner",
+    "rainCoveredBaselineRetainsVisibleRidge",
+    "rainEqualTopRidgeHasNoVerticalCut",
+    "rainRearVisibleThroughRoundedCorner",
+    "snowCoveredBaselineRetainsVisibleRidge",
+    "snowEqualTopRidgeHasNoVerticalCut",
+    "snowRearVisibleThroughRoundedCorner"
+  ],
+  "checkCount": 96
+}

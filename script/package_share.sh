@@ -6,7 +6,7 @@ set -euo pipefail
 # For distribution use release.sh, which also notarizes, staples, and verifies.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
-VERSION="0.6.2"
+VERSION="0.6.3"
 if [[ "${1:-}" == "--print-version" ]]; then printf '%s\n' "$VERSION"; exit 0; fi
 [[ "$#" == 0 ]] || { echo "Usage: $0 [--print-version]" >&2; exit 2; }
 /usr/bin/python3 "$ROOT_DIR/script/embed_sparkle.py" --validate-config "$ROOT_DIR/Config/Updates.plist"
@@ -41,8 +41,8 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>WindowWeather</string>
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.6.2</string>
-<key>CFBundleVersion</key><string>9</string>
+<key>CFBundleShortVersionString</key><string>0.6.3</string>
+<key>CFBundleVersion</key><string>10</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>

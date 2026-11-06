@@ -6,6 +6,8 @@ macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이를 표시�
 
 **0.6.2 버전**은 창 모서리 반경을 보정하고, 설정창 오른쪽 아래에 현재 버전을 표시하며, 밝은 화면에서 비의 푸른색을 조금 더 선명하게 조정한 버전입니다. 비의 양·움직임·투명도는 유지합니다. [곡률 구현 범위](docs/CORNER_GEOMETRY.md)와 [0.6.2 검증 기록](docs/releases/0.6.2/VALIDATION.md)을 제공합니다. 기존 여섯 효과·눈사람·설정 저장·Sparkle 업데이트를 유지합니다. 이전 [0.6.1 검증 기록](docs/releases/0.6.1/VALIDATION.md)과 [0.6.0 검증 기록](docs/releases/0.6.0/VALIDATION.md)은 해당 버전의 근거로 보관합니다.
 
+**0.6.3 개발 변경**은 겹친 창의 둥근 가림과 효과의 앞뒤 표시 순서를 개선합니다. [검증 기록](docs/releases/0.6.3/VALIDATION.md)을 정리했으며 새 MacBook의 공증 프로필 등록과 배포를 준비 중입니다.
+
 ## 다운로드와 업데이트
 
 소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.2 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.2/WindowWeather-0.6.2-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.2/WindowWeather-0.6.2-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.2). 앱과 DMG는 Developer ID 서명과 Apple 공증을 완료했습니다.

@@ -1,0 +1,13 @@
+{
+  "status": "blocked",
+  "profile": "DdayNotary",
+  "error": "No Keychain password item found for profile: DdayNotary",
+  "exitCode": 69,
+  "appSigned": true,
+  "appPath": "/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app",
+  "submissionID": null,
+  "releaseState": "/Users/mindw/Documents/Projects/Weather/dist/releases/0.6.3/release-state.json",
+  "credentialsCreatedOrChanged": false,
+  "installedVersionPreserved": "0.6.2",
+  "releasePublished": false
+}

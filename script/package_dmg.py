@@ -73,7 +73,7 @@ def main():
         raise RuntimeError('--app must be an existing .app directory and --output a .dmg path.')
     identity = os.environ.get('WEATHER_SIGN_IDENTITY',
                               'Developer ID Application: Dongwook Min (4J7HGK26PF)')
-    profile = os.environ.get('WEATHER_NOTARY_PROFILE', 'DdayNotary')
+    profile = os.environ.get('WEATHER_NOTARY_PROFILE', 'WindowWeatherNotary')
     timeout = min(int(os.environ.get('WEATHER_NOTARY_TIMEOUT_SECONDS', '1200')), 1200)
     if not identity.startswith('Developer ID Application: ') or timeout < 30:
         raise RuntimeError('Use a Developer ID Application identity and a notarization timeout of at least 30 seconds.')

@@ -371,6 +371,7 @@ enum Validation {
             recordWindowGeometry(fixture, overlays: overlays, key: "maximizedGeometry")
             checks["fullScreenOffExcludesWindowAndFloor"] = !display.view.simulation.surfaces.contains { $0.id == id || $0.id == 0 }
             checks["fullScreenWindowRemainsOccluder"] = display.view.windowGeometry.contains { $0.id == id }
+            checks["fullScreenOccluderIsSquare"] = display.view.windowGeometry.first { $0.id == id }?.cornerRadius == 0
             delegate.preferences.accumulateOnFullScreen = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 // Let the preference subscription refresh without a direct call.

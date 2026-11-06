@@ -8,7 +8,7 @@
 
 통합 Release 빌드 → Sparkle 프레임워크·내부 도구와 앱의 Developer ID 서명 → Apple 제출 → Accepted 확인 → 공증 티켓 첨부 → 앱만 담은 공유 ZIP·업데이트 ZIP과 EdDSA appcast 생성·검증 → DMG 생성·서명·공증·티켓 첨부·마운트 검증 → SHA-256 생성을 순서대로 진행합니다. 각 공증 대기는 30초 단위이며, 기본 20분이 지나도 심사가 끝나지 않으면 상태를 보존하고 종료합니다.
 
-이 Mac에서는 Developer ID Application 인증서 `Dongwook Min (4J7HGK26PF)`와 키체인 프로필 `DdayNotary`를 기본 사용합니다. 인증서의 개인 키와 공증 자격 증명은 키체인에 있으며 저장소에 포함하지 않습니다. 다른 개발 환경에서는 아래 환경 변수를 설정해 주세요.
+이 Mac에서는 Developer ID Application 인증서 `Dongwook Min (4J7HGK26PF)`와 키체인 프로필 `WindowWeatherNotary`를 기본 사용합니다. 2026-11-06 새 MacBook에서 쌓임쌓임 전용 프로필을 새로 등록하도록 변경했으며, 이전 환경의 `DdayNotary`는 `WEATHER_NOTARY_PROFILE=DdayNotary`로 지정할 수 있습니다. 인증서의 개인 키와 공증 자격 증명은 키체인에 있으며 저장소에 포함하지 않습니다. 다른 개발 환경에서는 아래 환경 변수를 설정해 주세요.
 
 ```sh
 WEATHER_SIGN_IDENTITY='Developer ID Application: Your Name (TEAMID)' \

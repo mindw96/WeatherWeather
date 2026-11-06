@@ -1,0 +1,41 @@
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app
+--prepared:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--prepared:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app: valid on disk
+/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app: satisfies its Designated Requirement
+
+$ /usr/bin/codesign -dvvv /private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app
+Executable=/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/MacOS/WindowWeather
+Identifier=org.windowweather.app
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=2017 flags=0x10000(runtime) hashes=56+3 location=embedded
+Hash type=sha256 size=32
+CandidateCDHash sha256=c8a57be925e8b8d369496dc48eb3501b8ddf8281
+CandidateCDHashFull sha256=c8a57be925e8b8d369496dc48eb3501b8ddf828141585a6f0ebaae068bd42c0e
+Hash choices=sha256
+CMSDigest=c8a57be925e8b8d369496dc48eb3501b8ddf828141585a6f0ebaae068bd42c0e
+CMSDigestType=2
+CDHash=c8a57be925e8b8d369496dc48eb3501b8ddf8281
+Signature size=8975
+Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=Nov 6, 2026 at 10:48:59 PM
+Info.plist entries=18
+TeamIdentifier=4J7HGK26PF
+Runtime Version=14.0.0
+Sealed Resources version=2 rules=13 files=5
+Internal requirements count=1 size=184
+Total signatures=1
+Chosen signature=1
+
+$ /usr/bin/lipo -archs /private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app/Contents/MacOS/WindowWeather
+x86_64 arm64
