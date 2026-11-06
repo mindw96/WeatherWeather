@@ -1,13 +1,15 @@
 {
   "phase": "notarization-authentication",
-  "status": "blocked",
+  "status": "resolved",
   "profile": "DdayNotary",
   "exitCode": 69,
   "error": "No Keychain password item found for profile: DdayNotary",
   "appSigned": true,
-  "submissionID": null,
+  "submissionID": "7c682aeb-3de7-46d8-a5a4-9d0b16bddeb7",
   "statePath": "/private/tmp/window-weather-062-release-source.xtt5bu28/dist/releases/0.6.2/release-state.json",
   "appPath": "/private/tmp/window-weather-package.AldpnA/WindowWeather-0.6.2-macOS/WindowWeather.app",
   "automaticNotarizationAlreadyAuthorized": true,
-  "needed": "Restore existing profile or supply an existing usable profile name; no credentials in chat."
+  "needed": "None. Existing DdayNotary profile authenticated; no new credentials were created.",
+  "dmgSubmissionID": "c25d6fe6-b904-4728-b5ff-f747f1216748",
+  "resolution": "Authenticated default-keychain history before resuming saved signed artifacts. Both app and DMG accepted. Underlying intermittent lookup cause is not confirmed."
 }

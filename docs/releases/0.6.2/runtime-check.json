@@ -1,0 +1,46 @@
+{
+  "version": "0.6.2",
+  "build": "9",
+  "installedPath": "/Users/mindw/Applications/WindowWeather.app",
+  "backup": "/private/tmp/window-weather-061-backup.rp4n99z5/WindowWeather.app",
+  "running": [
+    {
+      "pid": 1998,
+      "path": "/Users/mindw/Applications/WindowWeather.app",
+      "name": "쌓임쌓임",
+      "activationPolicy": "0"
+    }
+  ],
+  "verification": [
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "Processing: /Users/mindw/Applications/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "/Users/mindw/Applications/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    }
+  ]
+}

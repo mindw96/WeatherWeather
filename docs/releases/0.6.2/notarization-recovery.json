@@ -1,0 +1,14 @@
+{
+  "profile": "DdayNotary",
+  "existingProfileAuthenticated": true,
+  "matching062SubmissionsBeforeResume": [],
+  "priorFailure": "No Keychain password item found; no submission ID",
+  "credentialsCreatedOrChanged": false,
+  "resetSubmissionAttemptedAfterAuthenticatedHistoryCheck": true,
+  "appSubmissionID": "7c682aeb-3de7-46d8-a5a4-9d0b16bddeb7",
+  "appStatus": "Accepted",
+  "dmgSubmissionID": "c25d6fe6-b904-4728-b5ff-f747f1216748",
+  "dmgStatus": "Accepted",
+  "resolved": true,
+  "underlyingLookupFailureCauseConfirmed": false
+}
