@@ -1,0 +1,88 @@
+{
+  "status": "prepared-not-executed",
+  "frameworkVersion": "2.10.1",
+  "frameworkSource": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework",
+  "architecture": "arm64",
+  "minimumOS": "14.0",
+  "expectedVersion": "0.7.0",
+  "expectedBuild": "11",
+  "expectedDownloadURL": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.0/WindowWeather-0.7.0-update.zip",
+  "feedURL": "https://github.com/mindw96/WeatherWeather/releases/latest/download/appcast.xml",
+  "compileCommand": [
+    "/usr/bin/xcrun",
+    "swiftc",
+    "-swift-version",
+    "5",
+    "-O",
+    "-target",
+    "arm64-apple-macos14.0",
+    "-module-cache-path",
+    "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/ModuleCache",
+    "-F",
+    "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Frameworks",
+    "-framework",
+    "AppKit",
+    "-framework",
+    "Sparkle",
+    "-Xlinker",
+    "-rpath",
+    "-Xlinker",
+    "@executable_path/../Frameworks",
+    "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/main.swift",
+    "-o",
+    "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/SparkleProbe"
+  ],
+  "hosts": [
+    {
+      "app": "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build10.app",
+      "hostVersion": "0.6.3",
+      "hostBuild": "10",
+      "bundleIdentifier": "org.windowweather.sparkle-probe.v070.build10.47fbed09b02f4d17a8ac4060e7065635",
+      "expected": "available",
+      "report": "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/available.json",
+      "verifyCommand": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build10.app"
+      ],
+      "signatureVerified": true,
+      "runCommand": [
+        "/usr/bin/open",
+        "-n",
+        "-W",
+        "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build10.app",
+        "--args",
+        "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/available.json",
+        "available"
+      ]
+    },
+    {
+      "app": "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build11.app",
+      "hostVersion": "0.7.0",
+      "hostBuild": "11",
+      "bundleIdentifier": "org.windowweather.sparkle-probe.v070.build11.456b5509d3e54f6aa96f14f42657e3fb",
+      "expected": "current",
+      "report": "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/current.json",
+      "verifyCommand": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build11.app"
+      ],
+      "signatureVerified": true,
+      "runCommand": [
+        "/usr/bin/open",
+        "-n",
+        "-W",
+        "/private/tmp/window-weather-070-sparkle-probe.ga_71g9z/Build11.app",
+        "--args",
+        "/Users/mindw/Documents/Projects/Weather/docs/releases/0.7.0/update-probe/current.json",
+        "current"
+      ]
+    }
+  ],
+  "scope": "Compiled and ad-hoc signature verified only. No Sparkle feed requests, payload download, or install. Existing application preferences, caches, and signing keys were not changed."
+}

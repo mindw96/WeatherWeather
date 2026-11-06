@@ -146,8 +146,11 @@ enum Validation {
                             checks["closedWindowRemoved"] = overlays.displays.allSatisfy { !$0.view.simulation.surfaces.contains { $0.id == id } }
                             checkControllerAccess(delegate: delegate) { controllerChecks in
                                 checks.merge(controllerChecks) { _, new in new }
-                                writeSmoke(checks: checks, output: output)
-                                NSApp.terminate(nil)
+                                DisplaySelectionValidation.run(overlays: overlays) { displayChecks in
+                                    checks.merge(displayChecks) { _, new in new }
+                                    writeSmoke(checks: checks, output: output)
+                                    NSApp.terminate(nil)
+                                }
                             }
                         }
                         }

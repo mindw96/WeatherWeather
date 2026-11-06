@@ -1,0 +1,23 @@
+{
+  "corners": {
+    "passed": true,
+    "checks": 96
+  },
+  "focus": {
+    "passed": true,
+    "checks": 62
+  },
+  "snowman": {
+    "passed": true,
+    "checks": 26
+  },
+  "appkit": {
+    "passed": true,
+    "checks": 69
+  },
+  "coreTests": 76,
+  "updateConfigurationTests": 6,
+  "macOS": "27.2",
+  "architecture": "arm64",
+  "displayCount": 3
+}

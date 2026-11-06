@@ -5,8 +5,30 @@ struct SettingsView: View {
     @ObservedObject var preferences: Preferences
     @ObservedObject var updater: AppUpdater
     let clear: () -> Void
+    @State private var screens = NSScreen.screens
+
+    private var hasSelectedDisplay: Bool {
+        screens.contains { preferences.isDisplayEnabled(DisplayIdentity.key(for: $0)) }
+    }
 
     var body: some View {
+        ScrollView {
+            content.padding(24)
+        }
+        .padding(.bottom, 24)
+        .frame(width: 450, height: min(820, max(320, (screens.map { $0.visibleFrame.height }.min() ?? 900) - 100)))
+        .background(Color(nsColor: .windowBackgroundColor))
+        .overlay(alignment: .bottomTrailing) {
+            Text("버전 \(AppIdentity.version)")
+                .font(.caption).foregroundStyle(.secondary)
+                .padding(.trailing, 24).padding(.bottom, 6)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didChangeScreenParametersNotification)) { _ in
+            screens = NSScreen.screens
+        }
+    }
+
+    private var content: some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .center) {
                 Text(AppIdentity.displayName).font(.system(size: 26, weight: .semibold, design: .rounded))
@@ -35,6 +57,34 @@ struct SettingsView: View {
                     .toggleStyle(.button)
                     .tint(Color(nsColor: mode.accent))
                 }
+            }
+
+            GroupBox("효과를 표시할 모니터") {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(Array(screens.enumerated()), id: \.element) { index, screen in
+                        Toggle(isOn: Binding(
+                            get: { preferences.isDisplayEnabled(DisplayIdentity.key(for: screen)) },
+                            set: { preferences.setDisplayEnabled($0, for: DisplayIdentity.key(for: screen)) }
+                        )) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("\(index + 1). \(screen.localizedName)")
+                                    .lineLimit(1)
+                                Text(displayDetails(screen, primary: index == 0))
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
+                        .toggleStyle(.switch)
+                        .controlSize(.small)
+                        .help(screen.localizedName)
+                    }
+                    Text(hasSelectedDisplay
+                         ? "선택한 모니터에만 날씨 효과와 눈사람을 표시합니다."
+                         : "선택한 모니터가 없어요. 표시할 모니터를 켜 주세요.")
+                        .font(.caption).foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.vertical, 5)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             VStack(spacing: 15) {
@@ -73,8 +123,8 @@ struct SettingsView: View {
 
             Divider()
             HStack {
-                Circle().fill(preferences.paused ? .orange : .mint).frame(width: 7, height: 7)
-                Text(preferences.paused ? "잠시 쉬는 중" : "\(preferences.detectedWindows)개 창을 따라 내리고 있어요")
+                Circle().fill(preferences.paused || !hasSelectedDisplay ? .orange : .mint).frame(width: 7, height: 7)
+                Text(!hasSelectedDisplay ? "선택한 모니터가 없어요" : preferences.paused ? "잠시 쉬는 중" : "\(preferences.detectedWindows)개 창을 따라 내리고 있어요")
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 Button("쌓인 흔적 지우기", action: clear).controlSize(.small)
@@ -112,14 +162,12 @@ struct SettingsView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
-        .padding(24)
-        .frame(width: 450)
-        .background(Color(nsColor: .windowBackgroundColor))
-        .overlay(alignment: .bottomTrailing) {
-            Text("버전 \(AppIdentity.version)")
-                .font(.caption).foregroundStyle(.secondary)
-                .padding(.trailing, 24).padding(.bottom, 6)
-        }
+    }
+
+    private func displayDetails(_ screen: NSScreen, primary: Bool) -> String {
+        let number = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value ?? 0
+        let resolution = "\(CGDisplayPixelsWide(number)) × \(CGDisplayPixelsHigh(number))"
+        return primary ? "\(resolution) · 주 디스플레이" : resolution
     }
 }
 

@@ -4,6 +4,7 @@ import WeatherCore
 
 final class OverlayController {
     struct Display {
+        let id: String
         let screen: NSScreen
         let panel: WeatherPanel
         let view: WeatherView
@@ -32,6 +33,18 @@ final class OverlayController {
                 }
             }.store(in: &subscriptions)
         preferences.$paused.sink { [weak self] paused in self?.setRunning(!paused) }.store(in: &subscriptions)
+        preferences.$disabledDisplayIDs.dropFirst().receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                for display in self.displays where !self.preferences.isDisplayEnabled(display.id) {
+                    display.view.simulation.reset()
+                    display.view.simulation.setSurfaces([])
+                    display.view.windowGeometry = []
+                    display.view.hiddenFocusedWindow = nil
+                }
+                self.refreshSurfaces()
+                self.setRunning(!self.preferences.paused)
+            }.store(in: &subscriptions)
         // @Published emits before storage changes; read the updated policy on
         // the next main-run-loop turn so disabling it clears existing piles.
         preferences.$accumulateOnFullScreen.dropFirst().receive(on: RunLoop.main)
@@ -69,7 +82,7 @@ final class OverlayController {
         })
     }
 
-    private func rebuildDisplays() {
+    func rebuildDisplays() {
         displays.forEach { $0.snowman.close(); $0.panel.close() }
         displays = NSScreen.screens.enumerated().map { index, screen in
             let panel = WeatherPanel(screen: screen)
@@ -81,7 +94,7 @@ final class OverlayController {
             view.showSnowman = false // Dedicated panel handles desktop dragging.
             panel.contentView = view
             panel.setFrame(screen.frame, display: false)
-            return Display(screen: screen, panel: panel, view: view,
+            return Display(id: DisplayIdentity.key(for: screen), screen: screen, panel: panel, view: view,
                            snowman: SnowmanOverlay(screen: screen, preferences: preferences))
         }
         refreshSurfaces()
@@ -89,21 +102,28 @@ final class OverlayController {
     }
 
     func refreshSurfaces(running: Bool? = nil) {
+        let active = displays.filter { preferences.isDisplayEnabled($0.id) }
+        guard !active.isEmpty else {
+            if preferences.detectedWindows != 0 { preferences.detectedWindows = 0 }
+            refreshSnowmen(running: running)
+            return
+        }
         let excluded = Set(displays.flatMap { [UInt32($0.panel.windowNumber), UInt32($0.snowman.panel.windowNumber)] })
         let windows = WindowTracker.windows(excluding: excluded)
         let focusedID = preferences.showEffectsOnFocusedWindow ? nil : WindowTracker.focusedWindowID(in: windows)
-        if preferences.detectedWindows != windows.count { preferences.detectedWindows = windows.count }
+        var detectedWindowIDs = Set<UInt32>()
         // Harvest before removing off-display windows so a drag to another monitor
         // carries its local accumulation across. Floor state remains per display.
-        let accumulated = displays.flatMap { $0.view.simulation.piles }.filter { $0.surfaceID != 0 }
-        let settled = displays.flatMap { $0.view.simulation.settledParticles }.filter { $0.surfaceID != 0 }
-        for display in displays {
+        let accumulated = active.flatMap { $0.view.simulation.piles }.filter { $0.surfaceID != 0 }
+        let settled = active.flatMap { $0.view.simulation.settledParticles }.filter { $0.surfaceID != 0 }
+        for display in active {
             let policy = WindowTracker.fullScreenPolicy(screen: display.screen)
             let local = WindowTracker.localWindows(windows, screen: display.screen).map { window in
                 var window = window
                 if policy.isScreenFilling(window) { window.cornerRadius = 0 }
                 return window
             }
+            detectedWindowIDs.formUnion(local.map(\.id))
             display.view.windowGeometry = local
             // Visibility only: leave collisions and existing piles intact so a
             // focus switch or re-enabling the option restores the scene naturally.
@@ -117,12 +137,13 @@ final class OverlayController {
             display.view.simulation.inheritSettledParticles(from: settled)
             display.view.needsDisplay = true
         }
+        if preferences.detectedWindows != detectedWindowIDs.count { preferences.detectedWindows = detectedWindowIDs.count }
         refreshSnowmen(running: running)
     }
 
     private func refreshSnowmen(running: Bool? = nil) {
         for display in displays {
-            display.snowman.update(running: running ?? (!preferences.paused && !asleep),
+            display.snowman.update(running: (running ?? (!preferences.paused && !asleep)) && preferences.isDisplayEnabled(display.id),
                                    mode: preferences.mode, enabled: preferences.showSnowman,
                                    hiddenWindow: display.view.hiddenFocusedWindow)
         }
@@ -134,9 +155,11 @@ final class OverlayController {
         animationTimer = nil
         geometryTimer = nil
         let running = requested && !asleep
-        displays.forEach { running ? $0.panel.orderFrontRegardless() : $0.panel.orderOut(nil) }
+        displays.forEach {
+            running && preferences.isDisplayEnabled($0.id) ? $0.panel.orderFrontRegardless() : $0.panel.orderOut(nil)
+        }
         refreshSnowmen(running: running)
-        guard running else { return }
+        guard running, displays.contains(where: { preferences.isDisplayEnabled($0.id) }) else { return }
         lastFrame = ProcessInfo.processInfo.systemUptime
         let fps = ProcessInfo.processInfo.isLowPowerModeEnabled ? 20.0 : 30.0
         let animation = Timer(timeInterval: 1 / fps, repeats: true) { [weak self] _ in
@@ -144,10 +167,10 @@ final class OverlayController {
             let now = ProcessInfo.processInfo.systemUptime
             let delta = min(0.1, max(0, now - self.lastFrame))
             self.lastFrame = now
-            self.displays.forEach {
-                $0.view.simulation.update(deltaTime: delta)
-                $0.view.needsDisplay = true
-                $0.snowman.updateHitTesting()
+            for display in self.displays where self.preferences.isDisplayEnabled(display.id) {
+                display.view.simulation.update(deltaTime: delta)
+                display.view.needsDisplay = true
+                display.snowman.updateHitTesting()
             }
         }
         animation.tolerance = 0.003

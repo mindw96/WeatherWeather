@@ -12,6 +12,9 @@ final class Preferences: ObservableObject {
     @Published var accumulateOnFullScreen: Bool { didSet { defaults.set(accumulateOnFullScreen, forKey: "accumulateOnFullScreen") } }
     @Published var showEffectsOnFocusedWindow: Bool { didSet { defaults.set(showEffectsOnFocusedWindow, forKey: "showEffectsOnFocusedWindow") } }
     @Published var showSnowman: Bool { didSet { defaults.set(showSnowman, forKey: "showSnowman") } }
+    @Published var disabledDisplayIDs: Set<String> {
+        didSet { defaults.set(disabledDisplayIDs.sorted(), forKey: "disabledDisplayIDs") }
+    }
     @Published var paused = false
     @Published var detectedWindows = 0
     @Published var clearVersion = 0
@@ -27,6 +30,15 @@ final class Preferences: ObservableObject {
         accumulateOnFullScreen = defaults.bool(forKey: "accumulateOnFullScreen")
         showEffectsOnFocusedWindow = defaults.object(forKey: "showEffectsOnFocusedWindow") == nil ? true : defaults.bool(forKey: "showEffectsOnFocusedWindow")
         showSnowman = defaults.object(forKey: "showSnowman") == nil ? true : defaults.bool(forKey: "showSnowman")
+        disabledDisplayIDs = Set(defaults.stringArray(forKey: "disabledDisplayIDs") ?? [])
+    }
+
+    func isDisplayEnabled(_ id: String) -> Bool { !disabledDisplayIDs.contains(id) }
+
+    func setDisplayEnabled(_ enabled: Bool, for id: String) {
+        guard !id.isEmpty else { return }
+        if enabled { disabledDisplayIDs.remove(id) }
+        else { disabledDisplayIDs.insert(id) }
     }
 
     func snowmanPosition(for displayID: String) -> SnowmanPosition? {

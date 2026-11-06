@@ -8,6 +8,8 @@ macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이를 표시�
 
 **최신 0.6.3**은 겹친 창의 둥근 가림과 효과의 앞뒤 표시 순서를 개선합니다. 뒤 창의 눈과 물막이 앞 창의 모서리에서 수직으로 잘리지 않고, 앞 창의 외곽을 따라 가려집니다. [0.6.3 검증 기록](docs/releases/0.6.3/VALIDATION.md)을 제공합니다.
 
+**0.7.0 배포 준비 중:** 효과를 표시할 모니터를 개별적으로 선택할 수 있습니다. 처음에는 모든 모니터가 켜져 있고, 끈 모니터의 선택은 다음 실행에도 유지됩니다. [모니터 선택 안내](docs/DISPLAY_SELECTION.md)와 [0.7.0 검증 기록](docs/releases/0.7.0/VALIDATION.md)을 제공합니다. 아래 공개 다운로드는 현재 0.6.3입니다.
+
 ## 다운로드와 업데이트
 
 소스와 이후 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다. **[0.6.3 DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.3/WindowWeather-0.6.3-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.3/WindowWeather-0.6.3-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.3). 앱과 DMG는 Developer ID 서명과 Apple 공증을 완료했습니다.
@@ -45,6 +47,8 @@ Codex의 **Run** 버튼도 같은 스크립트에 연결되어 있습니다. 생
 도구의 샌드박스 안에서 SwiftPM의 중첩 샌드박스가 막히는 경우에만 `WEATHER_DISABLE_SWIFTPM_SANDBOX=1`을 붙여 실행합니다. 동기화 폴더의 빌드 캐시가 느릴 때는 `WEATHER_BUILD_DIR=/private/tmp/window-weather-build`로 빌드 위치를 바꿀 수 있습니다. 결과 앱은 그대로 `dist/`에 생성됩니다.
 
 설정창의 두 줄 선택 영역이나 메뉴에서 눈·비·낙엽·벚꽃·비눗방울·색종이를 선택하고 강도·바람·누적 여부를 바꾸실 수 있습니다. 일시정지하거나 쌓인 흔적을 지울 수도 있습니다. 종료하면 오버레이도 사라집니다. 설정은 `UserDefaults`에 로컬 저장합니다.
+
+**모니터 선택 — 0.7.0:** 설정창의 **효과를 표시할 모니터**에서 원하는 화면만 켜 주세요. 이름·해상도·주 디스플레이 표시로 연결된 화면을 구분합니다. 끈 화면의 날씨·쌓인 흔적·눈사람은 사라지고, 다시 켜면 효과가 새로 시작됩니다. 모두 꺼도 설정창과 미리보기는 사용할 수 있습니다. 처음 연결한 화면은 기본 ON이며, 같은 화면을 다시 연결하면 저장한 선택을 복원합니다. 미러링과 화면 식별의 범위는 [모니터 선택 안내](docs/DISPLAY_SELECTION.md)에 정리했습니다.
 
 **전체 화면에서도 쌓기**는 기본적으로 꺼져 있습니다. 끄면 전체 화면 및 작업 영역을 가득 채운 최대화 창과 해당 화면 바닥에는 쌓이지 않고, 켜면 해당 창에도 쌓입니다. 누적 여부만 바뀌며 낙하 효과는 유지됩니다. 옵션을 끄는 순간 해당 창의 기존 누적도 지웁니다. 화면 맨 위에 맞닿은 전체 화면 창은 쌓인 효과가 화면 밖으로 잘리지 않도록 안쪽 윗부분에 표시합니다.
 

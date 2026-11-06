@@ -24,7 +24,7 @@ WEATHER_NOTARY_PROFILE='YourNotaryProfile' \
 
 진행 정보는 `dist/releases/<version>/release-state.json`과 `notary-submission.json`, `notary-status.json`에 저장합니다. 업로드한 ZIP과 서명된 앱은 상태 파일에 기록된 `/private/tmp/window-weather-package.*` 폴더에 보존합니다. 완료 전 이 폴더를 삭제하거나 앱을 다시 서명하지 마세요. ZIP은 모든 검사가 통과한 뒤에만 최종 공유 경로에 놓입니다.
 
-업로드 요청 직후 연결이 끊어져 제출 ID를 저장하지 못한 경우에는 중복 업로드를 방지하며 멈춥니다. `xcrun notarytool history --keychain-profile DdayNotary`에서 제출을 확인하고 해당 ID를 `release-state.json`의 `submission_id`에 복구한 뒤 재개해 주세요. 제출이 실제로 없음을 확인하기 전에는 `submission_attempted`를 초기화하지 마세요. 강제 종료로 `.release-lock` 폴더가 남은 경우에는 배포 프로세스가 더 이상 실행 중이지 않은지 확인한 후 해당 버전의 빈 잠금 폴더만 제거할 수 있습니다.
+업로드 요청 직후 연결이 끊어져 제출 ID를 저장하지 못한 경우에는 중복 업로드를 방지하며 멈춥니다. `xcrun notarytool history --keychain-profile WindowWeatherNotary`에서 제출을 확인하고 해당 ID를 `release-state.json`의 `submission_id`에 복구한 뒤 재개해 주세요. 제출이 실제로 없음을 확인하기 전에는 `submission_attempted`를 초기화하지 마세요. 강제 종료로 `.release-lock` 폴더가 남은 경우에는 배포 프로세스가 더 이상 실행 중이지 않은지 확인한 후 해당 버전의 빈 잠금 폴더만 제거할 수 있습니다.
 
 완료 결과는 `dist/releases/<version>/`의 다음 파일 다섯 개입니다.
 
