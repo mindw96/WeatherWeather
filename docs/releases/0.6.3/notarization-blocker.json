@@ -1,13 +1,29 @@
 {
-  "status": "blocked",
-  "profile": "DdayNotary",
-  "error": "No Keychain password item found for profile: DdayNotary",
-  "exitCode": 69,
-  "appSigned": true,
-  "appPath": "/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app",
-  "submissionID": null,
-  "releaseState": "/Users/mindw/Documents/Projects/Weather/dist/releases/0.6.3/release-state.json",
-  "credentialsCreatedOrChanged": false,
-  "installedVersionPreserved": "0.6.2",
-  "releasePublished": false
+  "status": "resolved",
+  "initialFailure": {
+    "status": "blocked",
+    "profile": "DdayNotary",
+    "error": "No Keychain password item found for profile: DdayNotary",
+    "exitCode": 69,
+    "appSigned": true,
+    "appPath": "/private/tmp/window-weather-package.5Atnys/WindowWeather-0.6.3-macOS/WindowWeather.app",
+    "submissionID": null,
+    "releaseState": "/private/tmp/window-weather-063-initial-attempt.43wl4l73/release/release-state.json",
+    "credentialsCreatedOrChanged": false,
+    "installedVersionPreserved": "0.6.2",
+    "releasePublished": false
+  },
+  "recovery": {
+    "profile": "WindowWeatherNotary",
+    "userConfirmedNewMac": true,
+    "userAuthorizedNewRegistration": true,
+    "credentialsRegisteredViaLocalSecurePrompt": true,
+    "passwordSavedInChatOrRepository": false,
+    "developerIDReused": true,
+    "sparkleKeyReused": true,
+    "appSubmissionID": "7f5875ef-1264-4330-bf1b-2fb1ca37974f",
+    "dmgSubmissionID": "29a4cb07-655c-4990-a1ee-a9099e8ad626",
+    "installedVersion": "0.6.3",
+    "releasePublished": true
+  }
 }

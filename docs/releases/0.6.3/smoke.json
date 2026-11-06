@@ -16,7 +16,7 @@
     "closedWindowRemoved" : true,
     "confettiClearRemovesShapes" : true,
     "confettiFallsAndSettles" : true,
-    "controllerIsKeyAfterReopen" : false,
+    "controllerIsKeyAfterReopen" : true,
     "controllerVisibleOnConnectedDisplay" : true,
     "dockActivationEnabled" : true,
     "dockMenuReopensController" : true,
@@ -53,17 +53,17 @@
       "activationPolicy" : 0,
       "note" : "AppKit menu-action dispatch and reopen callbacks; physical Dock\/menu-bar clicks are not injected.",
       "settingsFrame" : [
-        735,
-        207,
+        -765,
+        -4,
         450,
-        774
+        775
       ],
       "statusItemVisible" : true,
       "wasMiniaturized" : true
     },
     "displayTransfer" : {
-      "after" : 2527.3454326865713,
-      "before" : 2527.9409182180702,
+      "after" : 2489.3479854663065,
+      "before" : 2489.9420678003057,
       "targetContainsWindowCenter" : true
     },
     "guiSession" : {
@@ -243,7 +243,7 @@
   },
   "displayCount" : 3,
   "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
-  "observedWindowCountAfterFixtureClosed" : 16,
-  "passed" : false,
-  "status" : "failed"
+  "observedWindowCountAfterFixtureClosed" : 15,
+  "passed" : true,
+  "status" : "passed"
 }

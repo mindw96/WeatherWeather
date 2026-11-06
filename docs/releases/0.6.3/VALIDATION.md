@@ -14,13 +14,27 @@
 
 - 수정 전 핵심 XCTest 76개 통과. 이번 변경에서 WeatherCore와 핵심 테스트 파일은 변경하지 않았습니다.
 - 업데이트 구성 검사 6개 통과. 앱은 기존 SwiftPM과 `script/build_and_run.sh --build-only`로 빌드했습니다.
-- 실제 AppKit 창·컨트롤러 검사는 초기 수정본에서 47개를 통과했습니다. 빈 클립 생략을 추가한 뒤에는 46개가 통과했으나 `controllerIsKeyAfterReopen`이 실패했습니다. 사용자 인증 입력과 동시 실행되어 창 포커스 간섭 가능성이 있으며, 이 재실행의 실패 기록은 `smoke-focus-interrupted.json`에 보관합니다. 인증 입력을 마친 뒤 최종 서명본에서 다시 확인합니다.
+- 실제 AppKit 창·컨트롤러 검사는 초기 수정본에서 47개를 통과했습니다. 빈 클립 생략을 추가한 뒤에는 46개가 통과했으나 `controllerIsKeyAfterReopen`이 실패했습니다. 사용자 인증 입력과 동시 실행되어 창 포커스 간섭 가능성이 있으며, 이 재실행의 실패 기록은 `smoke-focus-interrupted.json`에 보관합니다. 인증 입력을 마친 뒤 최종 제품 소스로 다시 실행하여 47개 모두 통과했습니다. `smoke.json`이 최종 결과입니다.
 
-## 서명과 공증 준비
+## 서명과 공증
 
 새 MacBook에서 기존 Developer ID Application 인증서와 Sparkle 공개 키 일치를 확인했습니다. 새 인증서나 Sparkle 키를 만들지 않았습니다. 통합 arm64/x86_64 Release 앱 빌드와 Developer ID 서명을 수행했습니다.
 
-기존 `DdayNotary` 조회·제출은 exit69로 실패했고 제출 ID는 없습니다. 사용자가 새 MacBook임을 확인하고 새 등록을 요청하여 `WindowWeatherNotary` 프로필을 기본값으로 준비했습니다. 사용자 Apple ID와 앱 전용 암호는 로컬 Terminal의 notarytool 보안 입력으로 등록하며 채팅·저장소·로그 파일에 암호를 저장하지 않습니다. 현재 새 프로필 등록과 공증·DMG·공개 배포가 남아 있습니다. 기존 설치본과 공개 버전은 0.6.2입니다.
+기존 `DdayNotary` 조회·제출은 exit69로 실패했고 제출 ID는 없었습니다. 사용자가 새 MacBook임을 확인하고 새 등록을 요청하여 `WindowWeatherNotary`를 기본 프로필로 변경했습니다. 사용자가 로컬 Terminal의 보안 입력으로 등록을 마쳤고 인증된 공증 이력 조회를 통과했습니다. 암호를 채팅·저장소·로그 파일에 저장하지 않았으며 기존 Developer ID·Sparkle 키와 GitHub 인증은 재사용합니다.
+
+- 앱 공증 **Accepted**: `7f5875ef-1264-4330-bf1b-2fb1ca37974f`.
+- DMG 공증 **Accepted**: `29a4cb07-655c-4990-a1ee-a9099e8ad626`.
+- 앱·DMG 티켓, 엄격 서명·Gatekeeper 검사, DMG 마운트 및 앱 실행 파일·통합 아키텍처·Applications 링크를 검증했습니다.
+- 빌드 10 Sparkle EdDSA 서명을 검증했습니다. 공유 ZIP에는 앱 하나만 들어 있고 업데이트 ZIP과 바이트가 같습니다. `artifact-verification.txt`와 `dmg-artifact-verification.txt`에 기록했습니다.
+- 현재 Mac에 공증된 0.6.3을 설치하고 실행 프로세스를 확인했습니다. 기존 0.6.2 백업 경로와 검증 명령은 `runtime-check.json`에 기록했습니다.
+- 소스 `bee77b4620130451352d364386c38dc24acc3dc4`의 main·v0.6.3 태그 CI 모두 앱 빌드·업데이트 구성·핵심 테스트를 통과했습니다. `ci.json`에 기록했습니다.
+
+최종 DMG SHA-256: `f7c562fbfd52ba6057032e2e062f137fd318e1af357c2924718490c8b9c7324a`.
+공유·업데이트 ZIP SHA-256: `0c6ebfc1f2113bad130bf96100f17f037c4c6711b179ec8bcaa01f885dcd2d7d`.
+
+[GitHub 0.6.3 Release](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.3)에 다섯 파일을 공개했습니다. 비로그인 다운로드 HTTP 200과 로컬 SHA-256 일치, latest 피드의 바이트 일치를 확인했습니다. `github-release.json`과 `public-download-verification.json`에 결과를 보관합니다.
+
+실제 Sparkle 2.10.1 검증 호스트에서 빌드 9는 빌드 10·0.6.3과 정확한 업데이트 ZIP URL을 발견했고, 빌드 10은 `OnLatestVersion`으로 판별했습니다. 두 호스트의 자동 확인 ON→OFF 저장도 통과했습니다. 게시 직후에는 테스트 호스트 캐시에 0.6.2 피드가 남아 실패하여, 종료된 테스트 호스트 두 개의 캐시만 백업 이동한 뒤 동일 URL로 재검사했습니다. 초기 실패와 최종 결과는 `update-probe/`에 보관합니다. 제품 앱의 캐시·설정은 변경하지 않았으며 실제 업데이트 설치 검사는 아닙니다.
 
 ## 구현 한계
 

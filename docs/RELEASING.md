@@ -55,6 +55,17 @@ python3 script/package_dmg.py \
 
 같은 명령을 다시 실행하면 상태 파일에 저장한 DMG 제출 ID를 재사용합니다. 원본 업로드와 staple할 사본을 분리하며 최종 검증 전에는 공유 경로에 DMG를 놓지 않습니다. 앱의 서명 식별자나 원본 DMG 해시가 바뀌면 중단합니다. 상태 파일의 `submission_attempted`는 앱 공증과 마찬가지로 실제 Apple 제출 내역을 확인하기 전 초기화하지 마세요.
 
+## 새 Mac의 공증 프로필
+
+Developer ID 인증서·개인 키와 Sparkle 업데이트 서명 키는 기존 것을 사용합니다. 공증 로그인 정보만 등록할 때는 아래 명령에서 Apple ID를 자신의 개발자 계정으로 바꾸고 실행합니다. 암호 옵션을 넣지 않아 notarytool의 보안 프롬프트에서 앱 전용 암호를 입력합니다.
+
+```sh
+xcrun notarytool store-credentials WindowWeatherNotary \
+  --apple-id "개발자 Apple ID" --team-id 4J7HGK26PF --sync
+```
+
+`--sync`는 iCloud 키체인 동기화를 요청합니다. 등록 뒤 `xcrun notarytool history --keychain-profile WindowWeatherNotary`로 인증을 확인합니다. 암호를 저장소·채팅·스크립트에 적지 않습니다. 다른 팀은 팀 ID도 자신의 값으로 바꿉니다.
+
 ## Sparkle와 GitHub Releases
 
 `Config/Updates.plist`에는 공개 피드 주소와 공개 Ed25519 키만 있습니다. 피드는 `https://github.com/mindw96/WeatherWeather/releases/latest/download/appcast.xml`이며, 각 항목의 앱 파일 주소는 `releases/download/v<version>/WindowWeather-<version>-update.zip`입니다. 공개 키에 대응하는 개인 키는 Mac 키체인 계정 `org.windowweather.app`에 저장되어 있습니다. 저장소·ZIP에는 포함하지 않습니다.

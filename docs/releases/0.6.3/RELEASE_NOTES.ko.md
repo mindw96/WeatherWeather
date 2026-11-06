@@ -1,8 +1,8 @@
 # 쌓임쌓임 0.6.3
 
-창이 겹칠 때 뒤쪽 창에 쌓인 눈·물막과 개별 효과가 앞쪽 창의 둥근 모서리를 따라 가려지도록 개선했습니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱을 준비합니다.
+창이 겹칠 때 뒤쪽 창에 쌓인 눈·물막과 개별 효과가 앞쪽 창의 둥근 모서리를 따라 가려지도록 개선했습니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱입니다.
 
-배포 상태: 검증 중입니다. 공개 공유 버전은 아직 0.6.2입니다.
+배포 상태: 앱과 DMG의 Developer ID 서명·Apple 공증 및 설치 파일 검증을 완료했습니다.
 
 ## 이번 변경
 
@@ -14,7 +14,7 @@
 
 ## 다운로드와 설치
 
-배포가 완료되면 [0.6.3 릴리스 페이지](https://github.com/mindw96/WeatherWeather/releases/tag/v0.6.3)에 공증된 DMG와 앱만 담은 ZIP을 제공합니다. 검증 중인 파일은 공개 공유용으로 안내하지 않습니다.
+**[DMG 다운로드 — 권장](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.3/WindowWeather-0.6.3-macOS-universal.dmg)** · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.6.3/WindowWeather-0.6.3-macOS-universal.zip)
 
 0.5.0 이상에서는 앱의 **업데이트 확인…**으로 배포된 새 버전을 확인하실 수 있습니다. 직접 설치하려면 기존 앱을 종료하고 DMG의 앱을 Applications로 옮겨 주세요. ZIP에는 앱 하나만 들어 있습니다.
 

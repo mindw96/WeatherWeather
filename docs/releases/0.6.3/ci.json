@@ -1,0 +1,18 @@
+[
+  {
+    "id": 42229851882,
+    "headSha": "bee77b4620130451352d364386c38dc24acc3dc4",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "push",
+    "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42229851882"
+  },
+  {
+    "id": 42229670112,
+    "headSha": "bee77b4620130451352d364386c38dc24acc3dc4",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "push",
+    "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42229670112"
+  }
+]

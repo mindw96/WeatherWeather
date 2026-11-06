@@ -1,0 +1,75 @@
+{
+  "version": "0.6.3",
+  "build": "10",
+  "installedPath": "/Users/mindw/Applications/WindowWeather.app",
+  "backup": "/private/tmp/window-weather-062-backup._3cezw0v/WindowWeather.app",
+  "running": [
+    {
+      "pid": 1341,
+      "path": "/Users/mindw/Applications/WindowWeather.app",
+      "name": "쌓임쌓임"
+    }
+  ],
+  "verification": [
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/.WindowWeather-install-f8s247b7/WindowWeather.app"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/.WindowWeather-install-f8s247b7/WindowWeather.app"
+      ],
+      "output": "Processing: /Users/mindw/Applications/.WindowWeather-install-f8s247b7/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/.WindowWeather-install-f8s247b7/WindowWeather.app"
+      ],
+      "output": "/Users/mindw/Applications/.WindowWeather-install-f8s247b7/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "Processing: /Users/mindw/Applications/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "/Users/mindw/Applications/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    }
+  ]
+}
