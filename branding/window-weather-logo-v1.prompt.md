@@ -1,6 +1,6 @@
 # 쌓임쌓임 로고 v1 생성 기록
 
-내장 image_gen 도구로 제작했습니다. 최종 파일은 `window-weather-logo-v1.png`입니다. 최종본은 흰 배경 PNG이며 앱 번들의 아이콘으로 연결하지 않았습니다.
+내장 image_gen 도구로 제작했습니다. 최종 파일은 `window-weather-logo-v1.png`입니다. 흰 배경 PNG 원본을 보존하며, 0.7.1부터 크기만 변환한 `Resources/AppIcon.icns`를 앱 아이콘으로 사용합니다.
 
 ## 기본 디자인 프롬프트
 

@@ -1,0 +1,5 @@
+Initial postflight assertion (Python wrapper, after both apps exited): current latestReason == 0 failed; actual value was 1.
+Original Swift probe report: passed=true, hostBuild=12, latestBuild=12, outcome=current, latestReason=1, automaticPreferenceRoundTrip=true.
+Verified Sparkle 2.10.1 Headers/SUErrors.h lines 80-88: Unknown=0; OnLatestVersion=1.
+Corrected postflight validation of existing available.json and current.json: passed.
+No host rerun, feed/cache changes, or original JSON replacement.
