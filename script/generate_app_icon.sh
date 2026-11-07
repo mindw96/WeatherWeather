@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SOURCE="$ROOT_DIR/branding/window-weather-logo-v1.png"
+SOURCE="$ROOT_DIR/branding/window-weather-logo-v2.png"
 STAGE="$(mktemp -d /private/tmp/window-weather-icon.XXXXXX)"
 trap 'rm -rf "$STAGE"' EXIT
 mkdir "$STAGE/AppIcon.iconset"
