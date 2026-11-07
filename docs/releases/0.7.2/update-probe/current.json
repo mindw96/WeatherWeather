@@ -1,0 +1,16 @@
+{
+  "automaticPreferenceRoundTrip" : true,
+  "bundleIdentifier" : "org.windowweather.sparkle-probe.v072.build13.604715d29038489e8a81b12a6ae7d3ad",
+  "checkKind" : "SPUUpdater.checkForUpdateInformation",
+  "elapsedSeconds" : 0.22817599773406982,
+  "expected" : "current",
+  "feedItemCount" : 1,
+  "feedURL" : "https:\/\/github.com\/mindw96\/WeatherWeather\/releases\/latest\/download\/appcast.xml",
+  "hostBuild" : "13",
+  "latestBuild" : "13",
+  "latestReason" : 1,
+  "noUpdateErrorCode" : 1001,
+  "outcome" : "current",
+  "passed" : true,
+  "scope" : "Real Sparkle feed selection; no update presentation, payload download, or installation. Isolated temporary host and preferences."
+}

@@ -1,0 +1,12 @@
+{
+  "installedPath" : "\/Users\/mindw\/Applications\/WindowWeather.app",
+  "pid" : 65782,
+  "resolvedIconImages" : [
+    "finder-resolved-icon-32.png",
+    "finder-resolved-icon-128.png",
+    "running-app-icon-32.png",
+    "running-app-icon-128.png"
+  ],
+  "running" : true,
+  "scope" : "NSWorkspace file icon and NSRunningApplication icon, rendered offscreen; not a desktop screenshot."
+}

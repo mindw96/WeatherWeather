@@ -1,0 +1,2 @@
+$ /usr/bin/open -n -W /private/tmp/window-weather-072-sparkle-probe.kbyte_9g/Build12.app --args /Users/mindw/Documents/Projects/Weather/docs/releases/0.7.2/update-probe/available.json available
+exit=0

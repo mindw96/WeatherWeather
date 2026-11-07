@@ -1,0 +1,10 @@
+Building for debugging...
+[1 / 1]
+Build complete! (0.35초)
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: replacing existing signature
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: replacing existing signature
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: replacing existing signature
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: replacing existing signature
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app/Contents/Frameworks/Sparkle.framework: replacing existing signature
+/private/tmp/window-weather-dev.xiwpqS/WindowWeather.app: replacing existing signature
+/Users/mindw/Documents/Projects/Weather/dist/WindowWeather.app

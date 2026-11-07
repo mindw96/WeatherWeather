@@ -1,0 +1,22 @@
+{
+  "original" : {
+    "borderSamples" : 2512,
+    "interiorWhiteSamples" : 733,
+    "size" : [
+      1254,
+      1254
+    ],
+    "whiteBorderSamples" : 2512
+  },
+  "passed" : true,
+  "scope" : "Sampled opaque white outer margins and retained interior whites; visual composition is reviewed separately.",
+  "updated" : {
+    "borderSamples" : 2512,
+    "interiorWhiteSamples" : 759,
+    "size" : [
+      1254,
+      1254
+    ],
+    "whiteBorderSamples" : 0
+  }
+}

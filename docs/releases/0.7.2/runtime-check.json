@@ -1,0 +1,86 @@
+{
+  "version": "0.7.2",
+  "build": "13",
+  "installedPath": "/Users/mindw/Applications/WindowWeather.app",
+  "releaseState": "/Users/mindw/Documents/Projects/Weather/dist/releases/0.7.2/release-state.json",
+  "source": "/private/tmp/window-weather-package.t5h2d1/WindowWeather-0.7.2-macOS/WindowWeather.app",
+  "verification": [
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/.WindowWeather-install-yof6tkvk/WindowWeather.app"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/.WindowWeather-install-yof6tkvk/WindowWeather.app"
+      ],
+      "output": "Processing: /Users/mindw/Applications/.WindowWeather-install-yof6tkvk/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/.WindowWeather-install-yof6tkvk/WindowWeather.app"
+      ],
+      "output": "/Users/mindw/Applications/.WindowWeather-install-yof6tkvk/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "Processing: /Users/mindw/Applications/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "output": "/Users/mindw/Applications/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    }
+  ],
+  "backup": "/private/tmp/window-weather-pre-072-backup.vwdov0if/WindowWeather.app",
+  "terminated": [
+    {
+      "pid": 33249,
+      "path": "/Users/mindw/Applications/WindowWeather.app",
+      "name": "쌓임쌓임",
+      "terminationRequested": true
+    }
+  ],
+  "running": [
+    {
+      "pid": 65782,
+      "path": "/Users/mindw/Applications/WindowWeather.app",
+      "name": "쌓임쌓임"
+    }
+  ],
+  "status": "installed"
+}

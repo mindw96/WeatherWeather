@@ -1,0 +1,10 @@
+{
+  "installedPath": "/Users/mindw/Documents/Projects/Weather/dist/WindowWeather.app",
+  "pid": 0,
+  "resolvedIconImages": [
+    "development-file-icon-32.png",
+    "development-file-icon-128.png"
+  ],
+  "running": false,
+  "scope": "NSWorkspace file icon for the development bundle, rendered offscreen; no app launch or desktop screenshot."
+}

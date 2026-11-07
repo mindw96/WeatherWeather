@@ -1,0 +1,49 @@
+{
+  "version": "0.7.2",
+  "anonymous": true,
+  "downloadDirectory": "/private/tmp/window-weather-072-public.ejkntxl4",
+  "assets": [
+    {
+      "file": "WindowWeather-0.7.2-macOS-universal.dmg",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.2/WindowWeather-0.7.2-macOS-universal.dmg",
+      "status": "200",
+      "sha256": "7509a3dbfa0463b2b2478852051bca60f771c4728392cedfedd795ea08845dd7",
+      "expected": "7509a3dbfa0463b2b2478852051bca60f771c4728392cedfedd795ea08845dd7",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.7.2-macOS-universal.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.2/WindowWeather-0.7.2-macOS-universal.zip",
+      "status": "200",
+      "sha256": "a48f5a2d34584f75742914297583ad8e56360cfeddc7aef9d2b8b130f9f2f0bc",
+      "expected": "a48f5a2d34584f75742914297583ad8e56360cfeddc7aef9d2b8b130f9f2f0bc",
+      "passed": true
+    },
+    {
+      "file": "WindowWeather-0.7.2-update.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.2/WindowWeather-0.7.2-update.zip",
+      "status": "200",
+      "sha256": "a48f5a2d34584f75742914297583ad8e56360cfeddc7aef9d2b8b130f9f2f0bc",
+      "expected": "a48f5a2d34584f75742914297583ad8e56360cfeddc7aef9d2b8b130f9f2f0bc",
+      "passed": true
+    },
+    {
+      "file": "appcast.xml",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.2/appcast.xml",
+      "status": "200",
+      "sha256": "62cd06fd55cc28519462b8de582189f4e21b63f90cdef4a8fc251568bcfeebcc",
+      "expected": "62cd06fd55cc28519462b8de582189f4e21b63f90cdef4a8fc251568bcfeebcc",
+      "passed": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.7.2/SHA256SUMS.txt",
+      "status": "200",
+      "sha256": "aa73fffa0141e4b22a7fb4a3447b8b5ffe2ca6990043c9d3a485f6358d599a0f",
+      "expected": "aa73fffa0141e4b22a7fb4a3447b8b5ffe2ca6990043c9d3a485f6358d599a0f",
+      "passed": true
+    }
+  ],
+  "latestMatches": true,
+  "passed": true
+}
