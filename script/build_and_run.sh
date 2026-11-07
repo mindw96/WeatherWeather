@@ -48,8 +48,9 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>WindowWeather</string>
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.7.0</string>
-<key>CFBundleVersion</key><string>11</string>
+<key>CFBundleIconFile</key><string>AppIcon.icns</string>
+<key>CFBundleShortVersionString</key><string>0.7.1</string>
+<key>CFBundleVersion</key><string>12</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
@@ -57,6 +58,7 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 </dict></plist>
 PLIST
 /usr/bin/ditto --norsrc --noextattr "$ROOT_DIR/Resources" "$STAGED_APP/Contents/Resources"
+test -s "$STAGED_APP/Contents/Resources/AppIcon.icns"
 /usr/bin/python3 "$ROOT_DIR/script/embed_sparkle.py" "$BUILD_ROOT" "$STAGED_APP" -
 /usr/bin/codesign --force --sign - "$STAGED_APP"
 mkdir -p "$ROOT_DIR/dist"
