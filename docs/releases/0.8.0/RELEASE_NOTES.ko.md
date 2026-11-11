@@ -2,7 +2,7 @@
 
 창과 바람에 반응하는 눈·잎, 반딧불과 별가루, 꾸밀 수 있는 눈사람을 추가했습니다. 앱마다 효과를 숨기고, 단축키나 로그인 자동 실행으로 더 편하게 사용할 수 있습니다. 원하는 도시의 실제 날씨에 맞춰 눈·비를 선택하는 기능도 제공합니다.
 
-배포 상태: 버전 0.8.0 · 빌드 14의 자동 검사와 여덟 효과 미리보기 확인을 마쳤습니다. 현재 Mac 잠금으로 실제 데스크톱 통합 검사를 기다리고 있으며 통합 Release 빌드·서명을 진행 중입니다. 앱·DMG의 Apple 공증·Sparkle 업데이트 서명·공개 배포는 아직 완료되지 않았으며 0.8.0 다운로드를 제공하지 않습니다.
+버전 **0.8.0 · 빌드 14**를 공개했습니다. Apple Silicon·Intel 통합 앱과 DMG 모두 Developer ID 서명·Apple 공증을 마쳤습니다. [DMG 다운로드](https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.dmg) · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.zip)
 
 ## 창과 계절의 움직임
 
@@ -30,7 +30,7 @@
 
 ## 설치와 기존 설정
 
-공개 배포 후 macOS 14 이상용 Apple Silicon·Intel 통합 DMG와 앱만 담은 ZIP을 제공할 예정입니다. 0.5.0 이상에서는 앱의 **업데이트 확인…**을 사용할 수 있습니다. 0.4.0 이하는 직접 설치가 필요합니다.
+macOS 14 이상용 Apple Silicon·Intel 통합 DMG와 앱만 담은 ZIP을 제공합니다. 0.5.0 이상에서는 앱의 **업데이트 확인…**을 사용할 수 있습니다. 0.4.0 이하는 직접 설치가 필요합니다.
 
 기존 모니터 선택·전체 화면·작업 창 표시·눈사람 위치 설정은 유지합니다. 설정창은 Dock 아이콘, 메뉴 막대의 **설정…**, 앱 활성 상태의 **⌘,**로 다시 열 수 있습니다.
 

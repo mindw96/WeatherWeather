@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/usr/bin/open",
+    "-n",
+    "-W",
+    "/private/tmp/window-weather-080-sparkle-probe.4_g6b1vm/Build13.app",
+    "--args",
+    "/Users/mindw/Documents/Projects/Weather/docs/releases/0.8.0/update-probe/available.json",
+    "available"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "elapsedSeconds": 1.494126541,
+  "checkedAt": "2026-11-11T03:21:24.268447+00:00"
+}

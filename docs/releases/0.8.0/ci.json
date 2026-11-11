@@ -1,16 +1,22 @@
 {
-  "commit": "8aefd204b9667da01df1cea595ec96b5437cb533",
+  "commit": "ddfbf219b1bd7a40a742649fcc7ebfb84311d8d1",
   "pullRequest": "https://github.com/mindw96/WeatherWeather/pull/1",
   "workflow_runs": [
     {
-      "id": 42945105092,
+      "id": 42951445824,
       "name": "macOS build and tests",
       "status": "completed",
       "conclusion": "success",
-      "run_number": 20,
-      "jobs_url": "https://api.github.com/repos/mindw96/WeatherWeather/actions/runs/42945105092/jobs",
-      "logs_url": "https://api.github.com/repos/mindw96/WeatherWeather/actions/runs/42945105092/logs",
-      "workflow_id": 408136547
+      "run_number": 24,
+      "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42951445824"
     }
-  ]
+  ],
+  "successfulSteps": [
+    "Build macOS app",
+    "Validate update configuration",
+    "Test simulation and geometry",
+    "Test weather service without network"
+  ],
+  "mergeCommit": "0a059798e7646367e6c70e1a3bb6a715e2c47bee",
+  "recordedAt": "2026-11-11T03:18:38.175619+00:00"
 }

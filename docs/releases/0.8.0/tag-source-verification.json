@@ -1,0 +1,11 @@
+{
+  "tag": "v0.8.0",
+  "commit": "0a059798e7646367e6c70e1a3bb6a715e2c47bee",
+  "comparedBuildInputs": 50,
+  "untrackedInputs": [
+    "Resources/.DS_Store",
+    "Sources/.DS_Store"
+  ],
+  "mismatches": [],
+  "passed": true
+}

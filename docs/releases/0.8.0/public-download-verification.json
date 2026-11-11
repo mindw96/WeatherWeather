@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-11-11T03:20:44.099704+00:00",
+  "authenticated": false,
+  "assets": [
+    {
+      "name": "appcast.xml",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/appcast.xml",
+      "status": 200,
+      "size": 818,
+      "sha256": "f47d2c2b8d8a16ee520be7a390ef11b56e133a934545209326a318b5d0a91ed8",
+      "localSha256": "f47d2c2b8d8a16ee520be7a390ef11b56e133a934545209326a318b5d0a91ed8",
+      "passed": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/SHA256SUMS.txt",
+      "status": 200,
+      "size": 387,
+      "sha256": "67c8c423ee49e55904c87108347ed8b87f27e39435d1b6bd198b40d4662b4fa3",
+      "localSha256": "67c8c423ee49e55904c87108347ed8b87f27e39435d1b6bd198b40d4662b4fa3",
+      "passed": true
+    },
+    {
+      "name": "WindowWeather-0.8.0-macOS-universal.dmg",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.dmg",
+      "status": 200,
+      "size": 3854134,
+      "sha256": "dac008be1d73405a97c00f6b49ca65c5cc5ed0b3380af335772db6a885d46de9",
+      "localSha256": "dac008be1d73405a97c00f6b49ca65c5cc5ed0b3380af335772db6a885d46de9",
+      "passed": true
+    },
+    {
+      "name": "WindowWeather-0.8.0-macOS-universal.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.zip",
+      "status": 200,
+      "size": 3662008,
+      "sha256": "f086b937ff98b7eaa36163da0a13a8f3209d8bf462e636bb5f5c17be5810753d",
+      "localSha256": "f086b937ff98b7eaa36163da0a13a8f3209d8bf462e636bb5f5c17be5810753d",
+      "passed": true
+    },
+    {
+      "name": "WindowWeather-0.8.0-update.zip",
+      "url": "https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-update.zip",
+      "status": 200,
+      "size": 3662008,
+      "sha256": "f086b937ff98b7eaa36163da0a13a8f3209d8bf462e636bb5f5c17be5810753d",
+      "localSha256": "f086b937ff98b7eaa36163da0a13a8f3209d8bf462e636bb5f5c17be5810753d",
+      "passed": true
+    }
+  ],
+  "latestAppcast": {
+    "url": "https://github.com/mindw96/WeatherWeather/releases/latest/download/appcast.xml",
+    "status": 200,
+    "matchesLocal": true,
+    "version": "0.8.0",
+    "build": "14"
+  },
+  "passed": true
+}
