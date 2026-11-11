@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-11T03:12:44.687219+00:00",
+  "profile": "WindowWeatherNotary",
+  "historyExitCode": 0,
+  "matching080Submissions": [],
+  "credentialsChanged": false,
+  "previousSubmitFailedBeforeAuthentication": true,
+  "oldStateArchived": "/Users/mindw/Documents/Projects/Weather/dist/releases/0.8.0/pre-unlock",
+  "rebuildReason": "Add focus diagnostics to validation only; product focus policy and timing unchanged. Diagnostic GUI run passed all 76 checks."
+}

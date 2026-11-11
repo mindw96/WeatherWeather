@@ -1,7 +1,8 @@
 {
+  "appBundle": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app",
   "signature": {
     "exitCode": 0,
-    "output": "--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app: valid on disk\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app: satisfies its Designated Requirement\n"
+    "output": "--prepared:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n--prepared:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--prepared:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--validated:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--validated:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--prepared:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--validated:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--prepared:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--validated:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--validated:/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app: valid on disk\n/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app: satisfies its Designated Requirement\n"
   },
   "architectures": {
     "exitCode": 0,
@@ -9,9 +10,17 @@
   },
   "bundle": {
     "exitCode": 0,
-    "output": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Info.plist: OK\n"
+    "output": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Info.plist: OK\n"
+  },
+  "staple": {
+    "exitCode": 0,
+    "output": "Processing: /private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app\nThe validate action worked!\n"
+  },
+  "gatekeeper": {
+    "exitCode": 0,
+    "output": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
   },
   "sourceHashesMatch": true,
   "changedSources": [],
-  "notarized": false
+  "notarized": true
 }
