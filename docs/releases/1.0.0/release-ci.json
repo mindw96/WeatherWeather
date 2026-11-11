@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-11T05:56:56.509116+00:00",
+  "passed": true,
+  "runs": [
+    {
+      "scope": "release tag",
+      "runId": 42968476253,
+      "commit": "2ff33bc20867e9cb5f2c66f29d2abdab0a0f8a2f",
+      "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42968476253",
+      "conclusion": "success"
+    },
+    {
+      "scope": "release main",
+      "runId": 42968429436,
+      "commit": "2ff33bc20867e9cb5f2c66f29d2abdab0a0f8a2f",
+      "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42968429436",
+      "conclusion": "success"
+    },
+    {
+      "scope": "release PR5",
+      "runId": 42968412927,
+      "commit": "c19519c72da14eafa3204d2f46f40c5c7532eeb4",
+      "url": "https://github.com/mindw96/WeatherWeather/actions/runs/42968412927",
+      "conclusion": "success"
+    }
+  ]
+}

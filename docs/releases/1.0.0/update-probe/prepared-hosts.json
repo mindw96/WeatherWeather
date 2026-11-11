@@ -1,5 +1,5 @@
 {
-  "status": "prepared-not-executed",
+  "status": "executed-after-publication-passed",
   "frameworkVersion": "2.10.1",
   "frameworkSource": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework",
   "architecture": "arm64",
@@ -56,7 +56,9 @@
         "--args",
         "/Users/mindw/Documents/Projects/Weather/docs/releases/1.0.0/update-probe/available.json",
         "available"
-      ]
+      ],
+      "feedSelectionPassed": true,
+      "elapsedSeconds": 1.1586039066314697
     },
     {
       "app": "/private/tmp/window-weather-100-sparkle-probe.lw1ae46c/Build15.app",
@@ -81,9 +83,11 @@
         "--args",
         "/Users/mindw/Documents/Projects/Weather/docs/releases/1.0.0/update-probe/current.json",
         "current"
-      ]
+      ],
+      "feedSelectionPassed": true,
+      "elapsedSeconds": 0.45751094818115234
     }
   ],
   "probeSourceSHA256": "09568e00d76f621cd0904848ccd08978fbba80544dee9002f34bd7c2672ccc4c",
-  "scope": "Compiled and ad-hoc signature verified. Feed queries have not run. Run only after v1.0.0 publication. No product keys, preferences or caches modified."
+  "scope": "Compiled and ad-hoc signature verified. After publication both isolated hosts passed actual Sparkle feed selection and automatic-check preference persistence. No update presentation, payload download or installation. Product keys, preferences and caches are unchanged."
 }

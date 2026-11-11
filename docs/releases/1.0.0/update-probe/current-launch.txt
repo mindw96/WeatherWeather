@@ -1,0 +1,5 @@
+Command: ['/usr/bin/open', '-n', '-W', '/private/tmp/window-weather-100-sparkle-probe.lw1ae46c/Build15.app', '--args', '/Users/mindw/Documents/Projects/Weather/docs/releases/1.0.0/update-probe/current.json', 'current']
+Exit code: 0
+STDOUT:
+
+STDERR:

@@ -101,6 +101,8 @@ Sparkle는 공식 2.10.1 SwiftPM 바이너리를 사용하며 `Package.resolved`
 
 ## 로컬 폴더와 검증 산출물
 
+배포용 소스 사본은 Git 커밋의 추적 파일만으로 만들고 `Sources/`, `Tests/`, `Resources/`, `Config/`, `script/`, 패키지 정의와 라이선스의 해시를 원본 커밋·공개 태그와 비교합니다. 폴더 전체를 복사하면 무시된 `.DS_Store` 같은 로컬 메타데이터가 앱 리소스에 들어갈 수 있습니다. 1.0.0은 이를 공개 전에 제외하고 다시 서명·공증했으며, 최종 앱과 ZIP에도 해당 파일이 없음을 확인했습니다.
+
 공유 앱의 실행·업데이트는 `/Applications` 또는 `~/Applications`에서 확인합니다. 이 프로젝트의 Documents 폴더는 File Provider가 FinderInfo를 다시 붙여 서명 검사를 방해할 수 있습니다. 0.5.0의 실제 실행본은 `~/Applications/WindowWeather.app`에 설치했습니다. 배포용 ZIP은 계속 `/private/tmp`의 깨끗한 앱으로 만듭니다.
 
 재생성 가능한 `docs/**/*.png` 미리보기는 로컬에 보관하고 Git에서는 제외합니다. `--previews`, `--validate-focus`, `--validate-snowman`으로 다시 만들 수 있습니다. 텍스트 검증 보고서·성능 원시 값·재현 코드는 저장소에 포함합니다. Git 객체가 iCloud의 dataless 상태라 읽기 대기가 생기면 해당 프로젝트 폴더의 다운로드를 완료하거나 로컬 체크아웃에서 작업합니다.

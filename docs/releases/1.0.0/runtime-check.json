@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-11-11T05:56:17.280208+00:00",
+  "version": "1.0.0",
+  "build": "15",
+  "installedPath": "/Users/mindw/Applications/WindowWeather.app",
+  "verification": [
+    {
+      "command": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "exitCode": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "stapler",
+        "validate",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "exitCode": 0,
+      "output": "Processing: /Users/mindw/Applications/WindowWeather.app\nThe validate action worked!\n"
+    },
+    {
+      "command": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=2",
+        "/Users/mindw/Applications/WindowWeather.app"
+      ],
+      "exitCode": 0,
+      "output": "/Users/mindw/Applications/WindowWeather.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    {
+      "command": [
+        "/usr/bin/lipo",
+        "-archs",
+        "/Users/mindw/Applications/WindowWeather.app/Contents/MacOS/WindowWeather"
+      ],
+      "exitCode": 0,
+      "output": "x86_64 arm64\n"
+    }
+  ],
+  "executableMatchesPublicDownload": true,
+  "running": [
+    {
+      "pid": 24361,
+      "path": "/Users/mindw/Applications/WindowWeather.app/Contents/MacOS/WindowWeather"
+    }
+  ],
+  "passed": true,
+  "scope": "Post-install process survival and installed bundle trust checks; not long-duration performance."
+}

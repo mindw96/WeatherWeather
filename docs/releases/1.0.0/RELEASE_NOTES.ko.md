@@ -2,7 +2,7 @@
 
 바람 방향에 **가운데(없음)**를 추가했습니다. 바람 세기를 바꾸지 않고 바람만 잠시 멈췄다가, 왼쪽이나 오른쪽을 선택해 이전 세기로 돌아갈 수 있습니다.
 
-배포 상태: **1.0.0 · 빌드 15 서명·공증 완료, 공개 준비 중**입니다. Apple Silicon·Intel 통합 앱과 DMG의 Developer ID 서명·Apple 공증, Sparkle 업데이트 서명과 최종 앱 검사를 완료했습니다. GitHub 공개와 현재 Mac 설치 확인은 진행 중이며, 현재 공개 다운로드는 [0.8.0](https://github.com/mindw96/WeatherWeather/releases/tag/v0.8.0)입니다.
+**1.0.0 · 빌드 15를 공개했습니다.** Apple Silicon·Intel 통합 앱과 DMG 모두 Developer ID 서명·Apple 공증을 마쳤습니다. 공개 다운로드·Sparkle 버전 판별과 현재 Mac 설치·실행을 확인했습니다. [DMG 다운로드](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.dmg) · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.zip)
 
 ## 달라진 점
 
@@ -12,9 +12,9 @@
 
 ## 설치와 업데이트
 
-macOS 14 이상용 Apple Silicon·Intel 통합 DMG와 앱만 담은 ZIP을 만들었습니다. 공개 후 DMG에서는 앱을 Applications로 끌어 옮기고, ZIP은 압축을 풀어 나온 `WindowWeather.app`을 응용 프로그램 폴더로 옮겨 실행합니다.
+macOS 14 이상용 Apple Silicon·Intel 통합 DMG와 앱만 담은 ZIP을 제공합니다. DMG에서는 앱을 Applications로 끌어 옮기고, ZIP은 압축을 풀어 나온 `WindowWeather.app`을 응용 프로그램 폴더로 옮겨 실행합니다.
 
-이 GitHub 직접 배포판에는 **Sparkle 업데이트 확인**을 포함합니다. 0.5.0 이상 직접 배포판은 공개 후 앱의 **업데이트 확인…**으로 새 버전을 확인할 수 있습니다. 자동 확인은 설정에서 끌 수 있고 다운로드·설치는 사용자가 선택합니다. 기존 앱 설정과 화면별 눈사람 위치는 유지합니다.
+이 GitHub 직접 배포판에는 **Sparkle 업데이트 확인**을 포함합니다. 0.5.0 이상 직접 배포판은 앱의 **업데이트 확인…**으로 새 버전을 확인할 수 있습니다. 자동 확인은 설정에서 끌 수 있고 다운로드·설치는 사용자가 선택합니다. 기존 앱 설정과 화면별 눈사람 위치는 유지합니다.
 
 ## App Store 제출과 구분
 

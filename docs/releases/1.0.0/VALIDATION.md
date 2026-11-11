@@ -2,7 +2,7 @@
 
 버전 **1.0.0**, 빌드 **15**. 기준일 **2026-11-11 (Asia/Seoul)**. macOS 14 이상용 Apple Silicon·Intel 통합 앱을 GitHub Releases로 배포합니다.
 
-**현재 상태: 서명·공증·최종 앱 검사 완료, 공개 준비 중.** 통합 앱과 DMG의 Developer ID 서명·Apple 공증, ZIP·Sparkle 서명과 패키지 검증을 완료했습니다. 현재 3개 모니터의 GUI 검사 78개·설정 검사 24개·날씨 서비스 검사 12개도 통과했습니다. 공개 다운로드, 실제 Sparkle 조회와 현재 Mac 설치는 진행 중입니다. 기존 0.8.0 배포나 같은 버전의 App Store 검사 결과를 이번 직접 배포 실행의 성공으로 집계하지 않습니다.
+**현재 상태: 서명·공증·검증·GitHub 공개·현재 Mac 설치 완료.** 통합 앱과 DMG, ZIP·Sparkle 서명을 검증했고 현재 3개 모니터의 GUI 검사 78개·설정 검사 24개·날씨 서비스 검사 12개도 통과했습니다. 공개 파일 다섯 개의 무결성·latest 피드·실제 Sparkle 버전 판별, 설치본 실행과 기존 설정 보존을 확인했습니다. 기존 0.8.0 배포나 같은 버전의 App Store 검사 결과를 이번 직접 배포 실행의 성공으로 집계하지 않습니다.
 
 ## 변경 범위와 배포 구분
 
@@ -10,9 +10,9 @@
 - 직접 배포는 SwiftPM 앱에 Sparkle를 포함하고 Developer ID 서명·Apple 공증을 거칩니다. 기존 업데이트 피드와 공개 키를 유지합니다.
 - App Store의 같은 1.0.0·빌드 15는 별도 Sandbox·스토어 서명 구성으로 Sparkle를 제외합니다. [스토어 심사 제출 기록](../../app-store/1.0.0/VALIDATION.md)은 이 문서와 별도로 보존합니다.
 
-## 검증 진행
+## 검증 결과
 
-| 항목 | 현재 상태 | 완료 기준 |
+| 항목 | 결과 | 근거와 범위 |
 | --- | --- | --- |
 | 직접 배포 앱·무풍 설정 | **24개 통과** | [최종 앱 검사](features-release.json). 가운데 저장·세기 보존과 설정·제어 검사 |
 | 실제 데스크톱 GUI | **78개 통과** | [최종 앱 결과](smoke-release.json). 현재 연결된 3개 모니터에서 창·포커스·전체 화면·표시 옵션 등 검사 |
@@ -21,16 +21,23 @@
 | 공유 ZIP·업데이트 ZIP | **완료** | [검증 기록](artifact-verification.txt). 앱만 포함, 압축 무결성, 서명·티켓 유지, EdDSA·appcast 버전 일치 |
 | DMG | **완료** | [Apple Accepted](dmg-notarization.json), [서명·티켓·마운트·Applications 링크 검사](dmg-artifact-verification.txt) |
 | 정확한 빌드 소스 CI | **통과** | 소스 `3754c25`의 [CI 42964504687](https://github.com/mindw96/WeatherWeather/actions/runs/42964504687), [기록](source-ci.json). 직접 배포·스토어 빌드와 핵심 테스트·모의 날씨 서비스 |
-| GitHub 공개·소스 | 대기 | 실제 릴리스·태그·CI·빌드 입력 일치 |
-| 공개 다운로드 | 대기 | 비로그인 다운로드·로컬 SHA-256 일치·latest appcast 일치 |
-| 실제 Sparkle 버전 판별 | 대기 | 이전 빌드는 1.0.0·빌드 15 발견, 현재 빌드는 최신 판별 |
-| 현재 Mac 설치·실행 | 대기 | 기존 앱 백업, 최종 앱 설치, 서명·티켓·Gatekeeper·실행 경로 확인 |
+| 릴리스 CI | **모두 통과** | [PR #5](https://github.com/mindw96/WeatherWeather/actions/runs/42968412927), [main](https://github.com/mindw96/WeatherWeather/actions/runs/42968429436), [v1.0.0 태그](https://github.com/mindw96/WeatherWeather/actions/runs/42968476253), [기록](release-ci.json) |
+| GitHub 공개·소스 | **완료** | [v1.0.0 게시 기록](github-release.json), [태그 입력 검사](published-source-verification.json). 공개 태그 `2ff33bc`와 최종 입력 57개 모두 일치 |
+| 공개 다운로드 | **통과** | [검사 결과](public-download-verification.json). 다섯 파일 비로그인 HTTP 200·로컬 SHA-256 일치·latest appcast 일치, 공유 ZIP은 앱 하나만 포함하며 Finder 메타데이터 없음 |
+| 실제 Sparkle 버전 판별 | **통과** | [이전 빌드](update-probe/available.json)는 1.0.0·빌드 15와 정확한 ZIP URL 발견, [현재 빌드](update-probe/current.json)는 최신 판별. 두 호스트의 자동 확인 ON→OFF 저장 통과. 설치 전체 과정은 미검증 |
+| 현재 Mac 설치·실행 | **완료** | [설치 기록](install-receipt.json), [설치 후 실행·신뢰 검사](runtime-check.json). 기존 0.8.0 백업, 공개 ZIP의 앱 설치, 전후 서명·티켓·Gatekeeper, 동일 실행 파일과 단일 프로세스 실행 확인 |
 
-최종 소스 스냅샷은 Git 커밋 `2dbb677`의 추적 입력 **57개**만 사용하며 파일별 SHA-256이 일치합니다. 이 57개 입력은 CI를 통과한 `3754c25`의 입력과도 모두 일치합니다. [스냅샷·파일별 해시](release-source-snapshot.json), [CI 입력 비교](source-ci.json). 이 일치는 공개 태그나 업로드 성공을 대신하지 않습니다.
+최종 소스 스냅샷은 Git 커밋 `2dbb677`의 추적 입력 **57개**만 사용하며 파일별 SHA-256이 일치합니다. 이 입력은 CI를 통과한 `3754c25`와 공개 태그 `v1.0.0`의 커밋 `2ff33bc20867e9cb5f2c66f29d2abdab0a0f8a2f`에도 모두 일치합니다. [스냅샷·파일별 해시](release-source-snapshot.json), [CI 입력 비교](source-ci.json), [공개 태그 비교](published-source-verification.json)
 
 최종 앱 공증 제출은 `f9333b02-8b0f-4afc-ad50-82eeb2332b3b`, DMG는 `7273edcc-eca7-4427-9af9-8454e2178b08`이며 모두 **Accepted**입니다. `dist/releases/1.0.0/`에 DMG·공유 ZIP·업데이트 ZIP·appcast·체크섬 다섯 파일을 생성했습니다. 재현은 기존 [배포 절차](../../RELEASING.md)를 따릅니다.
 
 공개 전 입력 비교에서 첫 패키지에 추적되지 않는 `.DS_Store`가 포함된 것을 발견해, Git 추적 파일만으로 재포장·재공증했습니다. 제품 코드 변경은 없으며 위 표의 78·24·12개 검사는 새 최종 패키지로 다시 실행한 결과입니다. 이전 패키지는 태그·릴리스로 공개하지 않았고 [대체된 검사·공증 기록](superseded-package/README.md)에 따로 보존합니다.
+
+## 공개 배포와 현재 Mac
+
+[GitHub 1.0.0](https://github.com/mindw96/WeatherWeather/releases/tag/v1.0.0)을 2026-11-11 14:52:02 KST에 공개했습니다. [DMG](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.dmg)와 [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.zip)을 제공하며, 업데이트 ZIP·appcast·체크섬도 같은 릴리스에 있습니다.
+
+14:55:13 KST에 `/Users/mindw/Applications/WindowWeather.app`을 공개 다운로드한 1.0.0·빌드 15로 교체했습니다. 이전 0.8.0은 `dist/backups/WindowWeather-0.8.0-before-1.0.0-20261111T055509Z`에 보존했습니다. 설정 18개가 모두 같고 원본 설정 파일·Sandbox 컨테이너도 바뀌지 않았습니다. 실제 설정값은 기록하지 않았습니다. [설치·설정 보존 기록](install-receipt.json)
 
 ## 검증 경계
 
