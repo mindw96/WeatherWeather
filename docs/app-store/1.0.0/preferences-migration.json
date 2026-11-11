@@ -1,0 +1,70 @@
+{
+  "checkedAtUTC": "2026-11-11T04:39:03.147583+00:00",
+  "bundleIdentifier": "org.windowweather.app",
+  "inspection": "read-only; repeated outside the tool sandbox to distinguish missing files from permission errors",
+  "observations": [
+    {
+      "path": "/Users/mindw/Library/Preferences/org.windowweather.app.plist",
+      "exists": false,
+      "isSymlink": false,
+      "readStatus": "not found"
+    },
+    {
+      "path": "/Users/mindw/Library/Containers/org.windowweather.app",
+      "exists": true,
+      "isSymlink": false,
+      "birthtimeUTC": "2026-11-11T04:25:35.273924+00:00",
+      "modifiedUTC": "2026-11-11T04:35:49.345297+00:00"
+    },
+    {
+      "path": "/Users/mindw/Library/Containers/org.windowweather.app/Data/Library/Preferences/org.windowweather.app.plist",
+      "exists": true,
+      "isSymlink": false,
+      "birthtimeUTC": "2026-11-11T04:12:39.223883+00:00",
+      "modifiedUTC": "2026-11-11T04:12:39.224037+00:00",
+      "keyCount": 18,
+      "keyNames": [
+        "SUHasLaunchedBefore",
+        "SULastCheckTime",
+        "SUUpdateGroupIdentifier",
+        "accumulateOnFullScreen",
+        "accumulation",
+        "disabledDisplayIDs",
+        "fairWeatherMode",
+        "intensity",
+        "liveWeatherEnabled",
+        "mode",
+        "showEffectsOnFocusedWindow",
+        "showSettingsOnLaunch",
+        "showSnowman",
+        "snowmanPositions",
+        "weatherCity",
+        "wind",
+        "windDirection",
+        "windStrength"
+      ],
+      "legacySparkleKeysPresent": [
+        "SUHasLaunchedBefore",
+        "SULastCheckTime",
+        "SUUpdateGroupIdentifier"
+      ]
+    }
+  ],
+  "observed": {
+    "externalPreferenceFileAbsent": true,
+    "containerPreferenceFilePresent": true,
+    "preferenceFilePredatesContainer": true,
+    "legacySparkleKeysPresent": true
+  },
+  "interpretation": "The existing preferences, including legacy Sparkle keys, are present inside the new container and predate its creation. This is consistent with system migration; it is not a before/after value comparison or a guarantee for every supported macOS version.",
+  "limits": {
+    "beforeMigrationSnapshotAvailable": false,
+    "standardUserDefaultsReadByStoreAppVerifiedInThisCheck": false,
+    "preferenceValuesOutput": false,
+    "preferenceFilesMutated": false,
+    "appLaunchedOrRestarted": false,
+    "containerDeletedOrRecreated": false
+  },
+  "officialMigrationDocumentation": "https://developer.apple.com/documentation/security/migrating-your-app-s-files-to-its-app-sandbox-container",
+  "documentationScope": "The current document describes container-migration.plist for app files on first sandbox launch. It does not explicitly document automatic same-bundle UserDefaults migration."
+}

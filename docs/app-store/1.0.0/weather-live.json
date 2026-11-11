@@ -1,0 +1,12 @@
+{
+  "checks" : {
+    "currentWeatherDecoded" : true,
+    "effectSelected" : true,
+    "publicCitySearch" : true
+  },
+  "city" : "서울특별시",
+  "mode" : "snow",
+  "passed" : true,
+  "scope" : "Sandbox product service; public Seoul sample, no device location or user preference changes.",
+  "status" : "맑음 · 자동 반영 중"
+}

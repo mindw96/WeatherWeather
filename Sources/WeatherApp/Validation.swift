@@ -98,6 +98,7 @@ enum Validation {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             overlays.refreshSurfaces()
+            checks.merge(checkExternalWindow(overlays: overlays)) { _, new in new }
             checks["realWindowDetected"] = WindowTracker.windows().contains { $0.id == id }
             checks["windowSurfaceCreated"] = overlays.displays.contains { $0.view.simulation.surfaces.contains { $0.id == id } }
             let curvedSurface = overlays.displays.flatMap { $0.view.simulation.surfaces }.first { $0.id == id }
@@ -173,6 +174,24 @@ enum Validation {
                 }
             }
         }
+    }
+
+    private static func checkExternalWindow(overlays: OverlayController) -> [String: Bool] {
+        let arguments = CommandLine.arguments
+        guard let index = arguments.firstIndex(of: "--expect-external-window") else { return [:] }
+        guard arguments.count > index + 2, let externalID = UInt32(arguments[index + 1]),
+              let externalPID = Int32(arguments[index + 2]) else {
+            return ["externalProcessWindowArgumentsValid": false]
+        }
+        let external = WindowTracker.windows().first { $0.id == externalID }
+        smokeDiagnostics["externalProcessWindow"] = ["expectedID": externalID,
+            "expectedPID": externalPID, "observedPID": external?.ownerProcessID ?? -1,
+            "bounds": external.map { [$0.x, $0.y, $0.width, $0.height] } ?? []]
+        return ["externalProcessWindowTracked": externalPID != ProcessInfo.processInfo.processIdentifier
+                    && external?.ownerProcessID == externalPID,
+                "externalProcessWindowSurfaceCreated": overlays.displays.contains { display in
+                    display.view.simulation.surfaces.contains { $0.id == externalID }
+                }]
     }
 
     /// Exercises the actual menu actions and window lifecycle. This does not

@@ -1,11 +1,19 @@
 import AppKit
 import Combine
+#if !APP_STORE
 import Sparkle
+#endif
 
 /// Sparkle owns the schedule and persisted preferences; this only connects the UI.
 final class AppUpdater: ObservableObject {
     @Published private(set) var canCheckForUpdates = false
     @Published private(set) var automaticallyChecksForUpdates = false
+#if APP_STORE
+    var isConfigured: Bool { false }
+    init(enabled: Bool) {}
+    func setAutomaticallyChecksForUpdates(_ enabled: Bool) {}
+    func checkForUpdates() {}
+#else
     private let controller: SPUStandardUpdaterController?
 
     var isConfigured: Bool { controller != nil }
@@ -40,4 +48,5 @@ final class AppUpdater: ObservableObject {
         }
         return item
     }
+#endif
 }

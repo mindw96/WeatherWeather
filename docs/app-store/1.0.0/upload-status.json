@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-11-11T04:41:31.464012+00:00",
+  "phase": "blockedBeforeUpload",
+  "appId": "6833310691",
+  "version": "1.0.0",
+  "build": "15",
+  "uploadSucceeded": false,
+  "exitCode": 70,
+  "error": "App Store Connect account credentials could not be loaded from keychain; missing Xcode-Username.",
+  "interactiveSessionLocked": true,
+  "credentialsChanged": false,
+  "awaitingUserUnlock": true
+}

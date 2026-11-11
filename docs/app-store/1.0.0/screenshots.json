@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "scope": "Product renderer preview and actual settings UI; no third-party window content captured.",
+  "screenshots": [
+    {
+      "file": "snow-app-store.png",
+      "height": 1600,
+      "passed": true,
+      "width": 2560
+    },
+    {
+      "file": "rain-app-store.png",
+      "height": 1600,
+      "passed": true,
+      "width": 2560
+    },
+    {
+      "file": "autumn-app-store.png",
+      "height": 1600,
+      "passed": true,
+      "width": 2560
+    },
+    {
+      "file": "fireflies-app-store.png",
+      "height": 1600,
+      "passed": true,
+      "width": 2560
+    },
+    {
+      "file": "stardust-app-store.png",
+      "height": 1600,
+      "passed": true,
+      "width": 2560
+    }
+  ],
+  "allScreenshotsOpaqueRGB": true
+}

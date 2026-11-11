@@ -16,6 +16,11 @@ jobs:
         run: ./script/build_and_run.sh --build-only
       - name: Validate update configuration
         run: python3 script/test_update_config.py
+      - name: Build sandboxed App Store configuration
+        run: |
+          command -v xcodegen >/dev/null || brew install xcodegen
+          xcodegen generate
+          xcodebuild -project WindowWeather.xcodeproj -scheme WindowWeather -configuration Debug -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO build
       - name: Test simulation and geometry
         run: swift test
       - name: Test weather service without network
