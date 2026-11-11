@@ -53,9 +53,9 @@ swift test
 
 ## 패키지·서명·공증
 
-Developer ID 서명 인증서의 유효성은 확인했습니다. `release.sh`의 Apple Silicon·Intel 통합 Release 빌드와 서명은 진행 중이며 최종 결과를 기다립니다. 앱과 DMG가 공증되었다고 판단할 근거는 아직 없습니다.
+Developer ID 서명 인증서의 유효성은 확인했습니다. `release.sh`의 Apple Silicon·Intel 통합 Release 빌드와 앱 서명이 완료되었고, 코드 서명·번들 구조·소스 해시 일치도 확인했습니다. 앱과 DMG가 공증되었다고 판단할 근거는 아직 없습니다.
 
-공증 사전 조회에서 `WindowWeatherNotary` 프로필을 찾지 못해 종료 코드 69가 한 차례 발생했습니다. 화면 잠금과의 관련성은 확정하지 않았으며 프로필이 없거나 자격 증명을 새로 만들어야 한다고 단정하지 않습니다. 잠금 해제 후 기존 프로필·제출 상태를 확인하고 진행해야 합니다.
+공증 사전 조회와 제출 시도에서 `WindowWeatherNotary` 프로필을 찾지 못해 종료 코드 69가 반복되었습니다. 기본 환경 재조회와 과거 `DdayNotary` 확인에서도 같은 오류가 발생했습니다. 화면 잠금과의 관련성은 확정하지 않았으며 자격 증명을 새로 만들어야 한다고 단정하지 않습니다. 잠금 해제 후 기존 프로필·제출 상태를 확인하고 진행해야 합니다.
 
 - Apple Silicon·Intel 통합 Release 빌드: 완료 (`x86_64 arm64`)
 - Developer ID 앱 서명과 중첩 Sparkle 구성 확인: 완료. [서명·구조·소스 일치 검사](signed-build-verification.json)
@@ -68,7 +68,7 @@ Developer ID 서명 인증서의 유효성은 확인했습니다. `release.sh`�
 
 ## 공개 배포와 설치본
 
-- 소스 커밋·태그 및 CI 결과: 대기
+- 소스 커밋 `8aefd20`: `codex/macos-0.8.0` 브랜치와 [초안 PR #1](https://github.com/mindw96/WeatherWeather/pull/1)에 보관했습니다. [GitHub Actions](https://github.com/mindw96/WeatherWeather/actions/runs/42945105092)의 앱 빌드·업데이트 구성·Core 테스트·날씨 서비스 검사가 모두 통과했습니다. [CI 결과](ci.json). 릴리스 태그는 생성하지 않았습니다.
 - GitHub Release 게시: 대기
 - 공개 다운로드·체크섬·latest appcast: 대기
 - 실제 Sparkle의 이전/현재 빌드 판별: 대기
@@ -90,3 +90,5 @@ Developer ID 서명 인증서의 유효성은 확인했습니다. `release.sh`�
 - `WindowWeatherNotary`를 기본 키체인 환경에서 재조회했고 기존 `DdayNotary`도 확인했으나 모두 exit 69(프로필 없음)였습니다. 잠금과의 인과관계는 확인하지 않았으며 자격 증명을 생성·변경하지 않았습니다. [중단 근거](notarization-blocker.json)
 - Apple 제출 ID를 받지 못했습니다. 서명된 앱과 원본 제출 ZIP은 `/private/tmp/window-weather-package.oIkJcA/`에, 재개 상태는 `dist/releases/0.8.0/release-state.json`에 보존합니다.
 - 재개할 때 먼저 프로필 인증과 Apple 제출 이력을 확인합니다. 제출이 없다면 인증 단계에서 실패한 시도의 `submission_attempted` 상태를 근거와 함께 복구한 뒤 `script/release.sh --resume`을 실행합니다. 제출 ID가 확인되면 해당 ID를 복원하여 중복 제출을 피합니다.
+
+서명한 제출 ZIP의 동일 바이트 사본은 `dist/releases/0.8.0/WindowWeather-0.8.0-pending-notarization.zip`에도 보관합니다. Apple 공증·업데이트 서명을 마친 공개 배포 ZIP과 구분하며, SHA-256은 `a7c951061152a8e3798f86e0f5119b4740fcfb5ff495368d03d4441d69c875cc`입니다.

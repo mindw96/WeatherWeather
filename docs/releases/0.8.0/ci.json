@@ -1,0 +1,16 @@
+{
+  "commit": "8aefd204b9667da01df1cea595ec96b5437cb533",
+  "pullRequest": "https://github.com/mindw96/WeatherWeather/pull/1",
+  "workflow_runs": [
+    {
+      "id": 42945105092,
+      "name": "macOS build and tests",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 20,
+      "jobs_url": "https://api.github.com/repos/mindw96/WeatherWeather/actions/runs/42945105092/jobs",
+      "logs_url": "https://api.github.com/repos/mindw96/WeatherWeather/actions/runs/42945105092/logs",
+      "workflow_id": 408136547
+    }
+  ]
+}
