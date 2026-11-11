@@ -1,0 +1,14 @@
+{
+  "name": "쌓임쌓임",
+  "subtitle": "창 위의 눈, 비와 계절 효과",
+  "description": "Mac의 창 위에 눈과 비, 계절의 조각을 더해 보세요. 쌓임쌓임은 회원가입 없이 사용할 수 있는 무료 데스크톱 효과 앱입니다.\n\n• 눈, 비, 낙엽, 벚꽃, 비눗방울, 색종이, 반딧불, 별가루의 여덟 효과\n• 창 가장자리에 쌓이는 눈과 조각, 작은 빗물 파문과 합쳐지는 물방울\n• 왼쪽·가운데(없음)·오른쪽 바람 방향과 별도 바람 세기\n• 창을 움직일 때 흩어지는 눈, 강한 바람에 다시 날리는 낙엽과 벚꽃\n• 드래그로 옮기는 눈사람과 모자·목도리 색, 크기 조절\n• 효과를 표시할 모니터와 숨길 앱 선택\n• 사용 중인 창과 전체 화면에 대한 표시 옵션\n• 전역 단축키, 30분 숨기기, 선택형 로그인 자동 실행\n\n실제 날씨 연동을 켜고 도시를 선택하면 해당 도시의 눈·비에 맞춰 효과를 바꿉니다. 직접 고른 효과는 30분 동안 유지할 수 있습니다. 기기의 현재 위치를 조회하지 않으며, 선택 기능인 날씨 연동은 도시 검색어와 선택한 도시의 좌표를 Open-Meteo로 전송합니다.\n\n수동 효과는 인터넷 없이 동작합니다. 설정은 Dock 아이콘이나 메뉴 막대에서 언제든 다시 열 수 있습니다.\n\nmacOS 14 이상에서 사용할 수 있습니다. 소스 코드는 공개되어 있습니다.",
+  "keywords": "눈,비,낙엽,벚꽃,반딧불,별가루,눈사람,바탕화면,계절,날씨,꾸미기",
+  "supportURL": "https://github.com/mindw96/WeatherWeather/blob/main/docs/SUPPORT.md",
+  "privacyURL": "https://github.com/mindw96/WeatherWeather/blob/main/docs/PRIVACY.md",
+  "marketingURL": "https://github.com/mindw96/WeatherWeather",
+  "copyright": "2026 Dongwook Min",
+  "primaryCategory": "ENTERTAINMENT",
+  "price": "FREE",
+  "releaseMode": "MANUAL_AFTER_APPROVAL",
+  "reviewNotes": "No account or demo login is required. Launch the app, select Snow in the controller, and open a normal non-full-screen app window to observe accumulation along its upper edge. The controller is accessible from the Dock, the menu-bar item, or Command-comma while the app is active. Center (none) in the wind selector disables horizontal wind while preserving the separate strength value. Weather panels pass through clicks; the optional snowman can be dragged. Full-screen accumulation, focused-window visibility, per-app exclusions and monitor selection are user options. Live weather, the global shortcut and login auto-start are opt-in. For live weather, enable it and search/select a city such as Seoul. Only rain/snow conditions switch to those effects; fair weather uses the selected fallback. City search terms and selected city coordinates are sent to Open-Meteo. The app does not obtain device location, capture window content or window titles, or require Accessibility/Screen Recording permission. It only reads public window geometry and owner PID locally. The App Store build uses App Sandbox and App Store updates, and contains no Sparkle updater. Screenshots show the actual effect renderer in a labeled preview beside the actual settings UI."
+}

@@ -4,18 +4,19 @@
   "appId": "6833310691",
   "archive": "/private/tmp/window-weather-100-archive/WindowWeather.xcarchive",
   "package": "/Users/mindw/Documents/Projects/Weather/dist/app-store/1.0.0/WindowWeather.pkg",
-  "packageBytes": 3104529,
-  "sha256": "46a1dd68fbb8983c3a2c9dfef9e0f998e739ce79abb8d7f40fa13bdf9a1d29d2",
+  "packageBytes": 3106800,
+  "sha256": "7bad46208d791165e03f8a7eae7d2a34d53ebb041f3c385a1bb83918a486dcd0",
   "packageSignature": {
     "command": [
       "/usr/sbin/pkgutil",
       "--check-signature",
-      "/private/tmp/window-weather-100-store-export-final/WindowWeather.pkg"
+      "/Users/mindw/Documents/Projects/Weather/dist/app-store/1.0.0/WindowWeather.pkg"
     ],
     "exitCode": 0,
     "output": "Package \"WindowWeather.pkg\":\n   Status: signed by a developer certificate issued by Apple (Development)\n   Certificate Chain:\n    1. 3rd Party Mac Developer Installer: Dongwook Min (4J7HGK26PF)\n       Expires: 2027-11-11 02:56:19 +0000\n       SHA256 Fingerprint:\n           72 C5 82 B0 16 4D F7 CF 4F 50 C2 6F A1 29 B5 BE 57 74 92 82 04 6F \n           ED DE E9 F3 36 77 63 67 05 57\n       ------------------------------------------------------------------------\n    2. Apple Worldwide Developer Relations Certification Authority\n       Expires: 2030-02-20 00:00:00 +0000\n       SHA256 Fingerprint:\n           DC F2 18 78 C7 7F 41 98 E4 B4 61 4F 03 D6 96 D8 9C 66 C6 60 08 D4 \n           24 4E 1B 99 16 1A AC 91 60 1F\n       ------------------------------------------------------------------------\n    3. Apple Root CA\n       Expires: 2035-02-09 21:40:36 +0000\n       SHA256 Fingerprint:\n           B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E 2C \n           68 C5 BE 91 B5 A1 10 01 F0 24\n\n"
   },
   "archiveSucceeded": true,
   "exportSucceeded": true,
-  "checkedAt": "2026-11-11T04:35:54.891790+00:00"
+  "provenance": "Local export of the same Archive used for the successful 2026-11-11 13:52 KST upload; export packaging and signatures may differ from the uploaded transport package.",
+  "checkedAt": "2026-11-11T04:57:35.673328+00:00"
 }

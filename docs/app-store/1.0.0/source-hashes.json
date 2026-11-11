@@ -28,7 +28,7 @@
   "Sources/WeatherApp/SnowmanRenderer.swift": "df00d7d906a23c6223582b71f4b06d085130afcd0b74015cda770c299f33e3cc",
   "Sources/WeatherApp/SnowmanValidation.swift": "b6357ca59720e4d20eccbbc5eb0ef1e160896e7402a7b43dfe22d05a2dd4efa6",
   "Sources/WeatherApp/StoreValidation.swift": "39a9b4a48912bbe8885dcfcd58a17be15cfb44319a69e58a81c98610ecb88507",
-  "Sources/WeatherApp/Validation.swift": "af946f90876edf84b30bc75c07e7e4f18af5a55f977cd6385a8018a951be585a",
+  "Sources/WeatherApp/Validation.swift": "abe3a5ddf4a105dbe2252e8706a25e708ca7c9bd616f23403ed2186f6110231f",
   "Sources/WeatherApp/WeatherPresentation.swift": "dfc7b5dcefb7803adff2d303160eb72bc5f74ab21f11e7e697c2e317024e4664",
   "Sources/WeatherApp/WeatherView.swift": "627bce627718fc65e3b969ea45c1c4a132af687005cba7c6e8a3c7a7ab7fe8e3",
   "Sources/WeatherApp/WindowTracker.swift": "f640d4345fcc189f6dcd34fc443f2850a7abea749b5aca766e044f448b52b11f",

@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-11-11T04:59:46.911670+00:00",
+  "fixture": {
+    "bounds": [
+      80,
+      67,
+      400,
+      272
+    ],
+    "id": 2392,
+    "pid": 9594
+  },
+  "frontToBackIndex": 0,
+  "exposedTopIntervals": [
+    [
+      80,
+      480
+    ]
+  ],
+  "exposedWidth": 400,
+  "priorFailureObservation": {
+    "fixtureBounds": [
+      80,
+      67,
+      400,
+      272
+    ],
+    "foregroundBounds": [
+      0,
+      39,
+      1800,
+      1130
+    ],
+    "topFullyCovered": true
+  },
+  "note": "Only geometry observed; no titles or screen content. Frontmost maintenance is external test fixture behavior, not product code."
+}
