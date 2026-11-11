@@ -1,0 +1,32 @@
+{
+  "installedAt": "2026-11-11T05:55:13.953552+00:00",
+  "path": "/Users/mindw/Applications/WindowWeather.app",
+  "backup": "/Users/mindw/Documents/Projects/Weather/dist/backups/WindowWeather-0.8.0-before-1.0.0-20261111T055509Z",
+  "previousVersion": "0.8.0",
+  "previousBuild": "14",
+  "version": "1.0.0",
+  "build": "15",
+  "sourceApp": "/private/tmp/window-weather-100-public-download/unpacked/WindowWeather.app",
+  "stoppedExactPIDs": [
+    66146
+  ],
+  "runningPIDs": [
+    24361
+  ],
+  "runningProcessCount": 1,
+  "signatureStapleGatekeeperBeforeAndAfterInstall": true,
+  "installedExecutableMatchesPublicDownload": true,
+  "sourceContainsFinderMetadata": false,
+  "preferenceValuesRecorded": false,
+  "preferences": {
+    "beforeKeyCount": 18,
+    "afterKeyCount": 18,
+    "allPriorKeysPresent": true,
+    "unchangedPriorKeyCount": 18,
+    "changedPriorKeyNames": [],
+    "newKeyNames": [],
+    "userSettingsPreserved": true,
+    "rawFileUnchanged": true,
+    "sandboxContainerUnchanged": true
+  }
+}

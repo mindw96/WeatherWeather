@@ -2,16 +2,16 @@
 
 macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이·반딧불·별가루를 표시하는 작은 앱입니다. 창의 윗변에 효과가 내려앉고, 창과 바람에 반응합니다. Dock과 메뉴 막대에서 설정을 열 수 있습니다. 회원가입·로그인 없이 사용하며 수동 효과는 인터넷 없이 동작합니다. 선택형 실제 날씨 연동과 업데이트 확인·다운로드에는 인터넷을 사용합니다.
 
-**최신 버전: 0.8.0 · 빌드 14.** 새 기능과 핵심 테스트 98개, 렌더링·설정·날씨 서비스 검사, 실제 세 모니터의 데스크톱 통합 검사 76개를 통과했습니다. Apple Silicon·Intel 통합 앱과 DMG의 Developer ID 서명·Apple 공증을 마쳐 GitHub에 공개했으며 현재 Mac의 설치·실행도 확인했습니다. [0.8.0 변경 안내](docs/releases/0.8.0/RELEASE_NOTES.ko.md) · [검증 상태](docs/releases/0.8.0/VALIDATION.md)
+**최신 직접 배포 버전: 1.0.0 · 빌드 15.** 바람 방향에 **가운데(없음)**를 추가해 저장된 세기를 바꾸지 않고 바람을 멈출 수 있습니다. Apple Silicon·Intel 통합 앱과 DMG의 Developer ID 서명·Apple 공증을 마쳐 GitHub에 공개했습니다. 실제 세 모니터의 GUI 검사 78개, 공개 다운로드·Sparkle 버전 판별, 현재 Mac 설치·실행과 기존 설정 보존도 확인했습니다. [1.0.0 변경 안내](docs/releases/1.0.0/RELEASE_NOTES.ko.md) · [검증 상태](docs/releases/1.0.0/VALIDATION.md)
 
 Mac 버전의 완성도와 기능을 먼저 다듬은 뒤 Windows로 확장합니다. 현재 Windows 실행 파일은 제공하지 않습니다.
 
-**1.0.0 App Store 심사 대기 중:** 바람 방향에 가운데(없음)를 추가한 Sandbox 전용 빌드 15의 검증·Apple 업로드·처리·심사 제출을 완료했습니다. 2026-11-11에 `WAITING_FOR_REVIEW` 상태를 확인했으며 승인·공개 출시는 아직입니다. 스토어 앱은 Sparkle를 제외하고 승인 후 수동 출시로 설정했습니다. 현재 GitHub 공개 다운로드는 위의 0.8.0을 유지합니다. [스토어 구성](docs/APP_STORE.md) · [제출 검증 상태](docs/app-store/1.0.0/VALIDATION.md) · [개인정보 처리방침](docs/PRIVACY.md) · [지원](docs/SUPPORT.md)
+**App Store 전용 1.0.0은 심사 대기 중:** 별도 Sandbox 빌드 15의 검증·Apple 업로드·처리·심사 제출을 완료했습니다. 2026-11-11 제출 확인 시 `WAITING_FOR_REVIEW`였으며 승인 후 수동 출시로 설정했습니다. 스토어 앱은 Sparkle를 제외하고 App Store에서 업데이트합니다. 위의 GitHub 직접 배포 완료가 스토어의 심사 승인·공개 출시를 의미하지는 않습니다. [스토어 구성](docs/APP_STORE.md) · [제출 검증 상태](docs/app-store/1.0.0/VALIDATION.md) · [개인정보 처리방침](docs/PRIVACY.md) · [지원](docs/SUPPORT.md)
 
-## 0.8.0에서 달라지는 점
+## 주요 기능
 
 - **앱별 표시 제외:** 선택한 앱의 창 안과 창 위의 효과를 숨깁니다. 실행 중인 앱 목록 또는 앱 파일 선택으로 추가하고 언제든 해제할 수 있습니다.
-- **방향과 세기를 따로 조절하는 바람:** 왼쪽·오른쪽 방향과 0~100% 세기를 각각 선택합니다. 이전 버전의 바람 설정은 같은 유효 세기로 옮깁니다.
+- **방향과 세기를 따로 조절하는 바람:** 왼쪽·가운데(없음)·오른쪽과 0~100% 세기를 각각 선택합니다. 가운데는 세기를 보존한 채 바람만 멈추고, 방향을 다시 고르면 저장된 세기를 사용합니다.
 - **창과 바람에 반응하는 누적:** 창을 움직이면 가장자리 눈이 조금 흩어지고, 강한 바람에 쌓인 낙엽·벚꽃 일부가 다시 날립니다. 설정에서 이 반응을 끌 수 있습니다.
 - **빗물의 작은 움직임:** 창에 닿은 비에 파문이 생기고 가까운 물방울이 합쳐져 커지면 떨어집니다.
 - **반딧불·별가루:** 작은 빛이 천천히 움직이고 창 위에 잠시 머물다가 사라집니다.
@@ -25,13 +25,13 @@ Mac 버전의 완성도와 기능을 먼저 다듬은 뒤 Windows로 확장합�
 
 소스와 배포는 [mindw96/WeatherWeather](https://github.com/mindw96/WeatherWeather) 저장소를 사용합니다. macOS 14 이상용 Apple Silicon·Intel 통합 앱을 제공합니다.
 
-**0.8.0 다운로드:** [DMG](https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.dmg) · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v0.8.0/WindowWeather-0.8.0-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v0.8.0). 앱과 DMG 모두 서명·공증된 버전입니다.
+**1.0.0 다운로드:** [DMG](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.dmg) · [앱만 담은 ZIP](https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-macOS-universal.zip) · [릴리스 안내](https://github.com/mindw96/WeatherWeather/releases/tag/v1.0.0). 앱과 DMG 모두 서명·공증된 직접 배포판이며 Sparkle 업데이트 확인을 포함합니다.
 
 DMG를 열고 앱을 옆의 `Applications` 폴더로 끌어 옮긴 다음 응용 프로그램 폴더에서 실행해 주세요. ZIP에는 앱 하나만 들어 있습니다. 한국어 환경의 표시 이름은 **쌓임쌓임**, 파일 이름은 `WindowWeather.app`입니다. 설치 후 Finder에서 DMG를 꺼내셔도 됩니다.
 
-0.5.0부터 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있고, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 다운로드·설치는 사용자가 선택합니다. 0.5.0 이상은 앱 안에서 0.8.0 업데이트를 확인할 수 있습니다. 0.4.0 이하에는 업데이터가 없어 직접 설치해야 합니다.
+0.5.0부터 직접 배포판의 [Sparkle 2.10.1](https://github.com/sparkle-project/Sparkle/releases/tag/2.10.1)이 새 버전을 하루에 한 번 확인합니다. 설정의 **자동 업데이트 확인**에서 끌 수 있고, 설정창·앱 메뉴·메뉴 막대의 **업데이트 확인…**으로 직접 확인할 수 있습니다. 다운로드·설치는 사용자가 선택합니다. 0.5.0 이상 직접 배포판은 앱 안에서 1.0.0 업데이트를 확인할 수 있습니다. 0.4.0 이하에는 업데이터가 없어 직접 설치해야 합니다.
 
-`./script/release.sh`는 통합 Release 빌드 → Developer ID 서명 → 앱·DMG 공증 → 티켓 첨부 → Sparkle 업데이트 서명·검증 → 체크섬 생성을 진행합니다. 0.8.0 결과 경로는 `dist/releases/0.8.0/`이며 현재 완료 여부는 [검증 상태](docs/releases/0.8.0/VALIDATION.md)를 따릅니다. 중단 후에는 `--resume`으로 같은 제출을 이어갑니다. [배포 절차](docs/RELEASING.md)
+`./script/release.sh`는 통합 Release 빌드 → Developer ID 서명 → 앱·DMG 공증 → 티켓 첨부 → Sparkle 업데이트 서명·검증 → 체크섬 생성을 진행합니다. 1.0.0 결과 경로는 `dist/releases/1.0.0/`이며 실제 결과는 [검증 기록](docs/releases/1.0.0/VALIDATION.md)을 따릅니다. 중단 후에는 `--resume`으로 같은 제출을 이어갑니다. [배포 절차](docs/RELEASING.md)
 
 ## 개발 버전 실행하기
 
@@ -59,7 +59,7 @@ SwiftPM의 중첩 샌드박스가 막히는 경우에만 `WEATHER_DISABLE_SWIFTP
 
 ## 사용하기
 
-설정창의 효과 선택 영역이나 메뉴에서 여덟 효과를 고르고 **내리는 양**, **바람 방향**, **바람 세기**, 누적 여부를 조절합니다. 바람 세기 0%는 바람의 영향을 끕니다. 쌓인 흔적을 지우거나 일시정지할 수 있으며 종료하면 오버레이가 사라집니다.
+설정창의 효과 선택 영역이나 메뉴에서 여덟 효과를 고르고 **내리는 양**, **바람 방향**, **바람 세기**, 누적 여부를 조절합니다. **가운데(없음)**는 저장된 세기를 보존하고 바람만 멈춥니다. 바람 세기 0%도 바람의 영향을 끕니다. 쌓인 흔적을 지우거나 일시정지할 수 있으며 종료하면 오버레이가 사라집니다.
 
 설정창을 닫거나 최소화한 뒤에는 **Dock 아이콘 클릭**, **Dock 오른쪽 클릭 → 설정 열기…**, **메뉴 막대 → 설정…**으로 다시 엽니다. 앱이 활성화된 상태에서는 **⌘,**도 사용할 수 있습니다. 설정창을 닫아도 효과는 계속되며 앱 메뉴의 종료 또는 **⌘Q**로 끝냅니다.
 
@@ -108,7 +108,7 @@ SwiftPM의 중첩 샌드박스가 막히는 경우에만 `WEATHER_DISABLE_SWIFTP
 
 - **WeatherCore:** 플랫폼 창 API와 분리된 여덟 효과의 시뮬레이션, 곡면·가림·누적·화면 간 전달, 전체 화면 정책, 눈사람 위치, 실제 날씨 응답 검증과 전환 규칙입니다.
 - **WeatherApp:** AppKit 투명 오버레이·창 추적, SwiftUI 설정, 단축키·자동 시작, 날씨 통신과 Sparkle 업데이트를 연결합니다. 일반 날씨 패널은 클릭을 통과시키며 눈사람의 보이는 몸체만 드래그 입력을 받습니다. 일반 상태 30Hz·저전력 상태 20Hz로 애니메이션을 갱신합니다.
-- **검증:** 결정적 단위 테스트·오프스크린 그림 검사·네이티브 테스트 창·공개 샘플 API 점검을 구분합니다. [0.8.0 검증 상태](docs/releases/0.8.0/VALIDATION.md)와 [PLAN.md](PLAN.md)에 완료 여부를 기록합니다.
+- **검증:** 결정적 단위 테스트·오프스크린 그림 검사·네이티브 테스트 창·공개 샘플 API 점검을 구분합니다. [1.0.0 직접 배포 검증](docs/releases/1.0.0/VALIDATION.md)과 [PLAN.md](PLAN.md)에 완료 여부를 기록합니다.
 
 실제 입력·다양한 앱의 겹침·Mission Control·Spaces·전체 화면·모니터 배율 조합·잠자기 복귀는 별도 실사용 확인 대상입니다. API의 한 번 성공이나 테스트 이미지가 모든 데스크톱 환경의 동작을 보장하지 않습니다. Dock 위 적설과 번개는 포함하지 않습니다.
 

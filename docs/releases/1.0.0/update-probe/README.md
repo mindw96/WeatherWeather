@@ -2,12 +2,14 @@
 
 2026-11-11, Sparkle 2.10.1, Apple Silicon Mac.
 
-두 프로브의 컴파일·ad-hoc 서명·`codesign --verify --deep --strict` 검증을 완료했습니다. 아직 피드는 조회하지 않았으며, v1.0.0 공개와 latest 피드 일치가 확인된 뒤 실행합니다.
+v1.0.0 공개와 latest 피드 일치를 확인한 뒤 제품과 별개의 임시 호스트 두 개에서 실제 공개 피드를 조회했습니다. 두 호스트 모두 첫 실행 결과 `passed: true`이며 자동 확인 ON → OFF 저장도 통과했습니다. 제품 키·캐시·설정은 변경하지 않았습니다.
 
-| 임시 앱 | 호스트 버전 / 빌드 | 기대 결과 |
-| --- | --- | --- |
-| `Build14.app` | 0.8.0 / 14 | 1.0.0 / 15와 정확한 업데이트 ZIP URL 발견 |
-| `Build15.app` | 1.0.0 / 15 | `OnLatestVersion`, 최신 빌드 15 |
+| 임시 앱 | 호스트 버전 / 빌드 | 실제 결과 | 시간 |
+| --- | --- | --- | --- |
+| `Build14.app` | 0.8.0 / 14 | 1.0.0 / 15와 정확한 업데이트 ZIP URL 발견 | 1.16초 |
+| `Build15.app` | 1.0.0 / 15 | `OnLatestVersion`, 최신 빌드 15 | 0.46초 |
+
+원본 결과는 [available.json](available.json), [current.json](current.json)이며 첫 실행 기록은 [available-launch.txt](available-launch.txt), [current-launch.txt](current-launch.txt)에 있습니다.
 
 ## 준비
 
@@ -19,11 +21,16 @@ python3 docs/releases/1.0.0/update-probe/prepare.py
 
 각 실행에 고유 bundle ID(`org.windowweather.sparkle-probe.v100.*`)와 임시 경로를 사용합니다. 컴파일 명령, 실행 명령, 소스 SHA-256과 서명 검증 결과는 `prepared-hosts.json`에 기록합니다. `main.swift`는 이 프로브 도메인 밖에서 실행하지 못하도록 확인합니다. 제품 설정·키·캐시는 변경하지 않습니다.
 
-## 공개 후 실행
+## 실제 실행
 
-v1.0.0 공개 및 latest 피드가 1.0.0을 가리키는 것이 확인된 뒤 `prepared-hosts.json`에 기록된 각 호스트의 `runCommand`를 순서대로 실행합니다. 기대하는 업데이트 ZIP은 `https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-update.zip`입니다.
+v1.0.0 [공개 다운로드 및 latest 피드 확인](../public-download-verification.json) 후 GUI·네트워크 실행 권한이 있는 환경에서 아래 명령을 순서대로 실행했습니다. 두 호스트의 첫 결과를 보존했으며 피드 URL 변경, 재조회 또는 제품 캐시 변경은 하지 않았습니다. 다시 준비한다면 경로가 바뀌므로 `prepared-hosts.json`의 `runCommand`를 사용합니다.
 
-두 결과 JSON의 `passed`가 모두 `true`이고 최신 빌드가 `15`인지 확인합니다. 구버전 호스트는 표시 버전과 ZIP URL까지 일치해야 하며, 최신 호스트는 `SPUNoUpdateFoundReason.onLatestVersion`이어야 합니다. `open`의 종료 코드만으로 성공을 판정하지 않습니다.
+```sh
+/usr/bin/open -n -W /private/tmp/window-weather-100-sparkle-probe.lw1ae46c/Build14.app --args /Users/mindw/Documents/Projects/Weather/docs/releases/1.0.0/update-probe/available.json available
+/usr/bin/open -n -W /private/tmp/window-weather-100-sparkle-probe.lw1ae46c/Build15.app --args /Users/mindw/Documents/Projects/Weather/docs/releases/1.0.0/update-probe/current.json current
+```
+
+두 결과 JSON의 `passed`가 모두 `true`이고 최신 빌드가 `15`임을 확인했습니다. 구버전 호스트에서 표시 버전 `1.0.0` 및 업데이트 ZIP URL `https://github.com/mindw96/WeatherWeather/releases/download/v1.0.0/WindowWeather-1.0.0-update.zip`까지 일치했습니다. 최신 호스트는 `SPUNoUpdateFoundReason.onLatestVersion`으로 판정되었습니다. `open`의 종료 코드만으로 성공을 판정하지 않았습니다.
 
 자동 확인·자동 다운로드·자동 설치·시스템 프로파일 전송은 비활성화 상태로 시작합니다. 실제 조회 시 자동 확인 ON → OFF 저장을 검사하고 종료 시 테스트 앱 자신의 설정 도메인만 정리합니다.
 
