@@ -48,8 +48,9 @@ final class Preferences: ObservableObject {
         mode = WeatherMode(rawValue: defaults.string(forKey: "mode") ?? "snow") ?? .snow
         intensity = defaults.object(forKey: "intensity") == nil ? 0.55 : min(1, max(0, defaults.double(forKey: "intensity")))
         let oldWind = Self.finite(defaults.object(forKey: "wind") as? Double ?? 0.12, range: -1...1, fallback: 0.12)
-        wind = defaults.object(forKey: "windDirection") == nil ? (oldWind < 0 ? -1 : 1)
-            : (defaults.double(forKey: "windDirection") < 0 ? -1 : 1)
+        let direction = Self.finite(defaults.object(forKey: "windDirection") as? Double ?? oldWind,
+                                    range: -1...1, fallback: oldWind)
+        wind = direction == 0 ? 0 : (direction < 0 ? -1 : 1)
         windStrength = Self.finite(defaults.object(forKey: "windStrength") as? Double ?? abs(oldWind), range: 0...1, fallback: 0.12)
         movementReactionEnabled = defaults.object(forKey: "movementReactionEnabled") as? Bool ?? true
         excludedApplications = defaults.dictionary(forKey: "excludedApplications") as? [String: String] ?? [:]

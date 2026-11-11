@@ -104,6 +104,7 @@ struct SettingsView: View {
                     Text("바람 방향").frame(width: 72, alignment: .leading)
                     Picker("바람 방향", selection: $preferences.wind) {
                         Text("← 왼쪽").tag(-1.0)
+                        Text("가운데(없음)").tag(0.0)
                         Text("오른쪽 →").tag(1.0)
                     }.pickerStyle(.segmented).labelsHidden()
                 }
@@ -113,6 +114,8 @@ struct SettingsView: View {
                     Text("\(Int(preferences.windStrength * 100))%")
                         .monospacedDigit().foregroundStyle(.secondary).frame(width: 38, alignment: .trailing)
                 }
+                .disabled(preferences.wind == 0)
+                .help("가운데(없음)에서는 바람이 불지 않습니다. 방향을 다시 고르면 저장된 세기를 사용합니다.")
                 Toggle("창과 바람에 쌓인 효과가 반응", isOn: $preferences.movementReactionEnabled)
                     .toggleStyle(.switch)
                     .help("창을 움직이면 눈 조각이 떨어지고, 강한 바람에 쌓인 잎과 꽃잎이 다시 날립니다.")
@@ -152,9 +155,15 @@ struct SettingsView: View {
                 Button("쌓인 흔적 지우기", action: clear).controlSize(.small)
             }
             HStack {
+#if APP_STORE
+                Text("효과는 계정 없이 오프라인으로 작동합니다.\n날씨 연동에는 인터넷을 사용합니다.")
+                    .font(.caption).foregroundStyle(.secondary).lineSpacing(3)
+                    .fixedSize(horizontal: false, vertical: true)
+#else
                 Text("효과는 계정 없이 오프라인으로 작동합니다.\n날씨 연동·업데이트 확인에는 인터넷을 사용합니다.")
                     .font(.caption).foregroundStyle(.secondary).lineSpacing(3)
                     .fixedSize(horizontal: false, vertical: true)
+#endif
                 Spacer()
                 Button {
                     preferences.paused.toggle()
@@ -168,6 +177,15 @@ struct SettingsView: View {
             }
 
             Divider()
+#if APP_STORE
+            Text("앱 업데이트는 App Store에서 관리합니다.")
+                .font(.caption).foregroundStyle(.secondary)
+                HStack {
+                    Link("개인정보 처리방침", destination: URL(string: "https://github.com/mindw96/WeatherWeather/blob/main/docs/PRIVACY.md")!)
+                    Link("도움말 및 문의", destination: URL(string: "https://github.com/mindw96/WeatherWeather/blob/main/docs/SUPPORT.md")!)
+                }.font(.caption)
+                .fixedSize(horizontal: false, vertical: true)
+#else
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     Toggle("자동 업데이트 확인", isOn: Binding(
@@ -187,6 +205,7 @@ struct SettingsView: View {
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
+#endif
         }
     }
 

@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-11-11T04:31:38.608056+00:00",
+  "appId": "6833310691",
+  "name": "쌓임쌓임",
+  "platform": "MAC_OS",
+  "bundleId": "org.windowweather.app",
+  "sku": "windowweather-macos",
+  "primaryLocale": "ko",
+  "version": "1.0.0",
+  "versionState": "PREPARE_FOR_SUBMISSION",
+  "url": "https://appstoreconnect.apple.com/apps/6833310691/distribution/macos/version/inflight",
+  "appCreated": true,
+  "manualReleaseSaved": true,
+  "demoLoginRequired": false,
+  "buildAttached": false,
+  "submittedForReview": false,
+  "privacyPublished": false
+}

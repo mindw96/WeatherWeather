@@ -2,6 +2,7 @@
 dist/
 .DS_Store
 .swiftpm/
+*.xcodeproj/
 .codex/
 __pycache__/
 docs/validation/*.log

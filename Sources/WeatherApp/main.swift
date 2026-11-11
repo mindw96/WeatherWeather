@@ -24,6 +24,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             || CommandLine.arguments.contains("--validate-snowman")
             || CommandLine.arguments.contains("--validate-features")
             || CommandLine.arguments.contains("--validate-weather-service")
+            || CommandLine.arguments.contains("--validate-store-weather")
+            || CommandLine.arguments.contains("--store-screenshots")
         let suiteName = validating ? "org.windowweather.validation.\(UUID().uuidString)" : nil
         validationSuiteName = suiteName
         let defaults = suiteName.map { UserDefaults(suiteName: $0)! } ?? .standard
@@ -33,6 +35,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+#if APP_STORE
+        for flag in ["--validate-store-weather", "--store-screenshots"] {
+            if let index = CommandLine.arguments.firstIndex(of: flag), CommandLine.arguments.count > index + 1 {
+                Task { @MainActor in
+                    if flag == "--store-screenshots" {
+                        await StoreValidation.screenshots(to: CommandLine.arguments[index + 1], delegate: self)
+                    } else {
+                        await StoreValidation.liveWeather(to: CommandLine.arguments[index + 1])
+                    }
+                    NSApp.terminate(nil)
+                }
+                return
+            }
+        }
+#endif
         if let index = CommandLine.arguments.firstIndex(of: "--validate-weather-service"), CommandLine.arguments.count > index + 1 {
             Task { @MainActor in
                 await LiveWeatherValidation.run(to: CommandLine.arguments[index + 1])
@@ -126,7 +143,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(withTitle: "설정…", action: #selector(showSettings), keyEquivalent: ",")
         menu.addItem(withTitle: "종료", action: #selector(quit), keyEquivalent: "q")
         for item in menu.items where item.action != nil { item.target = self }
+#if !APP_STORE
         menu.insertItem(updater.menuItem(), at: menu.numberOfItems - 1)
+#endif
         statusItem?.menu = menu
     }
 
@@ -137,7 +156,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         applicationItem.submenu = applicationMenu
         let settings = applicationMenu.addItem(withTitle: "설정…", action: #selector(showSettings), keyEquivalent: ",")
         settings.target = self
+#if !APP_STORE
         applicationMenu.addItem(updater.menuItem())
+#endif
         applicationMenu.addItem(.separator())
         applicationMenu.addItem(withTitle: "\(AppIdentity.displayName) 가리기", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
         let hideOthers = applicationMenu.addItem(withTitle: "다른 앱 가리기", action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h")

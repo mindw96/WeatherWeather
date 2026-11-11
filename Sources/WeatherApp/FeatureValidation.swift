@@ -8,6 +8,9 @@ enum FeatureValidation {
         let defaults = UserDefaults(suiteName: name)!
         defer { defaults.removePersistentDomain(forName: name) }
         var checks: [String: Bool] = [:]
+        defaults.set(0.0, forKey: "wind")
+        let calm = Preferences(defaults: defaults)
+        checks["legacyCalmWindSelectsCenter"] = calm.wind == 0 && calm.effectiveWind == 0
         defaults.set(-0.38, forKey: "wind")
         let settings = Preferences(defaults: defaults)
         checks["legacyWindPreservesDirectionAndMagnitude"] = settings.wind == -1 && abs(settings.effectiveWind + 0.38) < 0.000001
@@ -17,6 +20,14 @@ enum FeatureValidation {
         let reloaded = Preferences(defaults: defaults)
         checks["independentWindSettingsSurviveReload"] = reloaded.wind == 1 && reloaded.windStrength == 0.8
         checks["legacyAppReadsEffectiveWind"] = defaults.double(forKey: "wind") == 0.8
+        settings.wind = 0
+        checks["centerStopsWindWithoutDiscardingStrength"] = settings.effectiveWind == 0
+            && settings.windStrength == 0.8 && defaults.double(forKey: "wind") == 0
+        let centered = Preferences(defaults: defaults)
+        checks["centerSelectionSurvivesReload"] = centered.wind == 0
+            && centered.windStrength == 0.8 && centered.effectiveWind == 0
+        settings.wind = -1
+        checks["directionRestoresSavedStrength"] = settings.effectiveWind == -0.8
         settings.excludedApplications = ["org.example.editor": "Editor", "org.example.video": "Video"]
         checks["excludedAppsPersistByBundleID"] = Preferences(defaults: defaults).excludedApplications == settings.excludedApplications
         settings.excludedApplications.removeValue(forKey: "org.example.editor")
@@ -42,6 +53,12 @@ enum FeatureValidation {
         checks["manualResumeCancelsTimer"] = settings.pauseUntil == nil
         defaults.set(Double.nan, forKey: "windStrength")
         checks["invalidSavedWindIsFinite"] = Preferences(defaults: defaults).effectiveWind.isFinite
+        defaults.set(Double.nan, forKey: "windDirection")
+        checks["invalidSavedDirectionFallsBackToLegacyWind"] = Preferences(defaults: defaults).wind == -1
+        defaults.set(8.0, forKey: "windDirection")
+        defaults.set(2.0, forKey: "windStrength")
+        let clamped = Preferences(defaults: defaults)
+        checks["savedWindDirectionAndStrengthAreBounded"] = clamped.wind == 1 && clamped.windStrength == 1
         let service = LiveWeatherService(networkEnabled: false) { _ in }
         service.configure(enabled: true, city: city, fallback: .snow)
         service.search("Seoul")
