@@ -81,27 +81,27 @@
   },
   "diagnostics" : {
     "autumnSettling" : {
-      "finalCount" : 680,
-      "peakCount" : 500
+      "finalCount" : 1071,
+      "peakCount" : 517
     },
     "bubblesSettling" : {
-      "finalCount" : 149,
-      "peakCount" : 121
+      "finalCount" : 248,
+      "peakCount" : 125
     },
     "cherryBlossomSettling" : {
-      "finalCount" : 914,
-      "peakCount" : 692
+      "finalCount" : 1402,
+      "peakCount" : 705
     },
     "confettiSettling" : {
-      "finalCount" : 1323,
-      "peakCount" : 975
+      "finalCount" : 2111,
+      "peakCount" : 1014
     },
     "controllerAccess" : {
       "activationPolicy" : 0,
       "note" : "AppKit menu-action dispatch and reopen callbacks; physical Dock\/menu-bar clicks are not injected.",
       "settingsFrame" : [
-        735,
-        151,
+        -765,
+        364,
         450,
         848
       ],
@@ -109,54 +109,54 @@
       "wasMiniaturized" : true
     },
     "displayTransfer" : {
-      "after" : 2432.9473053176544,
-      "before" : 2433.5444078754053,
+      "after" : 2457.7918171507081,
+      "before" : 2458.3857013424595,
       "targetContainsWindowCenter" : true
     },
     "externalProcessWindow" : {
       "bounds" : [
-        880,
+        2000,
         58,
         400,
         272
       ],
-      "expectedID" : 2895,
-      "expectedPID" : 19487,
-      "observedPID" : 19487
+      "expectedID" : 3034,
+      "expectedPID" : 22128,
+      "observedPID" : 22128
     },
     "firefliesSettling" : {
-      "finalCount" : 47,
-      "peakCount" : 36
+      "finalCount" : 61,
+      "peakCount" : 42
     },
     "focusAfterSwitch" : {
       "appActive" : true,
-      "expectedWindowID" : 2917,
-      "fixturePID" : 19683,
+      "expectedWindowID" : 3067,
+      "fixturePID" : 22418,
       "fixtureWindowOrder" : [
-        2917,
-        2915
+        3067,
+        3066
       ],
-      "frontmostPID" : 19683,
+      "frontmostPID" : 22418,
       "hiddenWindowIDs" : [
-        2917
+        3067
       ],
-      "keyWindowID" : 2917,
-      "trackedFocusedWindowID" : 2917
+      "keyWindowID" : 3067,
+      "trackedFocusedWindowID" : 3067
     },
     "focusBeforeSwitch" : {
       "appActive" : true,
-      "expectedWindowID" : 2915,
-      "fixturePID" : 19683,
+      "expectedWindowID" : 3066,
+      "fixturePID" : 22418,
       "fixtureWindowOrder" : [
-        2915,
-        2917
+        3066,
+        3067
       ],
-      "frontmostPID" : 19683,
+      "frontmostPID" : 22418,
       "hiddenWindowIDs" : [
-        2915
+        3066
       ],
-      "keyWindowID" : 2915,
-      "trackedFocusedWindowID" : 2915
+      "keyWindowID" : 3066,
+      "trackedFocusedWindowID" : 3066
     },
     "guiSession" : {
       "dictionaryAvailable" : true,
@@ -319,8 +319,8 @@
       }
     ],
     "stardustSettling" : {
-      "finalCount" : 197,
-      "peakCount" : 147
+      "finalCount" : 301,
+      "peakCount" : 155
     },
     "windowMove" : {
       "after" : [
@@ -339,7 +339,7 @@
   },
   "displayCount" : 3,
   "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
-  "observedWindowCountAfterFixtureClosed" : 12,
+  "observedWindowCountAfterFixtureClosed" : 17,
   "passed" : true,
   "status" : "passed"
 }
