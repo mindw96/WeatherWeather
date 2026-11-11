@@ -18,5 +18,10 @@
   "archiveSucceeded": true,
   "exportSucceeded": true,
   "provenance": "Local export of the same Archive used for the successful 2026-11-11 13:52 KST upload; export packaging and signatures may differ from the uploaded transport package.",
-  "checkedAt": "2026-11-11T04:57:35.673328+00:00"
+  "checkedAt": "2026-11-11T04:57:35.673328+00:00",
+  "archiveAndExportMachOUUIDsMatch": true,
+  "machOUUIDs": {
+    "x86_64": "C07A30E7-E9CC-3184-AE86-543BA0568FD7",
+    "arm64": "B9271B89-3E50-33B8-AFA1-3E2F821AE29F"
+  }
 }
