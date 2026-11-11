@@ -1,34 +1,34 @@
-$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app: valid on disk
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app: satisfies its Designated Requirement
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app: valid on disk
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app: satisfies its Designated Requirement
 
-$ /usr/bin/codesign -dvvv /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app
-Executable=/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/MacOS/WindowWeather
+$ /usr/bin/codesign -dvvv /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app
+Executable=/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/MacOS/WindowWeather
 Identifier=org.windowweather.app
 Format=app bundle with Mach-O universal (x86_64 arm64)
 CodeDirectory v=20500 size=4033 flags=0x10000(runtime) hashes=119+3 location=embedded
 Hash type=sha256 size=32
-CandidateCDHash sha256=61cc6f543a454254504e59f1dec9bbe1943a2787
-CandidateCDHashFull sha256=61cc6f543a454254504e59f1dec9bbe1943a27870f05b9390d90ea1ea294203c
+CandidateCDHash sha256=4d096d9245ecb8d08e9e9fedba8eb01ddd2ef0b3
+CandidateCDHashFull sha256=4d096d9245ecb8d08e9e9fedba8eb01ddd2ef0b3860bda66ac84bab33aaa2b80
 Hash choices=sha256
-CMSDigest=61cc6f543a454254504e59f1dec9bbe1943a27870f05b9390d90ea1ea294203c
+CMSDigest=4d096d9245ecb8d08e9e9fedba8eb01ddd2ef0b3860bda66ac84bab33aaa2b80
 CMSDigestType=2
-CDHash=61cc6f543a454254504e59f1dec9bbe1943a2787
+CDHash=4d096d9245ecb8d08e9e9fedba8eb01ddd2ef0b3
 Signature size=8975
 Authority=Developer ID Application: Dongwook Min (4J7HGK26PF)
 Authority=Developer ID Certification Authority
 Authority=Apple Root CA
-Timestamp=Nov 11, 2026 at 2:39:09 PM
+Timestamp=Nov 11, 2026 at 2:46:12 PM
 Notarization Ticket=stapled
 Info.plist entries=19
 TeamIdentifier=4J7HGK26PF
@@ -38,19 +38,19 @@ Internal requirements count=1 size=184
 Total signatures=1
 Chosen signature=1
 
-$ /usr/bin/plutil -lint /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Info.plist
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app/Contents/Info.plist: OK
+$ /usr/bin/plutil -lint /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Info.plist
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app/Contents/Info.plist: OK
 
-$ xcrun stapler validate /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app
-Processing: /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app
+$ xcrun stapler validate /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app
+Processing: /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app
 The validate action worked!
 
-$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked/WindowWeather.app: accepted
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked/WindowWeather.app: accepted
 source=Notarized Developer ID
 
-$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.xpf70l37/WindowWeather-1.0.0-macOS-universal.zip
-Archive:  /private/tmp/window-weather-release-verify.xpf70l37/WindowWeather-1.0.0-macOS-universal.zip
+$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.l4kkarkz/WindowWeather-1.0.0-macOS-universal.zip
+Archive:  /private/tmp/window-weather-release-verify.l4kkarkz/WindowWeather-1.0.0-macOS-universal.zip
     testing: WindowWeather.app/       OK
     testing: WindowWeather.app/Contents/   OK
     testing: WindowWeather.app/Contents/CodeResources   OK
@@ -61,7 +61,6 @@ Archive:  /private/tmp/window-weather-release-verify.xpf70l37/WindowWeather-1.0.
     testing: WindowWeather.app/Contents/Resources/   OK
     testing: WindowWeather.app/Contents/Resources/en.lproj/   OK
     testing: WindowWeather.app/Contents/Resources/en.lproj/InfoPlist.strings   OK
-    testing: WindowWeather.app/Contents/Resources/.DS_Store   OK
     testing: WindowWeather.app/Contents/Resources/AppIcon.icns   OK
     testing: WindowWeather.app/Contents/Resources/ko.lproj/   OK
     testing: WindowWeather.app/Contents/Resources/ko.lproj/InfoPlist.strings   OK
@@ -221,35 +220,35 @@ Archive:  /private/tmp/window-weather-release-verify.xpf70l37/WindowWeather-1.0.
     testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Modules   OK
     testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Sparkle   OK
     testing: WindowWeather.app/Contents/Info.plist   OK
-No errors detected in compressed data of /private/tmp/window-weather-release-verify.xpf70l37/WindowWeather-1.0.0-macOS-universal.zip.
+No errors detected in compressed data of /private/tmp/window-weather-release-verify.l4kkarkz/WindowWeather-1.0.0-macOS-universal.zip.
 
 Architectures: x86_64 arm64
 
 
-$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
---prepared:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
---validated:/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app: valid on disk
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app: satisfies its Designated Requirement
+$ /usr/bin/codesign --verify --deep --strict --verbose=2 /private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc
+--prepared:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc
+--validated:/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app: valid on disk
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app: satisfies its Designated Requirement
 
-$ xcrun stapler validate /private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app
-Processing: /private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app
+$ xcrun stapler validate /private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app
+Processing: /private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app
 The validate action worked!
 
-$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app
-/private/tmp/window-weather-release-verify.xpf70l37/unpacked-update/WindowWeather.app: accepted
+$ /usr/sbin/spctl --assess --type execute --verbose=2 /private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app
+/private/tmp/window-weather-release-verify.l4kkarkz/unpacked-update/WindowWeather.app: accepted
 source=Notarized Developer ID
 
-$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.xpf70l37/sparkle/WindowWeather-1.0.0-update.zip
-Archive:  /private/tmp/window-weather-release-verify.xpf70l37/sparkle/WindowWeather-1.0.0-update.zip
+$ /usr/bin/unzip -t /private/tmp/window-weather-release-verify.l4kkarkz/sparkle/WindowWeather-1.0.0-update.zip
+Archive:  /private/tmp/window-weather-release-verify.l4kkarkz/sparkle/WindowWeather-1.0.0-update.zip
     testing: WindowWeather.app/       OK
     testing: WindowWeather.app/Contents/   OK
     testing: WindowWeather.app/Contents/CodeResources   OK
@@ -260,7 +259,6 @@ Archive:  /private/tmp/window-weather-release-verify.xpf70l37/sparkle/WindowWeat
     testing: WindowWeather.app/Contents/Resources/   OK
     testing: WindowWeather.app/Contents/Resources/en.lproj/   OK
     testing: WindowWeather.app/Contents/Resources/en.lproj/InfoPlist.strings   OK
-    testing: WindowWeather.app/Contents/Resources/.DS_Store   OK
     testing: WindowWeather.app/Contents/Resources/AppIcon.icns   OK
     testing: WindowWeather.app/Contents/Resources/ko.lproj/   OK
     testing: WindowWeather.app/Contents/Resources/ko.lproj/InfoPlist.strings   OK
@@ -420,6 +418,6 @@ Archive:  /private/tmp/window-weather-release-verify.xpf70l37/sparkle/WindowWeat
     testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Modules   OK
     testing: WindowWeather.app/Contents/Frameworks/Sparkle.framework/Sparkle   OK
     testing: WindowWeather.app/Contents/Info.plist   OK
-No errors detected in compressed data of /private/tmp/window-weather-release-verify.xpf70l37/sparkle/WindowWeather-1.0.0-update.zip.
+No errors detected in compressed data of /private/tmp/window-weather-release-verify.l4kkarkz/sparkle/WindowWeather-1.0.0-update.zip.
 
-Sparkle appcast verified: build 15, version 1.0.0, 3675785 bytes, EdDSA signature valid.
+Sparkle appcast verified: build 15, version 1.0.0, 3675305 bytes, EdDSA signature valid.

@@ -1,12 +1,11 @@
 {
-  "createdAt": "2026-11-11T05:22:38.649477+00:00",
-  "sourceCommit": "3754c25546e018725149f981e531a54c9b1dd7d9",
+  "createdAt": "2026-11-11T05:45:40.876847+00:00",
+  "sourceCommit": "2dbb677036d7af2b27f27eb64c39915b7b94ae2e",
   "sourceRoot": "/Users/mindw/Documents/Projects/Weather",
-  "snapshotRoot": "/private/tmp/window-weather-100-direct-source.btpfupl3",
+  "snapshotRoot": "/private/tmp/window-weather-100-clean-source.yrmx976m",
   "files": {
     "Package.swift": "36a93f736025c8c80f0d6e7efcb04541624f8795d338eaa29063f0650638a6fd",
     "Package.resolved": "336948267e20ed88e8dfee77f5ff6b1ab2e7d756a00bcb63e978aaeb0789067b",
-    "Sources/.DS_Store": "fb5558b4c12d533e1ffe2c28be1ea8ad5f0d3020a083063f21d971daa25bfd0f",
     "Sources/WeatherApp/AppIdentity.swift": "e063eb7f00da0f09870b7edcf62cb3c092740eb19aaa76e4abd86b2feb19c7b5",
     "Sources/WeatherApp/AppUpdater.swift": "a716a6a558d798f60b0c2f053533c58fef84c5d604791cb5c6a52ac54d62b5d3",
     "Sources/WeatherApp/CornerValidation.swift": "38956302f67f4ee2595da100bfb5d39fccd3f285ad4a3df9fab0d318e7364528",
@@ -45,7 +44,6 @@
     "Tests/WeatherCoreTests/SnowmanPositionTests.swift": "2f667a421ed027c331345d6a566d0d889f1ff39fedd97b6f1610825a29cdf03f",
     "Tests/WeatherCoreTests/WeatherSimulationTests.swift": "954085243f8d7d232ff0ca9da05e53f451e8a5bd1e205e011707a666ad395c4d",
     "Tests/WeatherCoreTests/WindowGeometryTests.swift": "3f4e8caf1aea5738ddc9c8c781f5e2fa4bef8b9c455ec9dad3986d8c30b994a3",
-    "Resources/.DS_Store": "af92c36e07aa2587cf1b370e3120d154882a0da0dac2d34015168448f9c90ba9",
     "Resources/AppIcon.icns": "b369aad8ac74ac5259e2e3334a507e298d52560754e017ce909ca8cb781cc2ad",
     "Resources/PrivacyInfo.xcprivacy": "d21c29bfb1af636a62b819514c46a4198aa644006724dd9a575cde12b3f570c3",
     "Resources/en.lproj/InfoPlist.strings": "5be0efde284eaa1e7ae95dcffa74e09ad431db72b270615af10de29e6b9ed00f",
@@ -64,6 +62,12 @@
     "LICENSE": "7e39a3e0e71fd46c243894d4a3136aea3a989f505b00640586831befad83bbf8",
     "project.yml": "b2c0932b593ad28e5e79c4f8c2303fa632464ae096725c04d563302736e1f0c4"
   },
-  "fileCount": 59,
-  "allHashesMatch": true
+  "fileCount": 57,
+  "allHashesMatch": true,
+  "sourceSelection": "Git-tracked inputs only, read directly from the source commit",
+  "excludedUntrackedMetadata": [
+    "Sources/.DS_Store",
+    "Resources/.DS_Store"
+  ],
+  "supersededEvidence": "superseded-package/"
 }
