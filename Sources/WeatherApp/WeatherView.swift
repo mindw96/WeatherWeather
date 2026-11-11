@@ -85,7 +85,10 @@ final class WeatherView: NSView {
             guard simulation.mode.hasSettledParticles ? !settled.isEmpty
                 : pile.heights.contains(where: { $0 > 0.01 }) || !ripples.isEmpty || !drops.isEmpty else { continue }
             context.saveGState()
-            let band = CGRect(x: pile.x, y: pile.y - 36, width: pile.width, height: 44 + pile.cornerRadius)
+            // A 20pt bubble can expand 1.22x when popping; include its rim and antialiasing.
+            let sidePadding = simulation.mode == .bubbles ? 14.0 : 0
+            let band = CGRect(x: pile.x - sidePadding, y: pile.y - 36,
+                              width: pile.width + 2 * sidePadding, height: 44 + pile.cornerRadius)
             context.clip(to: band)
             let foreground = pile.surfaceID == 0 ? windowGeometry[...] : windowGeometry.prefix { $0.id != pile.surfaceID }
             // Baseline collision intervals cannot describe visibility above a mound.
