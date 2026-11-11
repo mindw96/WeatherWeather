@@ -1,13 +1,38 @@
 import AppKit
 import WeatherCore
 
+enum WindowExclusionMask {
+    static func paths(excluding windows: [WindowGeometry], orderedWindows: [WindowGeometry]) -> [CGPath] {
+        windows.map { window in
+            let rect = CGRect(x: window.x, y: window.y, width: window.width, height: window.height)
+            var path = CGPath(rect: rect, transform: nil)
+            if let index = orderedWindows.firstIndex(where: { $0.id == window.id }) {
+                for front in orderedWindows.prefix(index) {
+                    let cover = CGRect(x: front.x, y: front.y, width: front.width, height: front.height)
+                    guard rect.intersects(cover) else { continue }
+                    path = path.subtracting(CGPath(roundedRect: cover, cornerWidth: front.cornerRadius,
+                                                   cornerHeight: front.cornerRadius, transform: nil))
+                }
+            }
+            return path
+        }
+    }
+}
+
 final class WeatherView: NSView {
     let simulation: WeatherSimulation
     var demoBackground = false
-    var windowGeometry: [WindowGeometry] = []
+    var windowGeometry: [WindowGeometry] = [] {
+        didSet { if oldValue != windowGeometry { rebuildExclusions() } }
+    }
     var hiddenFocusedWindow: WindowGeometry?
+    var hiddenWindows: [WindowGeometry] = [] {
+        didSet { if oldValue != hiddenWindows { rebuildExclusions() } }
+    }
+    private var excludedPaths: [CGPath] = []
     // Used by previews. Desktop snowmen use their own small draggable panels.
     var showSnowman = true
+    var snowmanAppearance = SnowmanAppearance()
     override var isFlipped: Bool { true }
     override var isOpaque: Bool { false }
 
@@ -20,12 +45,18 @@ final class WeatherView: NSView {
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
+    private func rebuildExclusions() {
+        excludedPaths = WindowExclusionMask.paths(excluding: hiddenWindows, orderedWindows: windowGeometry)
+    }
+
     override func draw(_ dirtyRect: NSRect) {
         guard let context = NSGraphicsContext.current?.cgContext else { return }
         context.clear(bounds)
         if demoBackground { drawDemo(in: context) }
         context.saveGState()
         defer { context.restoreGState() }
+        let excluded = hiddenWindows + (hiddenFocusedWindow.map { [$0] } ?? [])
+        let excludedIDs = Set(excluded.map(\.id))
         if let hidden = hiddenFocusedWindow {
             // Clip entire shapes, including rain streaks and rotating leaves that
             // cross the boundary, rather than testing particle centers alone.
@@ -41,13 +72,18 @@ final class WeatherView: NSView {
         }
         context.setLineCap(.round)
         let settledBySurface = Dictionary(grouping: simulation.settledParticles, by: \.surfaceID)
+        let ripplesBySurface = Dictionary(grouping: simulation.ripples, by: \.surfaceID)
+        let dropsBySurface = Dictionary(grouping: simulation.rainDrops, by: \.surfaceID)
 
         // Paint rear accumulation first, just like the windows carrying it.
         for pile in simulation.piles.reversed() {
             // Mounds and settled shapes extend above the window's rectangle.
-            guard pile.surfaceID != hiddenFocusedWindow?.id else { continue }
+            guard !excludedIDs.contains(pile.surfaceID) else { continue }
             let settled = settledBySurface[pile.surfaceID] ?? []
-            guard simulation.mode.hasSettledParticles ? !settled.isEmpty : pile.heights.contains(where: { $0 > 0.01 }) else { continue }
+            let ripples = ripplesBySurface[pile.surfaceID] ?? []
+            let drops = dropsBySurface[pile.surfaceID] ?? []
+            guard simulation.mode.hasSettledParticles ? !settled.isEmpty
+                : pile.heights.contains(where: { $0 > 0.01 }) || !ripples.isEmpty || !drops.isEmpty else { continue }
             context.saveGState()
             let band = CGRect(x: pile.x, y: pile.y - 36, width: pile.width, height: 44 + pile.cornerRadius)
             context.clip(to: band)
@@ -73,6 +109,10 @@ final class WeatherView: NSView {
                         drawBubble(in: context, x: pile.x + localX,
                                    y: restingY, size: item.size * (1 + pop * 0.22),
                                    opacity: 0.85 * (1 - pop))
+                    } else if item.mode.isGlowing {
+                        drawGlow(in: context, mode: item.mode, x: pile.x + localX, y: restingY,
+                                 size: item.size, rotation: item.rotation, variant: item.variant,
+                                 opacity: min(1, item.life / 0.8), phase: item.life * 3 + Double(item.id % 19))
                     } else {
                         drawSeasonal(in: context, mode: item.mode,
                                      x: pile.x + localX, y: restingY,
@@ -100,17 +140,32 @@ final class WeatherView: NSView {
             context.setFillColor((snow ? NSColor(calibratedRed: 0.94, green: 0.98, blue: 1, alpha: 0.96) : NSColor(calibratedRed: 0.34, green: 0.68, blue: 0.98, alpha: 0.46)).cgColor)
             context.addPath(path)
             context.fillPath()
+            if !snow {
+                drawRainDetails(in: context, pile: pile, ripples: ripples, drops: drops)
+            }
             context.restoreGState()
         }
 
+        // Foreground piles may rise above their own frames into an excluded rear
+        // window. They already obey window order; only free objects use this mask.
+        for path in excludedPaths {
+            context.addRect(bounds)
+            context.addPath(path)
+            context.clip(using: .evenOdd)
+        }
+
         if showSnowman, simulation.mode == .snow {
-            SnowmanRenderer.draw(in: context, bounds: bounds)
+            SnowmanRenderer.draw(in: context, bounds: bounds, appearance: snowmanAppearance)
         }
 
         for particle in simulation.particles {
             if simulation.mode == .bubbles {
                 drawBubble(in: context, x: particle.x, y: particle.y,
                            size: particle.size, opacity: particle.opacity)
+            } else if simulation.mode.isGlowing {
+                drawGlow(in: context, mode: simulation.mode, x: particle.x, y: particle.y,
+                         size: particle.size, rotation: particle.rotation, variant: particle.variant,
+                         opacity: particle.opacity * min(1, particle.life), phase: particle.phase + particle.life * 3)
             } else if simulation.mode.hasSettledParticles {
                 let flip = 0.4 + 0.6 * abs(cos(particle.rotation * 0.7 + particle.phase))
                 drawSeasonal(in: context, mode: simulation.mode,
@@ -130,10 +185,90 @@ final class WeatherView: NSView {
             }
         }
         for splash in simulation.splashes {
-            context.setFillColor(NSColor(calibratedRed: 0.52, green: 0.78, blue: 1, alpha: min(0.8, splash.life * 1.8)).cgColor)
-            context.fillEllipse(in: CGRect(x: splash.x - 1, y: splash.y - 1, width: 2, height: 2.8))
+            let snow = simulation.mode == .snow
+            context.setFillColor((snow ? NSColor.white.withAlphaComponent(min(0.95, splash.life * 2))
+                                 : NSColor(calibratedRed: 0.52, green: 0.78, blue: 1, alpha: min(0.8, splash.life * 1.8))).cgColor)
+            let width = snow ? splash.size : splash.size / 1.2 * 2
+            context.fillEllipse(in: CGRect(x: splash.x - width / 2, y: splash.y - width / 2,
+                                          width: width, height: snow ? width : width * 1.4))
         }
     }
+
+    private func drawRainDetails(in context: CGContext, pile: Pile, ripples: [RainRipple], drops: [RainDrop]) {
+        for ripple in ripples {
+            let x = ripple.position * pile.width
+            let y = pile.baselineY(at: x) - pile.height(at: x)
+            context.setStrokeColor(NSColor(calibratedRed: 0.19, green: 0.59, blue: 0.94,
+                                           alpha: min(0.65, ripple.life)).cgColor)
+            context.setLineWidth(0.8)
+            context.strokeEllipse(in: CGRect(x: pile.x + x - ripple.radius, y: y - ripple.radius * 0.3,
+                                             width: ripple.radius * 2, height: ripple.radius * 0.6))
+        }
+        for drop in drops {
+            let x = drop.position * pile.width
+            let y = pile.baselineY(at: x) - pile.height(at: x) - drop.size * 0.55
+            let rect = CGRect(x: pile.x + x - drop.size, y: y - drop.size,
+                              width: drop.size * 2, height: drop.size * 1.6)
+            context.setFillColor(NSColor(calibratedRed: 0.27, green: 0.65, blue: 0.97, alpha: 0.55).cgColor)
+            context.fillEllipse(in: rect)
+            context.setStrokeColor(NSColor(calibratedRed: 0.10, green: 0.46, blue: 0.82, alpha: 0.6).cgColor)
+            context.setLineWidth(0.55)
+            context.strokeEllipse(in: rect)
+            context.setFillColor(NSColor.white.withAlphaComponent(0.8).cgColor)
+            context.fillEllipse(in: CGRect(x: rect.minX + drop.size * 0.4, y: rect.minY + drop.size * 0.25,
+                                          width: max(0.7, drop.size * 0.65), height: max(0.5, drop.size * 0.3)))
+        }
+    }
+
+    private func drawGlow(in context: CGContext, mode: WeatherMode, x: Double, y: Double,
+                          size: Double, rotation: Double, variant: Int, opacity: Double, phase: Double) {
+        context.saveGState()
+        defer { context.restoreGState() }
+        let pulse = 0.55 + 0.45 * (0.5 + 0.5 * sin(phase))
+        context.setAlpha(opacity * pulse)
+        context.translateBy(x: x, y: y)
+        context.rotate(by: rotation)
+        context.scaleBy(x: size, y: size)
+        let silver = mode == .stardust && variant % 2 == 1
+        if let gradient = silver ? Self.silverGlow : Self.warmGlow {
+            context.drawRadialGradient(gradient, startCenter: .zero, startRadius: 0,
+                                       endCenter: .zero, endRadius: mode == .fireflies ? 2.4 : 1.35, options: [])
+        }
+        if mode == .fireflies {
+            context.setFillColor(NSColor(calibratedRed: 0.98, green: 1, blue: 0.62, alpha: 0.95).cgColor)
+            context.fillEllipse(in: CGRect(x: -0.36, y: -0.36, width: 0.72, height: 0.72))
+        } else {
+            context.setFillColor((silver ? NSColor(calibratedRed: 0.86, green: 0.94, blue: 1, alpha: 1)
+                                 : NSColor(calibratedRed: 1, green: 0.85, blue: 0.42, alpha: 1)).cgColor)
+            context.addPath(Self.starPath)
+            context.fillPath()
+            context.setStrokeColor((silver ? NSColor(calibratedRed: 0.42, green: 0.55, blue: 0.70, alpha: 0.65)
+                                   : NSColor(calibratedRed: 0.65, green: 0.43, blue: 0.12, alpha: 0.55)).cgColor)
+            context.setLineWidth(0.07)
+            context.addPath(Self.starPath)
+            context.strokePath()
+        }
+    }
+
+    private static let warmGlow = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [
+        NSColor(calibratedRed: 0.95, green: 1, blue: 0.40, alpha: 0.55).cgColor,
+        NSColor(calibratedRed: 0.95, green: 0.88, blue: 0.25, alpha: 0).cgColor
+    ] as CFArray, locations: [0, 1])
+    private static let silverGlow = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [
+        NSColor(calibratedRed: 0.78, green: 0.91, blue: 1, alpha: 0.4).cgColor,
+        NSColor(calibratedRed: 0.78, green: 0.91, blue: 1, alpha: 0).cgColor
+    ] as CFArray, locations: [0, 1])
+    private static let starPath: CGPath = {
+        let path = CGMutablePath()
+        for index in 0..<10 {
+            let angle = Double(index) * .pi / 5 - .pi / 2
+            let radius = index.isMultiple(of: 2) ? 0.6 : 0.26
+            let point = CGPoint(x: cos(angle) * radius, y: sin(angle) * radius)
+            if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+        }
+        path.closeSubpath()
+        return path
+    }()
 
     /// Original vector shapes share the existing fall and settlement rendering path.
     private func drawSeasonal(in context: CGContext, mode: WeatherMode, x: Double, y: Double,

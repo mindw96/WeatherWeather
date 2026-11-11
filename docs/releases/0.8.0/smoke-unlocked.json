@@ -1,0 +1,278 @@
+{
+  "checks" : {
+    "accumulationFollowsWindowBetweenDisplays" : true,
+    "animationProducedParticles" : true,
+    "applicationMenuOpensController" : true,
+    "applicationSettingsShortcutAvailable" : true,
+    "autumnClearRemovesShapes" : true,
+    "autumnFallsAndSettles" : true,
+    "bubblesClearRemovesShapes" : true,
+    "bubblesFallsAndSettles" : true,
+    "cherryBlossomClearRemovesShapes" : true,
+    "cherryBlossomFallsAndSettles" : true,
+    "clearRemovesAccumulation" : true,
+    "clickThroughNonactivatingPanels" : true,
+    "closedControllerKeepsWeatherRunning" : true,
+    "closedWindowRemoved" : true,
+    "confettiClearRemovesShapes" : true,
+    "confettiFallsAndSettles" : true,
+    "controllerIsKeyAfterReopen" : true,
+    "controllerVisibleOnConnectedDisplay" : true,
+    "dockActivationEnabled" : true,
+    "dockMenuReopensController" : true,
+    "dockReopenRestoresMinimizedController" : true,
+    "excludedAppRemainsOccluderAndSurface" : true,
+    "excludedAppRestoresWithoutRestart" : true,
+    "excludedAppWindowsHiddenByBundleID" : true,
+    "firefliesClearRemovesShapes" : true,
+    "firefliesFallsAndSettles" : true,
+    "focusedWindowMaskFollowsKeyWindow" : false,
+    "focusedWindowOffHidesActiveWindow" : true,
+    "focusedWindowOffPreservesSurface" : true,
+    "focusedWindowOnRestoresAllEffects" : true,
+    "fullScreenAccumulationDefaultsOff" : true,
+    "fullScreenOccluderIsSquare" : true,
+    "fullScreenOffExcludesWindowAndFloor" : true,
+    "fullScreenOffRemovesExistingAccumulation" : true,
+    "fullScreenOnAccumulates" : true,
+    "fullScreenOnRestoresSurface" : true,
+    "fullScreenWindowRemainsOccluder" : true,
+    "menuBarControllerAvailable" : true,
+    "monitorAllOffHidesPanelsAndSnowmen" : true,
+    "monitorAllOffSimulationDoesNotAdvance" : true,
+    "monitorDefaultSelectionShowsEveryDisplay" : true,
+    "monitorDisableClearsAllWeatherState" : true,
+    "monitorDisabledFixtureHadParticles" : true,
+    "monitorDisabledSimulationDoesNotAdvance" : true,
+    "monitorDisableHidesPanelAndSnowman" : true,
+    "monitorDisconnectedSelectionIsRetained" : true,
+    "monitorIdentifiersDistinctAndStable" : true,
+    "monitorNewDisplayDefaultsEnabled" : true,
+    "monitorOnlyDisplay1ShowsEffects" : true,
+    "monitorOnlyDisplay2ShowsEffects" : true,
+    "monitorOnlyDisplay3ShowsEffects" : true,
+    "monitorOtherDisplaysKeepAnimating" : true,
+    "monitorPreferenceDefaultsToAllEnabled" : true,
+    "monitorReenabledSelectionPersists" : true,
+    "monitorReenableRestartsOnlySelectedDisplay" : true,
+    "monitorResumeAndModeChangeKeepAllOff" : true,
+    "monitorScreenRebuildRetainsDisabledSelection" : true,
+    "monitorSelectionPreservesWeatherAndSnowmanSettings" : true,
+    "monitorSelectionSurvivesPreferenceReload" : true,
+    "monitorSnowmanRespectsSelectedDisplay" : true,
+    "nativeFullScreenEntered" : true,
+    "nativeFullScreenExited" : true,
+    "nativeFullScreenOffExcludesSurface" : true,
+    "nativeFullScreenOnRestoresVisibleSurface" : true,
+    "oneOverlayPerDisplay" : true,
+    "pauseHidesOverlays" : true,
+    "realWindowDetected" : true,
+    "resumeShowsOverlays" : true,
+    "screenFloorsRemainFlat" : true,
+    "stardustClearRemovesShapes" : true,
+    "stardustFallsAndSettles" : true,
+    "statusMenuReopensController" : true,
+    "trackedWindowUsesEstimatedCurve" : true,
+    "windowMoveTracked" : true,
+    "windowResizeTracked" : true,
+    "windowSurfaceCreated" : true
+  },
+  "diagnostics" : {
+    "controllerAccess" : {
+      "activationPolicy" : 0,
+      "note" : "AppKit menu-action dispatch and reopen callbacks; physical Dock\/menu-bar clicks are not injected.",
+      "settingsFrame" : [
+        -765,
+        364,
+        450,
+        848
+      ],
+      "statusItemVisible" : true,
+      "wasMiniaturized" : true
+    },
+    "displayTransfer" : {
+      "after" : 2527.7151666833615,
+      "before" : 2528.310516704114,
+      "targetContainsWindowCenter" : true
+    },
+    "guiSession" : {
+      "dictionaryAvailable" : true,
+      "onConsole" : true
+    },
+    "maximizedGeometry" : [
+      {
+        "classified" : true,
+        "localBounds" : [
+          0,
+          30,
+          1920,
+          1050
+        ],
+        "screen" : [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "visible" : [
+          0,
+          0,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1050
+        ]
+      },
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          -1080,
+          -417,
+          1080,
+          1920
+        ],
+        "visible" : [
+          -1080,
+          -417,
+          1080,
+          1890
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1050
+        ]
+      },
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          1920,
+          0,
+          1920,
+          1080
+        ],
+        "visible" : [
+          1920,
+          0,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1050
+        ]
+      }
+    ],
+    "nativeFullScreenEntryCompletion" : "NSWindowDidEnterFullScreenNotification",
+    "nativeFullScreenExitCompletion" : "NSWindowDidExitFullScreenNotification",
+    "nativeFullScreenGeometry" : [
+      {
+        "classified" : true,
+        "localBounds" : [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "screen" : [
+          0,
+          0,
+          1920,
+          1080
+        ],
+        "visible" : [
+          0,
+          0,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1080
+        ]
+      },
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          -1080,
+          -417,
+          1080,
+          1920
+        ],
+        "visible" : [
+          -1080,
+          -417,
+          1080,
+          1890
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1080
+        ]
+      },
+      {
+        "classified" : false,
+        "localBounds" : [
+
+        ],
+        "screen" : [
+          1920,
+          0,
+          1920,
+          1080
+        ],
+        "visible" : [
+          1920,
+          0,
+          1920,
+          1050
+        ],
+        "windowFrame" : [
+          0,
+          0,
+          1920,
+          1080
+        ]
+      }
+    ],
+    "windowMove" : {
+      "after" : [
+        -935,
+        1064
+      ],
+      "before" : [
+        -980,
+        1099
+      ],
+      "expected" : [
+        -935,
+        1064
+      ]
+    }
+  },
+  "displayCount" : 3,
+  "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
+  "observedWindowCountAfterFixtureClosed" : 6,
+  "passed" : false,
+  "status" : "failed"
+}

@@ -1,0 +1,305 @@
+{
+  "checkedAt": "2026-11-11T03:14:18.162116+00:00",
+  "executionContext": "require_escalated: read-only codesign display and verification outside the Codex filesystem sandbox",
+  "scope": "Pinned Sparkle 2.10.1 Downloader.xpc only; original artifact, prior signed staging bundle, installed 0.7.2, and current signed 0.8.0 staging bundle. Both architectures verified. No product files, signatures, preferences, or credentials modified.",
+  "sandboxObservation": "Earlier sandboxed checks emitted invalid entitlements blob and signature failure for the prior signed stage. The same paths passed without warnings outside the sandbox. This records the observed environment dependence, not a proven underlying OS mechanism.",
+  "checks": [
+    {
+      "target": "original-pinned-sparkle-2.10.1",
+      "path": "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "arm64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "arm64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "arm64",
+          "--verbose=2",
+          "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "original-pinned-sparkle-2.10.1",
+      "path": "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "x86_64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "x86_64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "x86_64",
+          "--verbose=2",
+          "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-080-universal/artifacts/sparkle/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "previous-signed-stage-0.8.0",
+      "path": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "arm64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "arm64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "arm64",
+          "--verbose=2",
+          "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "previous-signed-stage-0.8.0",
+      "path": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "x86_64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "x86_64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "x86_64",
+          "--verbose=2",
+          "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "installed-0.7.2",
+      "path": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "arm64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "arm64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "arm64",
+          "--verbose=2",
+          "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "installed-0.7.2",
+      "path": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "x86_64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "x86_64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "x86_64",
+          "--verbose=2",
+          "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/Users/mindw/Applications/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "current-signed-stage-0.8.0",
+      "path": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "arm64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "arm64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "arm64",
+          "--verbose=2",
+          "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    },
+    {
+      "target": "current-signed-stage-0.8.0",
+      "path": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc",
+      "architecture": "x86_64",
+      "display": {
+        "command": [
+          "/usr/bin/codesign",
+          "--display",
+          "--arch",
+          "x86_64",
+          "--entitlements",
+          "-",
+          "--xml",
+          "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"https://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict></dict></plist>\n",
+        "stderr": "Executable=/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/MacOS/Downloader\n",
+        "parsedEntitlements": {},
+        "parseError": null
+      },
+      "verify": {
+        "command": [
+          "/usr/bin/codesign",
+          "--verify",
+          "--strict",
+          "--arch",
+          "x86_64",
+          "--verbose=2",
+          "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: valid on disk\n/private/tmp/window-weather-package.LGvhIZ/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: satisfies its Designated Requirement\n"
+      },
+      "passed": true
+    }
+  ],
+  "passed": true
+}

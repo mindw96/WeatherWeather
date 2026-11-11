@@ -1,0 +1,16 @@
+{
+  "blockedReason" : "The GUI session is locked. Unlock it before running interactive validation.",
+  "checks" : {
+    "interactiveSessionAvailable" : false
+  },
+  "diagnostics" : {
+    "guiSession" : {
+      "dictionaryAvailable" : true,
+      "onConsole" : true,
+      "screenLocked" : true
+    }
+  },
+  "note" : "Synthetic native window + public metadata. Flags verify click-through configuration, not physical mouse interaction.",
+  "passed" : false,
+  "status" : "blocked"
+}

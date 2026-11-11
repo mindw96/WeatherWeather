@@ -7,9 +7,12 @@ public enum WeatherMode: String, CaseIterable, Sendable {
     case cherryBlossom
     case bubbles
     case confetti
+    case fireflies
+    case stardust
 
     public var isSeasonal: Bool { self == .autumn || self == .cherryBlossom }
-    public var hasSettledParticles: Bool { isSeasonal || self == .bubbles || self == .confetti }
+    public var hasSettledParticles: Bool { isSeasonal || self == .bubbles || self == .confetti || isGlowing }
+    public var isGlowing: Bool { self == .fireflies || self == .stardust }
 }
 
 /// Coordinates are screen-local points with the origin at the top left.
@@ -54,14 +57,16 @@ public struct Particle: Equatable, Sendable {
     public var angularVelocity: Double
     public var variant: Int
     public var phase: Double
+    public var life: Double
 
     public init(x: Double, y: Double, vx: Double, vy: Double,
                 size: Double, opacity: Double, rotation: Double = 0,
-                angularVelocity: Double = 0, variant: Int = 0, phase: Double = 0) {
+                angularVelocity: Double = 0, variant: Int = 0, phase: Double = 0, life: Double = 120) {
         self.x = x; self.y = y; self.vx = vx; self.vy = vy
         self.size = size; self.opacity = opacity
         self.rotation = rotation; self.angularVelocity = angularVelocity
         self.variant = variant; self.phase = phase
+        self.life = life
     }
 }
 
@@ -130,6 +135,38 @@ public struct Splash: Equatable, Sendable {
     public var vy: Double
     /// Remaining lifetime, in seconds.
     public var life: Double
+    public var size: Double = 1.2
+}
+
+/// Rain details stay attached to the same curved window edge as the water film.
+public struct RainRipple: Equatable, Sendable {
+    public var surfaceID: UInt32
+    public var position: Double
+    public var radius: Double
+    public var life: Double
+}
+
+public struct RainDrop: Equatable, Sendable {
+    public var surfaceID: UInt32
+    public var position: Double
+    public var size: Double
+    public var life: Double
+}
+
+/// Every display owns the portion of a window edge inside its horizontal bounds.
+/// Off-display copies provide continuity, but never override an owner's deletions.
+public struct AccumulationSnapshot: Sendable {
+    public var displayWidth: Double
+    public var displayHeight: Double
+    public var piles: [Pile]
+    public var settledParticles: [SettledParticle]
+
+    public init(displayWidth: Double, displayHeight: Double, piles: [Pile], settledParticles: [SettledParticle]) {
+        self.displayWidth = displayWidth
+        self.displayHeight = displayHeight
+        self.piles = piles
+        self.settledParticles = settledParticles
+    }
 }
 
 /// A deterministic, renderer-independent simulation. It imports no Apple UI APIs.
@@ -145,12 +182,14 @@ public final class WeatherSimulation {
     public static let maximumBubbleHeight = 10.0
     public static let maximumConfettiHeight = 8.0
     public static let maximumSettledParticles = 1_200
+    public static let maximumRainDetails = 180
 
     public var mode: WeatherMode = .snow {
         didSet { if oldValue != mode { reset() } }
     }
     public var intensity: Double = 0.55
     public var wind: Double = 0
+    public var movementReactionEnabled = true
     public var accumulationEnabled = true {
         didSet { if !accumulationEnabled { clearAccumulation() } }
     }
@@ -161,10 +200,18 @@ public final class WeatherSimulation {
     public private(set) var splashes: [Splash] = []
     public private(set) var surfaces: [Surface] = []
     public private(set) var settledParticles: [SettledParticle] = []
+    public private(set) var ripples: [RainRipple] = []
+    public private(set) var rainDrops: [RainDrop] = []
 
     private var random: SeededRandom
     private var emissionRemainder = 0.0
     private var elapsed = 0.0
+    private var lastSnowMotion: [UInt32: Double] = [:]
+
+    public var accumulationSnapshot: AccumulationSnapshot {
+        AccumulationSnapshot(displayWidth: width, displayHeight: height, piles: piles.filter { $0.surfaceID != 0 },
+                             settledParticles: settledParticles.filter { $0.surfaceID != 0 })
+    }
 
     public init(width: Double, height: Double, seed: UInt64 = 0x5745_4154_4845_52) {
         self.width = Self.validDimension(width)
@@ -179,8 +226,8 @@ public final class WeatherSimulation {
     }
 
     /// Stable IDs preserve snow/water when a window moves. Removed IDs lose their pile.
-    public func setSurfaces(_ newSurfaces: [Surface]) {
-        guard newSurfaces != surfaces else { return }
+    public func setSurfaces(_ newSurfaces: [Surface], inheriting snapshots: [AccumulationSnapshot] = []) {
+        guard newSurfaces != surfaces || !snapshots.isEmpty else { return }
         var ids = Set<UInt32>()
         surfaces = newSurfaces.compactMap { surface in
             guard ids.count < Self.maximumSurfaces,
@@ -215,6 +262,62 @@ public final class WeatherSimulation {
                         segments: surface.segments, mode: mode, cornerRadius: surface.cornerRadius)
         }
         settledParticles.removeAll { !ids.contains($0.surfaceID) }
+        ripples.removeAll { !ids.contains($0.surfaceID) }
+        rainDrops.removeAll { !ids.contains($0.surfaceID) }
+        lastSnowMotion = lastSnowMotion.filter { ids.contains($0.key) }
+        if accumulationEnabled, !snapshots.isEmpty { synchronizeAccumulation(from: snapshots) }
+        if mode == .snow, accumulationEnabled, movementReactionEnabled {
+            shedMovingSnow(previous: previous)
+        }
+    }
+
+    private func synchronizeAccumulation(from snapshots: [AccumulationSnapshot]) {
+        struct Source {
+            var pile: Pile
+            var displayWidth: Double
+            var displayHeight: Double
+            var particles: [UInt64: SettledParticle]
+            func owns(_ position: Double) -> Bool {
+                let x = pile.x + position * pile.width
+                let y = pile.baselineY(at: position * pile.width)
+                return x >= 0 && x < displayWidth && y >= 0 && y < displayHeight
+            }
+        }
+        var sources: [UInt32: [Source]] = [:]
+        for snapshot in snapshots where snapshot.displayWidth.isFinite && snapshot.displayWidth > 0
+            && snapshot.displayHeight.isFinite && snapshot.displayHeight > 0 {
+            let particles = Dictionary(grouping: snapshot.settledParticles, by: \.surfaceID)
+            for pile in snapshot.piles where pile.surfaceID != 0 && pile.mode == mode
+                && pile.width.isFinite && pile.width > 0 && pile.x.isFinite && pile.y.isFinite && !pile.heights.isEmpty {
+                let items = Dictionary((particles[pile.surfaceID] ?? []).map { ($0.id, $0) },
+                                       uniquingKeysWith: { first, _ in first })
+                sources[pile.surfaceID, default: []].append(Source(pile: pile, displayWidth: snapshot.displayWidth,
+                                                                  displayHeight: snapshot.displayHeight, particles: items))
+            }
+        }
+        var transferred: [SettledParticle] = []
+        let cap = maximumAccumulationHeight
+        for index in piles.indices where piles[index].surfaceID != 0 {
+            guard let candidates = sources[piles[index].surfaceID], let fallback = candidates.first else { continue }
+            for bin in piles[index].heights.indices {
+                let position = Double(bin) / Double(piles[index].heights.count - 1)
+                let source = candidates.first(where: { $0.owns(position) }) ?? fallback
+                let value = source.pile.height(at: position * source.pile.width)
+                piles[index].heights[bin] = value.isFinite ? min(cap, max(0, value)) : 0
+            }
+            var visited = Set<UInt64>()
+            for candidate in candidates {
+                for id in candidate.particles.keys.sorted() where visited.insert(id).inserted {
+                    guard let particle = candidate.particles[id], particle.position.isFinite else { continue }
+                    // A missing item on its owning display means it expired or lifted off.
+                    let owner = candidates.first(where: { $0.owns(particle.position) }) ?? candidate
+                    if let value = owner.particles[id] { transferred.append(value) }
+                }
+            }
+        }
+        let synchronizedIDs = Set(piles.map(\.surfaceID)).intersection(sources.keys)
+        settledParticles.removeAll { synchronizedIDs.contains($0.surfaceID) }
+        inheritSettledParticles(from: transferred)
     }
 
     /// Merges window-local accumulation captured from other displays in this refresh.
@@ -262,7 +365,7 @@ public final class WeatherSimulation {
                   particle.offsetY.isFinite, particle.offsetY >= 0,
                   particle.offsetY <= maximumAccumulationHeight + 20,
                   particle.size.isFinite, particle.size > 0,
-                  particle.size <= (mode == .confetti ? 9 : 20),
+                  particle.size <= (mode == .confetti ? 9 : mode == .fireflies ? 3.6 : mode == .stardust ? 6 : 20),
                   mode != .bubbles || particle.size >= 10,
                   particle.rotation.isFinite, (0..<(mode == .confetti ? 6 : 3)).contains(particle.variant),
                   particle.life.isFinite, particle.life > 0,
@@ -280,6 +383,8 @@ public final class WeatherSimulation {
 
     public func clearAccumulation() {
         settledParticles.removeAll(keepingCapacity: true)
+        ripples.removeAll(keepingCapacity: true)
+        rainDrops.removeAll(keepingCapacity: true)
         for index in piles.indices {
             piles[index].heights = Array(repeating: 0, count: piles[index].heights.count)
         }
@@ -290,6 +395,7 @@ public final class WeatherSimulation {
         splashes.removeAll(keepingCapacity: true)
         emissionRemainder = 0
         elapsed = 0
+        lastSnowMotion.removeAll(keepingCapacity: true)
         clearAccumulation()
         for index in piles.indices { piles[index].mode = mode }
     }
@@ -309,6 +415,8 @@ public final class WeatherSimulation {
         case .cherryBlossom: baseRate = 25
         case .bubbles: baseRate = 12
         case .confetti: baseRate = 35
+        case .fireflies: baseRate = 8
+        case .stardust: baseRate = 18
         }
         let rate = baseRate * min(width / 1_000, 4) * density
         emissionRemainder += rate * dt
@@ -326,9 +434,15 @@ public final class WeatherSimulation {
             }
         }
 
+        if movementReactionEnabled, accumulationEnabled, mode.isSeasonal, abs(breeze) > 0.65 {
+            liftSettledParticles(wind: breeze, deltaTime: dt)
+        }
+
         var survivors: [Particle] = []
         survivors.reserveCapacity(particles.count)
         for var particle in particles {
+            particle.life -= dt
+            guard particle.life > 0 else { continue }
             let oldX = particle.x, oldY = particle.y
             switch mode {
             case .snow:
@@ -347,7 +461,16 @@ public final class WeatherSimulation {
             case .confetti:
                 particle.vx = breeze * 95 + sin(elapsed * 2.4 + particle.phase + particle.y * 0.006) * 30
                 particle.rotation += (particle.angularVelocity + sin(elapsed * 3 + particle.phase) * 0.6) * dt
+            case .fireflies:
+                particle.vx = breeze * 35 + sin(elapsed * 1.2 + particle.phase) * 23
+                particle.vy = 16 + sin(elapsed * 1.6 + particle.phase) * 13
+                particle.opacity = 0.35 + 0.6 * pow((sin(elapsed * 2.2 + particle.phase) + 1) / 2, 2)
+            case .stardust:
+                particle.vx = breeze * 55 + sin(elapsed + particle.phase) * 12
+                particle.rotation += particle.angularVelocity * dt
+                particle.opacity = 0.55 + 0.4 * (sin(elapsed * 3.2 + particle.phase) + 1) / 2
             }
+            if mode.isSeasonal, particle.vy < 25 { particle.vy = min(25, particle.vy + 100 * dt) }
             particle.x += particle.vx * dt
             let flutter = mode.isSeasonal || mode == .confetti ? 0.85 + 0.15 * sin(elapsed * 2 + particle.phase) : 1
             particle.y += particle.vy * flutter * dt
@@ -356,8 +479,8 @@ public final class WeatherSimulation {
                     accumulate(at: hit)
                     if mode.hasSettledParticles { settle(particle, at: hit) }
                 }
-                if mode == .rain { addSplashes(at: hit) }
-            } else if particle.y < height + 50, particle.x > -80, particle.x < width + 80 {
+                if mode == .rain { addSplashes(at: hit); addRainDetails(at: hit) }
+            } else if particle.y > -160, particle.y < height + 50, particle.x > -80, particle.x < width + 80 {
                 survivors.append(particle)
             }
         }
@@ -370,6 +493,13 @@ public final class WeatherSimulation {
             splashes[index].life -= dt
         }
         splashes.removeAll { $0.life <= 0 || $0.y > height + 30 }
+        for index in ripples.indices {
+            ripples[index].life -= dt
+            ripples[index].radius += 14 * dt
+        }
+        ripples.removeAll { $0.life <= 0 }
+        for index in rainDrops.indices { rainDrops[index].life -= dt }
+        rainDrops.removeAll { $0.life <= 0 }
 
         if mode.hasSettledParticles {
             for index in settledParticles.indices { settledParticles[index].life -= dt }
@@ -383,6 +513,16 @@ public final class WeatherSimulation {
     }
 
     private func spawnParticle(wind: Double) {
+        if mode.isGlowing {
+            let firefly = mode == .fireflies
+            particles.append(Particle(
+                x: random.between(-15, width + 15), y: random.between(-20, -3),
+                vx: wind * (firefly ? 35 : 55), vy: random.between(firefly ? 8 : 24, firefly ? 22 : 48),
+                size: random.between(firefly ? 2 : 3, firefly ? 3.6 : 6), opacity: 0.8,
+                rotation: random.between(-Double.pi, Double.pi), angularVelocity: random.between(-0.7, 0.7),
+                variant: Int(random.between(0, 3)), phase: random.between(0, Double.pi * 2), life: 60))
+            return
+        }
         if mode == .bubbles || mode == .confetti {
             let bubble = mode == .bubbles
             particles.append(Particle(
@@ -502,6 +642,7 @@ public final class WeatherSimulation {
         case .cherryBlossom: return Self.maximumPetalHeight
         case .bubbles: return Self.maximumBubbleHeight
         case .confetti: return Self.maximumConfettiHeight
+        case .fireflies, .stardust: return 4
         }
     }
 
@@ -510,6 +651,8 @@ public final class WeatherSimulation {
         case .autumn: return 90
         case .bubbles: return 10
         case .confetti: return 45
+        case .fireflies: return 4
+        case .stardust: return 8
         default: return 60
         }
     }
@@ -522,13 +665,108 @@ public final class WeatherSimulation {
             position: localX / pile.width,
             offsetY: pile.height(at: localX) + particle.size * (mode == .bubbles ? 0.5 : random.between(0.15, 0.45)),
             size: particle.size, rotation: random.between(-Double.pi, Double.pi),
-            variant: particle.variant, life: settledLifetime))
+            variant: particle.variant, life: min(settledLifetime, particle.life)))
         trimSettledParticles()
     }
 
     private func trimSettledParticles() {
         let excess = settledParticles.count - Self.maximumSettledParticles
         if excess > 0 { settledParticles.removeFirst(excess) }
+    }
+
+    private func shedMovingSnow(previous: [UInt32: Pile]) {
+        for index in piles.indices {
+            let pile = piles[index]
+            guard pile.surfaceID != 0, let old = previous[pile.surfaceID],
+                  abs(old.width - pile.width) < 0.5, !pile.segments.isEmpty else { continue }
+            let dx = pile.x - old.x, dy = pile.y - old.y
+            let distance = hypot(dx, dy)
+            // Large jumps usually represent a display/Space transition, not a drag.
+            guard distance >= 4, distance <= 220,
+                  elapsed - (lastSnowMotion[pile.surfaceID] ?? -1) >= 0.16 else { continue }
+            lastSnowMotion[pile.surfaceID] = elapsed
+            for side in [0, 1] {
+                for _ in 0..<3 where splashes.count < Self.maximumSplashes {
+                    let inset = random.between(6, min(45, max(7, pile.width / 3)))
+                    let x = side == 0 ? inset : pile.width - inset
+                    guard x >= 0, x <= pile.width,
+                          pile.x + x >= 0, pile.x + x < width,
+                          pile.baselineY(at: x) >= 0, pile.baselineY(at: x) < height,
+                          pile.segments.contains(where: { x >= $0.minX && x <= $0.maxX }),
+                          pile.height(at: x) > 1 else { continue }
+                    splashes.append(Splash(x: pile.x + x, y: pile.baselineY(at: x) - pile.height(at: x),
+                                           vx: min(120, max(-120, -dx * 2)) + (side == 0 ? -35 : 35),
+                                           vy: -random.between(25, 70), life: random.between(0.5, 0.9),
+                                           size: random.between(2, min(5, 2 + pile.height(at: x) / 3))))
+                    lowerPile(at: x, index: index, amount: min(2, distance / 30))
+                }
+            }
+        }
+    }
+
+    private func lowerPile(at localX: Double, index: Int, amount: Double) {
+        let count = piles[index].heights.count
+        let center = Int((localX / piles[index].width * Double(count - 1)).rounded())
+        for bin in max(0, center - 2)...min(count - 1, center + 2) {
+            let x = piles[index].x + Double(bin) / Double(count - 1) * piles[index].width
+            let y = piles[index].baselineY(at: x - piles[index].x)
+            guard x >= 0, x < width, y >= 0, y < height else { continue }
+            piles[index].heights[bin] = max(0, piles[index].heights[bin] - amount)
+        }
+    }
+
+    private func liftSettledParticles(wind: Double, deltaTime: Double) {
+        let indices = Dictionary(uniqueKeysWithValues: piles.enumerated().map { ($0.element.surfaceID, $0.offset) })
+        var lifted = Set<UInt64>()
+        for item in settledParticles {
+            guard lifted.count < 4, particles.count < Self.maximumParticles else { break }
+            guard item.life > 1, let index = indices[item.surfaceID],
+                  random.between(0, 1) < (abs(wind) - 0.65) * deltaTime * 1.5 else { continue }
+            let pile = piles[index], x = item.position * piles[index].width
+            guard pile.x + x >= 0, pile.x + x < width,
+                  pile.baselineY(at: x) >= 0, pile.baselineY(at: x) < height,
+                  pile.segments.contains(where: { x >= $0.minX && x <= $0.maxX }) else { continue }
+            particles.append(Particle(x: pile.x + x, y: pile.baselineY(at: x) - item.offsetY - item.size,
+                                      vx: wind * 100, vy: -random.between(45, 90), size: item.size,
+                                      opacity: 0.9, rotation: item.rotation,
+                                      angularVelocity: random.between(-3, 3), variant: item.variant,
+                                      phase: random.between(0, Double.pi * 2), life: item.life))
+            lowerPile(at: x, index: index, amount: 0.35)
+            lifted.insert(item.id)
+        }
+        settledParticles.removeAll { lifted.contains($0.id) }
+    }
+
+    func addRainDetails(at hit: Collision) {
+        let pile = piles[hit.pileIndex]
+        let localX = min(max(hit.x - pile.x, 0), pile.width)
+        if ripples.count < Self.maximumRainDetails {
+            ripples.append(RainRipple(surfaceID: pile.surfaceID, position: localX / pile.width,
+                                      radius: 1.5, life: 0.65))
+        }
+        guard accumulationEnabled else { return }
+        let segment = pile.segments.first { localX >= $0.minX && localX <= $0.maxX }
+        if let index = rainDrops.indices.filter({ rainDrops[$0].surfaceID == pile.surfaceID }).min(by: {
+            abs(rainDrops[$0].position * pile.width - localX) < abs(rainDrops[$1].position * pile.width - localX)
+        }), rainDrops[index].surfaceID == pile.surfaceID,
+           let segment,
+           (segment.minX...segment.maxX).contains(rainDrops[index].position * pile.width),
+           abs(rainDrops[index].position * pile.width - localX) < rainDrops[index].size + 5 {
+            let area = pow(rainDrops[index].size, 2), addedArea = 2.25
+            rainDrops[index].position = (rainDrops[index].position * area + localX / pile.width * addedArea) / (area + addedArea)
+            rainDrops[index].size = sqrt(area + addedArea)
+            rainDrops[index].life = 6
+            if rainDrops[index].size >= 5.2 {
+                if splashes.count < Self.maximumSplashes {
+                    let x = rainDrops[index].position * pile.width
+                    splashes.append(Splash(x: pile.x + x, y: pile.baselineY(at: x) + 2,
+                                           vx: 0, vy: 38, life: 0.65, size: rainDrops[index].size))
+                }
+                rainDrops.remove(at: index)
+            }
+        } else if rainDrops.count < Self.maximumRainDetails {
+            rainDrops.append(RainDrop(surfaceID: pile.surfaceID, position: localX / pile.width, size: 1.5, life: 6))
+        }
     }
 
     /// A stable, gently uneven saturation profile prevents long-running snow from

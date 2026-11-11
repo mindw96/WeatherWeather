@@ -1,0 +1,12 @@
+{
+  "checkedAt" : "2026-11-11T02:05:40Z",
+  "cityDecodedAndValidated" : true,
+  "currentWeatherDecodedAndValidated" : true,
+  "forecastHTTPStatus" : 200,
+  "geocodingHTTPStatus" : 200,
+  "sampleCity" : "서울특별시, 대한민국",
+  "scope" : "One public sample city; does not prove global accuracy or continuous availability.",
+  "usesDeviceLocation" : false,
+  "weatherCode" : 1,
+  "weatherObservedAt" : "2026-11-11T02:00:00Z"
+}

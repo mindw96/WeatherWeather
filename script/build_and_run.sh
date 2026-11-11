@@ -3,8 +3,8 @@ set -euo pipefail
 
 MODE="${1:-run}"
 case "$MODE" in
-  run|--build-only|--verify|--smoke|--previews|--validate-focus|--validate-snowman|--debug|--logs|--telemetry) ;;
-  *) echo "Usage: $0 [--build-only|--verify|--smoke|--previews|--validate-focus|--validate-snowman|--debug|--logs|--telemetry]" >&2; exit 2 ;;
+  run|--build-only|--verify|--smoke|--previews|--validate-focus|--validate-snowman|--validate-features|--validate-weather-service|--debug|--logs|--telemetry) ;;
+  *) echo "Usage: $0 [--build-only|--verify|--smoke|--previews|--validate-focus|--validate-snowman|--validate-features|--validate-weather-service|--debug|--logs|--telemetry]" >&2; exit 2 ;;
 esac
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -49,8 +49,8 @@ cat > "$STAGED_APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIdentifier</key><string>org.windowweather.app</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>CFBundleIconFile</key><string>AppIcon.icns</string>
-<key>CFBundleShortVersionString</key><string>0.7.2</string>
-<key>CFBundleVersion</key><string>13</string>
+<key>CFBundleShortVersionString</key><string>0.8.0</string>
+<key>CFBundleVersion</key><string>14</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><false/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
@@ -85,7 +85,15 @@ case "$MODE" in
     test -s "$ROOT_DIR/docs/validation/cherryBlossom-preview.png"
     test -s "$ROOT_DIR/docs/validation/bubbles-preview.png"
     test -s "$ROOT_DIR/docs/validation/confetti-preview.png"
+    test -s "$ROOT_DIR/docs/validation/fireflies-preview.png"
+    test -s "$ROOT_DIR/docs/validation/stardust-preview.png"
     /usr/bin/python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print(json.dumps(r,indent=2)); sys.exit(0 if r["passed"] else 1)' "$ROOT_DIR/docs/validation/corner-validation.json"
+    ;;
+  --validate-features|--validate-weather-service)
+    REPORT="$ROOT_DIR/docs/validation/${MODE#--validate-}.json"
+    rm -f "$REPORT"
+    /usr/bin/open -n -W "$APP_BUNDLE" --args "$MODE" "$REPORT"
+    /usr/bin/python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print(json.dumps(r,indent=2)); sys.exit(0 if r["passed"] else 1)' "$REPORT"
     ;;
   --validate-focus|--validate-snowman)
     if [[ "$MODE" == "--validate-focus" ]]; then

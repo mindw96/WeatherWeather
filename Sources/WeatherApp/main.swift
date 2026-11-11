@@ -12,11 +12,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let validationSuiteName: String?
     // Validation must not contact the update server or change the user's Sparkle preferences.
     lazy var updater = AppUpdater(enabled: validationSuiteName == nil)
+    @MainActor lazy var weather = LiveWeatherService(networkEnabled: validationSuiteName == nil) { [weak self] mode in
+        self?.preferences.mode = mode
+    }
+    lazy var login = LoginItemService(available: validationSuiteName == nil)
+    let shortcuts = GlobalShortcutService()
 
     override init() {
         let validating = CommandLine.arguments.contains("--smoke-test") || CommandLine.arguments.contains("--render-previews")
             || CommandLine.arguments.contains("--validate-focus")
             || CommandLine.arguments.contains("--validate-snowman")
+            || CommandLine.arguments.contains("--validate-features")
+            || CommandLine.arguments.contains("--validate-weather-service")
         let suiteName = validating ? "org.windowweather.validation.\(UUID().uuidString)" : nil
         validationSuiteName = suiteName
         let defaults = suiteName.map { UserDefaults(suiteName: $0)! } ?? .standard
@@ -26,6 +33,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        if let index = CommandLine.arguments.firstIndex(of: "--validate-weather-service"), CommandLine.arguments.count > index + 1 {
+            Task { @MainActor in
+                await LiveWeatherValidation.run(to: CommandLine.arguments[index + 1])
+                NSApp.terminate(nil)
+            }
+            return
+        }
+        if let index = CommandLine.arguments.firstIndex(of: "--validate-features"), CommandLine.arguments.count > index + 1 {
+            FeatureValidation.run(to: CommandLine.arguments[index + 1])
+            NSApp.terminate(nil)
+            return
+        }
         if let index = CommandLine.arguments.firstIndex(of: "--validate-snowman"), CommandLine.arguments.count > index + 1 {
             SnowmanValidation.run(to: CommandLine.arguments[index + 1])
             NSApp.terminate(nil)
@@ -70,9 +89,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         Publishers.CombineLatest(preferences.$mode, preferences.$paused)
             .sink { [weak self] mode, paused in self?.refreshMenu(mode: mode, paused: paused) }
             .store(in: &subscriptions)
+        if validationSuiteName == nil {
+            shortcuts.onToggle = { [weak self] in self?.preferences.paused.toggle() }
+            Publishers.CombineLatest(preferences.$globalShortcutEnabled, preferences.$globalShortcut)
+                .sink { [weak self] enabled, shortcut in self?.shortcuts.configure(enabled: enabled, shortcut: shortcut) }
+                .store(in: &subscriptions)
+            Publishers.CombineLatest3(preferences.$liveWeatherEnabled, preferences.$weatherCity, preferences.$fairWeatherMode)
+                .sink { [weak self] enabled, city, fallback in
+                    self?.weather.configure(enabled: enabled, city: city, fallback: fallback)
+                }.store(in: &subscriptions)
+        }
         if let index = CommandLine.arguments.firstIndex(of: "--smoke-test"), CommandLine.arguments.count > index + 1 {
             Validation.smokeTest(delegate: self, output: CommandLine.arguments[index + 1])
-        } else {
+        } else if preferences.showSettingsOnLaunch {
             showSettings()
         }
     }
@@ -85,12 +114,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(withTitle: AppIdentity.displayName, action: nil, keyEquivalent: "")
         menu.addItem(.separator())
         for (index, weather) in WeatherMode.allCases.enumerated() {
-            let item = menu.addItem(withTitle: "\(weather.title) 내리기", action: #selector(selectWeather(_:)), keyEquivalent: String(index + 1))
+            let item = menu.addItem(withTitle: "\(weather.title) 표시", action: #selector(selectWeather(_:)), keyEquivalent: String(index + 1))
             item.representedObject = weather.rawValue
             item.state = mode == weather ? .on : .off
             item.image = NSImage(systemSymbolName: weather.symbol, accessibilityDescription: nil)
         }
         menu.addItem(withTitle: paused ? "다시 내리기" : "잠시 멈추기", action: #selector(togglePause), keyEquivalent: "p")
+        menu.addItem(withTitle: "30분 동안 숨기기", action: #selector(pauseForThirtyMinutes), keyEquivalent: "")
         menu.addItem(withTitle: "쌓인 흔적 지우기", action: #selector(clear), keyEquivalent: "k")
         menu.addItem(.separator())
         menu.addItem(withTitle: "설정…", action: #selector(showSettings), keyEquivalent: ",")
@@ -132,17 +162,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return menu
     }
 
-    @objc func selectWeather(_ sender: NSMenuItem) {
+    @MainActor @objc func selectWeather(_ sender: NSMenuItem) {
         guard let rawValue = sender.representedObject as? String, let mode = WeatherMode(rawValue: rawValue) else { return }
+        selectMode(mode)
+    }
+    @MainActor func selectMode(_ mode: WeatherMode) {
         preferences.mode = mode
+        weather.manuallySelected(mode)
     }
     @objc func togglePause() { preferences.paused.toggle() }
+    @objc func pauseForThirtyMinutes() { preferences.pause(for: 30 * 60) }
     @objc func clear() { overlays?.clear() }
     @objc func quit() { NSApp.terminate(nil) }
 
-    @objc func showSettings() {
+    @MainActor @objc func showSettings() {
         if settingsWindow == nil {
-            let view = SettingsView(preferences: preferences, updater: updater) { [weak self] in self?.overlays?.clear() }
+            let view = SettingsView(preferences: preferences, updater: updater, weather: weather, login: login,
+                                    shortcuts: shortcuts, selectMode: { [weak self] in self?.selectMode($0) }) { [weak self] in self?.overlays?.clear() }
             let host = NSHostingController(rootView: view)
             let window = NSWindow(contentViewController: host)
             window.title = AppIdentity.displayName

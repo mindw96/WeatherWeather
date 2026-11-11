@@ -75,6 +75,10 @@ enum CornerValidation {
         checks["\(prefix)RearVisibleThroughRoundedCorner"] = alphaSum(raster, in: CGRect(x: 101, y: 80, width: 4, height: 4)) > 0
         checks["\(prefix)RearHiddenInsideForegroundBody"] = alphaSum(raster, in: CGRect(x: 124, y: 80, width: 8, height: 8)) == 0
         checks["\(prefix)OcclusionPreservesAccumulation"] = view.simulation.piles == piles && view.simulation.settledParticles == settled
+        view.hiddenWindows = [front]
+        let excludedFront = try render(view)
+        checks["\(prefix)ExcludedForegroundStillOccludesRearAccumulation"] = alphaSum(excludedFront, in: CGRect(x: 124, y: 80, width: 8, height: 8)) == 0
+        view.hiddenWindows = []
 
         var equalTop = rear
         equalTop.y = front.y
@@ -114,8 +118,8 @@ enum CornerValidation {
             view.simulation.inheritSettledParticles(from: [104.0, 128.0].enumerated().map { index, x in
                 SettledParticle(id: UInt64(index + 1), mode: mode, surfaceID: rear.surfaceID,
                                 position: (x - rear.x) / rear.width, offsetY: 3,
-                                size: mode == .confetti ? 8 : 10,
-                                rotation: 0, variant: index, life: 5)
+                                size: mode == .fireflies ? 2.4 : mode == .stardust ? 4 : mode == .confetti ? 8 : 10,
+                                rotation: 0, variant: index, life: mode == .fireflies ? 3 : 5)
             })
         } else {
             rear.heights = Array(repeating: mode == .snow ? 8 : 4, count: rear.heights.count)
@@ -130,10 +134,10 @@ enum CornerValidation {
         view.simulation.mode = mode
         view.simulation.setSurfaces([Surface(id: 7, x: 30, y: 50, width: 180, cornerRadius: radius)])
         if mode.hasSettledParticles {
-            let size = mode == .confetti ? 8.0 : 10.0
+            let size = mode == .fireflies ? 2.4 : mode == .stardust ? 4 : mode == .confetti ? 8.0 : 10.0
             view.simulation.inheritSettledParticles(from: [4.0, 176.0].enumerated().map { index, x in
                 SettledParticle(id: UInt64(index + 1), mode: mode, surfaceID: 7, position: x / 180,
-                                offsetY: 3, size: size, rotation: 0, variant: index, life: 5)
+                                offsetY: 3, size: size, rotation: 0, variant: index, life: mode == .fireflies ? 3 : 5)
             })
         } else {
             var pile = view.simulation.piles[0]

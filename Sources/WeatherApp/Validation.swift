@@ -104,6 +104,19 @@ enum Validation {
             checks["trackedWindowUsesEstimatedCurve"] = curvedSurface?.cornerRadius == WindowTracker.estimatedCornerRadius
             checks["screenFloorsRemainFlat"] = overlays.displays.flatMap { $0.view.simulation.piles }
                 .filter { $0.surfaceID == 0 }.allSatisfy { $0.cornerRadius == 0 }
+            if let bundleID = Bundle.main.bundleIdentifier {
+                delegate.preferences.excludedApplications = [bundleID: "Validation fixture"]
+                overlays.refreshSurfaces()
+                checks["excludedAppWindowsHiddenByBundleID"] = overlays.displays.contains {
+                    $0.view.hiddenWindows.contains { $0.id == id }
+                }
+                checks["excludedAppRemainsOccluderAndSurface"] = overlays.displays.contains {
+                    $0.view.windowGeometry.contains { $0.id == id } && $0.view.simulation.surfaces.contains { $0.id == id }
+                }
+                delegate.preferences.excludedApplications = [:]
+                overlays.refreshSurfaces()
+                checks["excludedAppRestoresWithoutRestart"] = overlays.displays.allSatisfy { $0.view.hiddenWindows.isEmpty }
+            }
             let before = WindowTracker.windows().first { $0.id == id }
             let frameBeforeMove = fixture.frame
             fixture.setFrameOrigin(NSPoint(x: fixture.frame.minX + 45, y: fixture.frame.minY + 35))
@@ -258,6 +271,7 @@ enum Validation {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             let firstID = UInt32(fixture.windowNumber)
             let hidden = overlays.displays.compactMap { $0.view.hiddenFocusedWindow?.id }
+            smokeDiagnostics["focusBeforeSwitch"] = focusDiagnostics(expected: firstID, hidden: hidden)
             checks["focusedWindowOffHidesActiveWindow"] = !hidden.isEmpty && hidden.allSatisfy { $0 == firstID }
             checks["focusedWindowOffPreservesSurface"] = overlays.displays.contains {
                 $0.view.simulation.surfaces.contains { $0.id == firstID }
@@ -266,6 +280,7 @@ enum Validation {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 let secondID = UInt32(second.windowNumber)
                 let switched = overlays.displays.compactMap { $0.view.hiddenFocusedWindow?.id }
+                smokeDiagnostics["focusAfterSwitch"] = focusDiagnostics(expected: secondID, hidden: switched)
                 checks["focusedWindowMaskFollowsKeyWindow"] = !switched.isEmpty && switched.allSatisfy { $0 == secondID }
                 delegate.preferences.showEffectsOnFocusedWindow = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -277,6 +292,17 @@ enum Validation {
                 }
             }
         }
+    }
+
+    private static func focusDiagnostics(expected: UInt32, hidden: [UInt32]) -> [String: Any] {
+        let windows = WindowTracker.windows()
+        return ["expectedWindowID": expected, "hiddenWindowIDs": hidden,
+                "keyWindowID": NSApp.keyWindow?.windowNumber ?? -1,
+                "appActive": NSApp.isActive,
+                "frontmostPID": NSWorkspace.shared.frontmostApplication?.processIdentifier ?? -1,
+                "fixturePID": ProcessInfo.processInfo.processIdentifier,
+                "trackedFocusedWindowID": WindowTracker.focusedWindowID(in: windows) ?? 0,
+                "fixtureWindowOrder": windows.filter { $0.ownerProcessID == ProcessInfo.processInfo.processIdentifier }.map(\.id)]
     }
 
     private static func checkNativeFullScreen(fixture: NSWindow, delegate: AppDelegate,

@@ -1,0 +1,16 @@
+Building for debugging...
+[2 / 9] WeatherCore
+[4 / 11] WeatherCore
+[9 / 14] WindowWeather-product
+[15 / 20] WeatherCore
+[17 / 20] WindowWeather-product
+[18 / 20] WindowWeather-product
+[20 / 22] WindowWeather-product
+Build complete! (1.35초)
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: replacing existing signature
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: replacing existing signature
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: replacing existing signature
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: replacing existing signature
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app/Contents/Frameworks/Sparkle.framework: replacing existing signature
+/private/tmp/window-weather-dev.pzb5M3/WindowWeather.app: replacing existing signature
+/Users/mindw/Documents/Projects/Weather/dist/WindowWeather.app
