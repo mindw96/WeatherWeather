@@ -39,6 +39,17 @@ enum CornerValidation {
                 checks["\(prefix)FocusedPileHidden"] = alphaSum(try render(view), in: view.bounds) == 0
                 try checkOverlap(mode: mode, checks: &checks)
             }
+            try checkBubbleEdges(checks: &checks)
+            let bubbles = bubbleFixture(position: 0, life: 5)
+            bubbles.simulation.inheritSettledParticles(from: [
+                SettledParticle(id: 2, mode: .bubbles, surfaceID: 7, position: 1,
+                                offsetY: 10, size: 20, rotation: 0, variant: 0, life: 5)
+            ])
+            guard let bubblePNG = try render(bubbles, scale: 3, background: true)
+                .representation(using: .png, properties: [:]) else {
+                throw NSError(domain: "CornerValidation", code: 2)
+            }
+            try bubblePNG.write(to: output.appendingPathComponent("bubble-edge-preview.png"))
             for (label, radius) in [("before", 26.0), ("after", WindowTracker.estimatedCornerRadius)] {
                 let bitmap = try render(fixture(mode: .snow, radius: radius), scale: 3, background: true)
                 guard let png = bitmap.representation(using: .png, properties: [:]) else {
@@ -63,6 +74,66 @@ enum CornerValidation {
             try? writeReport(checks, to: output, error: error.localizedDescription)
             fputs("Corner validation failed: \(error)\n", stderr)
         }
+    }
+
+    private static func checkBubbleEdges(checks: inout [String: Bool]) throws {
+        let owner = WindowGeometry(id: 7, x: 30, y: 50, width: 180, height: 80, cornerRadius: 26)
+        for (phase, life) in [("Normal", 5.0), ("Popping", 0.2)] {
+            for (side, position) in [("Left", 0.0), ("Right", 1.0)] {
+                let view = bubbleFixture(position: position, life: life)
+                let raster = try render(view)
+                let prefix = "bubbles\(phase)\(side)Edge"
+                let centerX = owner.x + position * owner.width
+                let overhang = CGRect(x: position == 0 ? 15 : 210, y: 51, width: 15, height: 30)
+                checks["\(prefix)OverhangVisible"] = alphaSum(raster, in: overhang) > 0
+                // Keep the reference circle at the same screen coordinates but move
+                // its owner underneath it: translated curves can quantize alpha differently.
+                let interior = bubbleFixture(position: 0.5, life: life)
+                interior.simulation.setSurfaces([Surface(id: 7, x: centerX - 90, y: 76,
+                                                         width: 180, cornerRadius: 26)])
+                interior.windowGeometry = [WindowGeometry(id: 7, x: centerX - 90, y: 76,
+                                                           width: 180, height: 80, cornerRadius: 26)]
+                let reference = try render(interior)
+                checks["\(prefix)MatchesCompleteInteriorBubble"] = alphaSum(reference, in: view.bounds) > 0
+                    && (0..<30).allSatisfy { y in (0..<30).allSatisfy { x in
+                        let pixel = CGRect(x: centerX - 15 + Double(x), y: Double(51 + y), width: 1, height: 1)
+                        return alphaSum(raster, in: pixel) == alphaSum(reference, in: pixel)
+                    } }
+
+                // Neither occluder intersects the old x=30...210 pile band.
+                let front = WindowGeometry(id: 8, x: position == 0 ? 0 : 211,
+                                           y: 20, width: 29, height: 100)
+                let second = WindowGeometry(id: 9, x: position == 0 ? 10 : 211,
+                                            y: 50, width: 19, height: 50)
+                let covered = CGRect(x: position == 0 ? 20 : 212, y: 60, width: 8, height: 12)
+                let exposed = CGRect(x: position == 0 ? 31 : 198, y: 54, width: 11, height: 24)
+                view.windowGeometry = [front, owner]
+                let occluded = try render(view)
+                checks["\(prefix)OverhangOnlyForegroundOccludes"] = alphaSum(raster, in: covered) > 0
+                    && alphaSum(occluded, in: covered) == 0 && alphaSum(occluded, in: exposed) > 0
+                view.windowGeometry = [front, second, owner]
+                let multiple = try render(view)
+                checks["\(prefix)OverlappingOccludersDoNotReopenHole"] = alphaSum(multiple, in: covered) == 0
+                    && alphaSum(multiple, in: exposed) > 0
+                view.windowGeometry = [owner]
+                view.hiddenFocusedWindow = owner
+                checks["\(prefix)FocusedOwnerHidesEntireBubble"] = alphaSum(try render(view), in: view.bounds) == 0
+                view.hiddenFocusedWindow = nil
+                view.hiddenWindows = [owner]
+                checks["\(prefix)ExcludedOwnerHidesEntireBubble"] = alphaSum(try render(view), in: view.bounds) == 0
+            }
+        }
+    }
+
+    private static func bubbleFixture(position: Double, life: Double) -> WeatherView {
+        let view = fixture(mode: .bubbles, radius: 26)
+        view.windowGeometry = [WindowGeometry(id: 7, x: 30, y: 50, width: 180, height: 80, cornerRadius: 26)]
+        view.simulation.clearAccumulation()
+        view.simulation.inheritSettledParticles(from: [
+            SettledParticle(id: 1, mode: .bubbles, surfaceID: 7, position: position,
+                            offsetY: 10, size: 20, rotation: 0, variant: 0, life: life)
+        ])
+        return view
     }
 
     private static func checkOverlap(mode: WeatherMode, checks: inout [String: Bool]) throws {
@@ -203,7 +274,7 @@ enum CornerValidation {
         var report: [String: Any] = [
             "passed": error == nil && !checks.isEmpty && checks.values.allSatisfy { $0 },
             "checks": checks,
-            "note": "Synthetic 26-point single corners and 16-point overlapping-window occlusion. Does not measure another app's true corner shape."
+            "note": "Synthetic 26-point single corners, 16-point overlapping-window occlusion, and 20-point settled bubble edges. Does not measure another app's true corner shape."
         ]
         if let error { report["error"] = error }
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys])

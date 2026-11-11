@@ -1,0 +1,42 @@
+{
+  "baselineCommit": "2c015807a9bd903b00e66c674b251a9acb4345a3",
+  "sourceInputsVerified": 57,
+  "rendererBeforeSHA256": "627bce627718fc65e3b969ea45c1c4a132af687005cba7c6e8a3c7a7ab7fe8e3",
+  "rendererAfterSHA256": "4433f3200704b6b789ad1354f57c5b939ba81b8d31f82011084ff67cf788487d",
+  "sameFinalFixtureSHA256": "c9d1ab0e132e6b6047e42cae0b15cedcb16b4c2aaea01fa504c74d14b220f44c",
+  "before": {
+    "passed": false,
+    "checks": 158,
+    "failures": [
+      "bubblesNormalLeftEdgeMatchesCompleteInteriorBubble",
+      "bubblesNormalLeftEdgeOverhangOnlyForegroundOccludes",
+      "bubblesNormalLeftEdgeOverhangVisible",
+      "bubblesNormalRightEdgeMatchesCompleteInteriorBubble",
+      "bubblesNormalRightEdgeOverhangOnlyForegroundOccludes",
+      "bubblesNormalRightEdgeOverhangVisible",
+      "bubblesPoppingLeftEdgeMatchesCompleteInteriorBubble",
+      "bubblesPoppingLeftEdgeOverhangOnlyForegroundOccludes",
+      "bubblesPoppingLeftEdgeOverhangVisible",
+      "bubblesPoppingRightEdgeMatchesCompleteInteriorBubble",
+      "bubblesPoppingRightEdgeOverhangOnlyForegroundOccludes",
+      "bubblesPoppingRightEdgeOverhangVisible"
+    ]
+  },
+  "after": {
+    "passed": true,
+    "checks": 158,
+    "failures": []
+  },
+  "focusChecks": 131,
+  "coreTests": 98,
+  "unchangedOtherModePNGSHA256": {
+    "snow": "ecd255fb18a4020b6c32d966613a040904c555d5858fe6096288f30bb2c96b92",
+    "rain": "f1673c1bfbb1014efc72e3e0933ca986d9b4c5fce079d74baa7e1225f07a9596",
+    "autumn": "3a7afa23e3e69923fa384d71aeb719805fb4214f1649e161b63f2c20c16b788f",
+    "cherryBlossom": "c0408d5da73a346e87fc5de3bd1b030a56e52c496b41a39132dc468b54c93d74",
+    "confetti": "f9292b01d76ed9de50d6ddb4f81250776e515f356075bfa66ec8bfdcdd7b2235",
+    "fireflies": "9ce7faaf03f3c87b2d79c7f5002c5bd3309d023ac66b6d14cd968d7a556ad8fb",
+    "stardust": "2c1eb4099d36425d0323d1c554d14817349d0cde0f3d737680981bbe609e487d"
+  },
+  "scope": "Native AppKit offscreen rendering with synthetic window geometry; not a live desktop interaction test."
+}
