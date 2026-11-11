@@ -73,7 +73,8 @@ final class CurvedSurfaceTests: XCTestCase {
             XCTAssertEqual(hit.y, pile.baselineY(at: 2) - 3, accuracy: 1e-10)
             if mode.hasSettledParticles {
                 let item = SettledParticle(id: 1, mode: mode, surfaceID: 1, position: 0.005,
-                                           offsetY: 6, size: mode == .bubbles ? 12 : 8, rotation: 0, variant: 0, life: 8)
+                                           offsetY: 6, size: mode == .bubbles ? 12 : mode.isGlowing ? 3 : 8,
+                                           rotation: 0, variant: 0, life: mode == .fireflies ? 4 : 8)
                 simulation.inheritSettledParticles(from: [item])
                 simulation.setSurfaces([Surface(id: 1, x: 80, y: 200, width: 400, cornerRadius: 20)])
                 XCTAssertEqual(simulation.settledParticles, [item])

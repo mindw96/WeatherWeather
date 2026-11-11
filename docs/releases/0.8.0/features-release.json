@@ -1,0 +1,24 @@
+{
+  "checks" : {
+    "cityAndFallbackPersist" : true,
+    "cityCanBeRemoved" : true,
+    "desktopOptionsSurviveReload" : true,
+    "excludedAppsPersistByBundleID" : true,
+    "independentWindSettingsSurviveReload" : true,
+    "invalidSavedWindIsFinite" : true,
+    "legacyAppReadsEffectiveWind" : true,
+    "legacyWindPreservesDirectionAndMagnitude" : true,
+    "manualResumeCancelsTimer" : true,
+    "nativeHotkeyCallbackDelivered" : true,
+    "nativeHotkeyConflictReported" : true,
+    "nativeHotkeyRegistered" : true,
+    "nativeHotkeyReleasedForReuse" : true,
+    "newNetworkAndHotkeyFeaturesAreOptIn" : true,
+    "removingOneExclusionPreservesOthers" : true,
+    "timedPauseHidesEffects" : true,
+    "timedPauseResumes" : true,
+    "validationCannotStartWeatherNetwork" : true
+  },
+  "note" : "Isolated preferences, timers, temporary native hotkey registration and app-local event delivery. Does not change login items or send physical keyboard input; no live weather requests.",
+  "passed" : true
+}

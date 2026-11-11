@@ -1,0 +1,18 @@
+{
+  "checks" : {
+    "automaticRefreshIsThrottled" : true,
+    "disableCancelsPendingWeather" : true,
+    "disableCancelsSearch" : true,
+    "disabledMakesNoRequests" : true,
+    "geocodingReturnsValidatedCity" : true,
+    "HTTPFailureUsesFallbackAndExplains" : true,
+    "manualChoiceExpires" : true,
+    "networkResponsePreservesManualChoice" : true,
+    "oldCityResponseCannotOverrideNewCity" : true,
+    "oldObservationFallsBack" : true,
+    "validationMakesNoRequests" : true,
+    "validRainApplied" : true
+  },
+  "network" : "Session-scoped URLProtocol fixtures only; no live API requests.",
+  "passed" : true
+}

@@ -104,6 +104,19 @@ enum Validation {
             checks["trackedWindowUsesEstimatedCurve"] = curvedSurface?.cornerRadius == WindowTracker.estimatedCornerRadius
             checks["screenFloorsRemainFlat"] = overlays.displays.flatMap { $0.view.simulation.piles }
                 .filter { $0.surfaceID == 0 }.allSatisfy { $0.cornerRadius == 0 }
+            if let bundleID = Bundle.main.bundleIdentifier {
+                delegate.preferences.excludedApplications = [bundleID: "Validation fixture"]
+                overlays.refreshSurfaces()
+                checks["excludedAppWindowsHiddenByBundleID"] = overlays.displays.contains {
+                    $0.view.hiddenWindows.contains { $0.id == id }
+                }
+                checks["excludedAppRemainsOccluderAndSurface"] = overlays.displays.contains {
+                    $0.view.windowGeometry.contains { $0.id == id } && $0.view.simulation.surfaces.contains { $0.id == id }
+                }
+                delegate.preferences.excludedApplications = [:]
+                overlays.refreshSurfaces()
+                checks["excludedAppRestoresWithoutRestart"] = overlays.displays.allSatisfy { $0.view.hiddenWindows.isEmpty }
+            }
             let before = WindowTracker.windows().first { $0.id == id }
             let frameBeforeMove = fixture.frame
             fixture.setFrameOrigin(NSPoint(x: fixture.frame.minX + 45, y: fixture.frame.minY + 35))

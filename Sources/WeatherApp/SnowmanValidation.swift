@@ -39,6 +39,18 @@ enum SnowmanValidation {
             && reloaded.snowmanPosition(for: "validation-display-B") == second
         reloaded.setSnowmanPosition(.init(x: 0.4, y: 0.6), for: "validation-display-A")
         checks["movingOneDisplayDoesNotOverwriteAnotherPosition"] = Preferences(defaults: defaults).snowmanPosition(for: "validation-display-B") == second
+        checks["snowmanAppearanceDefaultsPreserveOriginal"] = preferences.snowmanAppearance == SnowmanAppearance()
+        preferences.snowmanAppearance = SnowmanAppearance(hat: .plum, scarf: .gold, scale: 1.3)
+        checks["snowmanAppearanceSurvivesReload"] = Preferences(defaults: defaults).snowmanAppearance == preferences.snowmanAppearance
+        defaults.set(Data("{\"hat\":\"red\",\"scarf\":\"gold\",\"scale\":1e300}".utf8), forKey: "snowmanAppearance")
+        let clamped = Preferences(defaults: defaults).snowmanAppearance
+        checks["snowmanOversizedStoredScaleIsSafeForControls"] = clamped.scale == 1.5 && clamped.hat == .red
+            && Int(clamped.scale * 100) == 150
+        defaults.set(Data("{\"hat\":\"unknown\",\"scale\":0}".utf8), forKey: "snowmanAppearance")
+        checks["snowmanMalformedStoredAppearanceFallsBack"] = Preferences(defaults: defaults).snowmanAppearance == SnowmanAppearance()
+        var invalid = SnowmanAppearance()
+        invalid.scale = .nan
+        checks["snowmanProgrammaticInvalidScaleIsNormalized"] = invalid.scale == 1
     }
 
     private static func checkRendering(output: URL, checks: inout [String: Bool]) throws {
@@ -89,6 +101,15 @@ enum SnowmanValidation {
         checks["snowmanIndependentOfSnowAccumulation"] = try render(view).pixels == visible.pixels
         view.simulation.clearAccumulation()
         checks["clearingSnowDoesNotDisableSnowman"] = try render(view).pixels == visible.pixels
+        view.snowmanAppearance = SnowmanAppearance(hat: .red, scarf: .gold)
+        let colored = try render(view)
+        checks["snowmanColorChoicesChangeArtworkWithoutMovingIt"] = colored.pixels != visible.pixels
+            && colored.occupiedBounds == visible.occupiedBounds
+        try colored.png.write(to: output.appendingPathComponent("snowman-custom-colors.png"))
+        view.snowmanAppearance.scale = 1.4
+        let larger = try render(view)
+        checks["snowmanScaleChangesVisibleSize"] = larger.occupiedBounds.width > colored.occupiedBounds.width
+            && larger.occupiedBounds.height > colored.occupiedBounds.height
 
         let detail = SnowmanView(frame: NSRect(x: 0, y: 0, width: 200, height: 232))
         let panelArtwork = try render(detail)
@@ -99,6 +120,20 @@ enum SnowmanValidation {
         checks["snowmanPanelRendererHonorsFocusMask"] = panelClipped.alphaSum(in: CGRect(x: 0, y: 0, width: 99, height: 232)) == 0
             && panelClipped.alphaSum(in: detail.bounds) > 0
             && panelClipped.alphaSum(in: detail.bounds) < panelArtwork.alphaSum(in: detail.bounds)
+        detail.hiddenRect = nil
+        detail.hiddenRects = [CGRect(x: 0, y: 0, width: 120, height: 232), CGRect(x: 80, y: 0, width: 120, height: 232)]
+        checks["snowmanOverlappingExcludedWindowsDoNotReopenArtwork"] = try render(detail).alphaSum(in: detail.bounds) == 0
+        checks["snowmanExcludedArtworkCannotBeGrabbed"] = !detail.canGrab(at: CGPoint(x: 108, y: 184))
+        detail.hiddenRects = []
+        let background = WindowGeometry(id: 91, x: 0, y: 0, width: 200, height: 232)
+        let foreground = WindowGeometry(id: 92, x: 90, y: 140, width: 50, height: 70)
+        detail.hiddenPaths = WindowExclusionMask.paths(excluding: [background], orderedWindows: [foreground, background])
+        checks["snowmanVisibleForegroundRemainsGrabbableAboveExcludedApp"] = detail.canGrab(at: CGPoint(x: 108, y: 184))
+            && !detail.canGrab(at: CGPoint(x: 108, y: 90))
+        let foregroundInk = try render(detail)
+        let foregroundArea = CGRect(x: 91, y: 141, width: 48, height: 68)
+        checks["snowmanVisibleForegroundKeepsArtworkAboveExcludedApp"] = foregroundInk.alphaSum(in: foregroundArea) > 0
+            && foregroundInk.alphaSum(in: foregroundArea) == panelArtwork.alphaSum(in: foregroundArea)
     }
 
     private static func checkLayout(into checks: inout [String: Bool]) {
@@ -116,6 +151,9 @@ enum SnowmanValidation {
         checks["snowmanRejectsEmptyAndInvalidBounds"] = invalid.allSatisfy {
             let frame = SnowmanRenderer.frame(in: $0)
             return frame.isEmpty || frame.isNull
+        }
+        checks["snowmanScaleIsBoundedAndFinite"] = [0.1, 0.6, 1.0, 1.5, 8, Double.nan].allSatisfy { scale in
+            bounds.allSatisfy { $0.contains(SnowmanRenderer.frame(in: $0, appearance: SnowmanAppearance(scale: scale))) }
         }
     }
 
@@ -174,6 +212,17 @@ enum SnowmanValidation {
         checks["snowmanPanelDragClampsToItsDisplay"] = lowerClamp
             && nearlyEqual(overlay.panel.frame.maxX, screen.frame.maxX)
             && nearlyEqual(overlay.panel.frame.maxY, screen.frame.maxY)
+        let oldSize = overlay.panel.frame.size
+        preferences.snowmanAppearance = SnowmanAppearance(hat: .plum, scarf: .red, scale: 1.5)
+        overlay.update(running: false, mode: .snow, enabled: true, hiddenWindow: nil, appearance: preferences.snowmanAppearance)
+        let resizedBody = CGPoint(x: overlay.view.bounds.width * 0.54, y: overlay.view.bounds.height * 92 / 116)
+        checks["snowmanPanelResizesAndKeepsHitRegionAligned"] = overlay.panel.frame.width > oldSize.width
+            && overlay.view.bounds.size == overlay.panel.frame.size && overlay.view.canGrab(at: resizedBody)
+            && !overlay.view.canGrab(at: .zero) && screen.frame.contains(overlay.panel.frame)
+        let resizedRestore = SnowmanOverlay(screen: screen, preferences: Preferences(defaults: defaults))
+        checks["snowmanCustomizedSizeAndPositionRestoreTogether"] = resizedRestore.panel.frame == overlay.panel.frame
+            && resizedRestore.view.snowmanAppearance == preferences.snowmanAppearance
+        resizedRestore.close()
         checks["snowmanPanelFixtureRemainsUnshown"] = !overlay.panel.isVisible
     }
 

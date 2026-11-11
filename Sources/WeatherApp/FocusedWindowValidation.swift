@@ -41,7 +41,7 @@ enum FocusedWindowValidation {
         checks["focusPreferenceIndependentOfAccumulation"] = !settings.showEffectsOnFocusedWindow
         settings.showEffectsOnFocusedWindow = true
         checks["visiblePreferenceSurvivesReload"] = Preferences(defaults: defaults).showEffectsOnFocusedWindow
-        for mode in [WeatherMode.bubbles, .confetti] {
+        for mode in [WeatherMode.bubbles, .confetti, .fireflies, .stardust] {
             settings.mode = mode
             checks["\(mode.rawValue)SelectionSurvivesReload"] = Preferences(defaults: defaults).mode == mode
         }
@@ -67,6 +67,23 @@ enum FocusedWindowValidation {
         view.hiddenFocusedWindow = nil
         checks["\(prefix)ShowingAgainRestoresSameFrame"] = try render(view).pixels == visible.pixels
         checks["\(prefix)HidingDoesNotDeleteFallingObjects"] = particles == view.simulation.particles
+        let secondExcluded = WindowGeometry(id: 52, x: 400, y: 180, width: 160, height: 180)
+        view.hiddenWindows = [target, secondExcluded]
+        let excluded = try render(view)
+        checks["\(prefix)ExcludedAppWindowsHideTheirUnion"] = excluded.alphaSum(in: rect.insetBy(dx: 1, dy: 1)) == 0
+            && excluded.alphaSum(in: CGRect(x: 401, y: 181, width: 158, height: 178)) == 0
+        checks["\(prefix)OverlappingAppExclusionsNeverReopenPixels"] = excluded.alphaSum(in: CGRect(x: 401, y: 181, width: 108, height: 168)) == 0
+        checks["\(prefix)AppExclusionsPreserveOtherEffects"] = excluded.alphaSum(in: CGRect(x: 0, y: 0, width: 200, height: 400)) > 0
+            && particles == view.simulation.particles
+        let front = WindowGeometry(id: 80, x: 300, y: 140, width: 140, height: 150, cornerRadius: 16)
+        view.windowGeometry = [front, target]
+        view.hiddenWindows = [target]
+        let foregroundArea = CGRect(x: 320, y: 160, width: 100, height: 110)
+        let visibleFront = try render(view)
+        checks["\(prefix)ExcludedBackgroundDoesNotHideForegroundAppEffects"] = visible.alphaSum(in: foregroundArea) > 0
+            && visibleFront.alphaSum(in: foregroundArea) == visible.alphaSum(in: foregroundArea)
+        view.windowGeometry = []
+        view.hiddenWindows = []
         try visible.png.write(to: output.appendingPathComponent("\(prefix)-focus-visible.png"))
         try hidden.png.write(to: output.appendingPathComponent("\(prefix)-focus-hidden.png"))
 
@@ -100,6 +117,19 @@ enum FocusedWindowValidation {
             && settledState == piles.simulation.settledParticles
         piles.hiddenFocusedWindow = nil
         checks["\(prefix)PileRestoredWithoutResimulation"] = try render(piles).pixels == pileVisible.pixels
+        piles.hiddenWindows = [focused]
+        let excludedPile = try render(piles)
+        checks["\(prefix)AppExclusionAlsoHidesPileAboveItsWindow"] = excludedPile.alphaSum(in: focusedMound) == 0
+            && excludedPile.alphaSum(in: otherMound) == pileVisible.alphaSum(in: otherMound)
+        let background = WindowGeometry(id: 90, x: 200, y: 120, width: 400, height: 260)
+        let originalGeometry = piles.windowGeometry
+        piles.windowGeometry.append(background)
+        piles.hiddenWindows = [background]
+        let foregroundPile = try render(piles)
+        checks["\(prefix)ForegroundPileAboveFrameSurvivesExcludedBackground"] = foregroundPile.alphaSum(in: focusedMound)
+            == pileVisible.alphaSum(in: focusedMound)
+        piles.windowGeometry = originalGeometry
+        piles.hiddenWindows = []
         try pileVisible.png.write(to: output.appendingPathComponent("\(prefix)-pile-visible.png"))
         try pileHidden.png.write(to: output.appendingPathComponent("\(prefix)-pile-hidden.png"))
 
@@ -109,6 +139,7 @@ enum FocusedWindowValidation {
             rain.simulation.intensity = 1
             rain.simulation.setSurfaces([Surface(id: 51, x: 20, y: 200, width: 600)])
             for _ in 0..<300 { rain.simulation.update(deltaTime: 1 / 30.0) }
+            checks["rainFixtureContainsRipplesAndMergingDrops"] = !rain.simulation.ripples.isEmpty && !rain.simulation.rainDrops.isEmpty
             let wetArea = CGRect(x: 0, y: 150, width: 640, height: 250)
             checks["rainSplashFixtureContainsVisibleDroplets"] = rain.simulation.splashes.contains {
                 wetArea.contains(CGPoint(x: $0.x, y: $0.y))

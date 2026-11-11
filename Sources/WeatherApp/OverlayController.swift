@@ -22,16 +22,26 @@ final class OverlayController {
     init(preferences: Preferences) {
         self.preferences = preferences
         rebuildDisplays()
-        Publishers.CombineLatest4(preferences.$mode, preferences.$intensity, preferences.$wind, preferences.$accumulation)
-            .sink { [weak self] mode, intensity, wind, accumulation in
+        Publishers.CombineLatest3(preferences.$mode, preferences.$intensity, preferences.$accumulation)
+            .sink { [weak self] mode, intensity, accumulation in
                 self?.displays.forEach {
                     $0.view.simulation.mode = mode
                     $0.view.simulation.intensity = intensity
-                    $0.view.simulation.wind = wind
                     $0.view.simulation.accumulationEnabled = accumulation
                     $0.view.needsDisplay = true
                 }
             }.store(in: &subscriptions)
+        Publishers.CombineLatest(preferences.$wind, preferences.$windStrength)
+            .sink { [weak self] direction, strength in
+                self?.displays.forEach { $0.view.simulation.wind = direction * strength }
+            }.store(in: &subscriptions)
+        preferences.$movementReactionEnabled.sink { [weak self] enabled in
+            self?.displays.forEach { $0.view.simulation.movementReactionEnabled = enabled }
+        }.store(in: &subscriptions)
+        preferences.$snowmanAppearance.dropFirst().receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.refreshSnowmen() }.store(in: &subscriptions)
+        preferences.$excludedApplications.dropFirst().receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.refreshSurfaces() }.store(in: &subscriptions)
         preferences.$paused.sink { [weak self] paused in self?.setRunning(!paused) }.store(in: &subscriptions)
         preferences.$disabledDisplayIDs.dropFirst().receive(on: RunLoop.main)
             .sink { [weak self] _ in
@@ -41,6 +51,7 @@ final class OverlayController {
                     display.view.simulation.setSurfaces([])
                     display.view.windowGeometry = []
                     display.view.hiddenFocusedWindow = nil
+                    display.view.hiddenWindows = []
                 }
                 self.refreshSurfaces()
                 self.setRunning(!self.preferences.paused)
@@ -89,7 +100,8 @@ final class OverlayController {
             let view = WeatherView(frame: NSRect(origin: .zero, size: screen.frame.size), seed: UInt64(index + 2026))
             view.simulation.mode = preferences.mode
             view.simulation.intensity = preferences.intensity
-            view.simulation.wind = preferences.wind
+            view.simulation.wind = preferences.effectiveWind
+            view.simulation.movementReactionEnabled = preferences.movementReactionEnabled
             view.simulation.accumulationEnabled = preferences.accumulation
             view.showSnowman = false // Dedicated panel handles desktop dragging.
             panel.contentView = view
@@ -111,11 +123,14 @@ final class OverlayController {
         let excluded = Set(displays.flatMap { [UInt32($0.panel.windowNumber), UInt32($0.snowman.panel.windowNumber)] })
         let windows = WindowTracker.windows(excluding: excluded)
         let focusedID = preferences.showEffectsOnFocusedWindow ? nil : WindowTracker.focusedWindowID(in: windows)
+        let excludedPIDs = Set(NSWorkspace.shared.runningApplications.compactMap { app -> Int32? in
+            guard let id = app.bundleIdentifier, preferences.excludedApplications[id] != nil else { return nil }
+            return app.processIdentifier
+        })
         var detectedWindowIDs = Set<UInt32>()
         // Harvest before removing off-display windows so a drag to another monitor
         // carries its local accumulation across. Floor state remains per display.
-        let accumulated = active.flatMap { $0.view.simulation.piles }.filter { $0.surfaceID != 0 }
-        let settled = active.flatMap { $0.view.simulation.settledParticles }.filter { $0.surfaceID != 0 }
+        let accumulated = active.count > 1 ? active.map { $0.view.simulation.accumulationSnapshot } : []
         for display in active {
             let policy = WindowTracker.fullScreenPolicy(screen: display.screen)
             let local = WindowTracker.localWindows(windows, screen: display.screen).map { window in
@@ -125,6 +140,7 @@ final class OverlayController {
             }
             detectedWindowIDs.formUnion(local.map(\.id))
             display.view.windowGeometry = local
+            display.view.hiddenWindows = local.filter { $0.ownerProcessID.map(excludedPIDs.contains) ?? false }
             // Visibility only: leave collisions and existing piles intact so a
             // focus switch or re-enabling the option restores the scene naturally.
             display.view.hiddenFocusedWindow = FocusedWindowPolicy.hiddenWindow(
@@ -132,9 +148,7 @@ final class OverlayController {
                 showEffectsOnFocusedWindow: preferences.showEffectsOnFocusedWindow
             )
             let surfaces = policy.surfaces(for: local, accumulateOnFullScreen: preferences.accumulateOnFullScreen)
-            display.view.simulation.setSurfaces(surfaces)
-            display.view.simulation.inheritAccumulation(from: accumulated)
-            display.view.simulation.inheritSettledParticles(from: settled)
+            display.view.simulation.setSurfaces(surfaces, inheriting: accumulated)
             display.view.needsDisplay = true
         }
         if preferences.detectedWindows != detectedWindowIDs.count { preferences.detectedWindows = detectedWindowIDs.count }
@@ -145,7 +159,9 @@ final class OverlayController {
         for display in displays {
             display.snowman.update(running: (running ?? (!preferences.paused && !asleep)) && preferences.isDisplayEnabled(display.id),
                                    mode: preferences.mode, enabled: preferences.showSnowman,
-                                   hiddenWindow: display.view.hiddenFocusedWindow)
+                                   hiddenWindow: display.view.hiddenFocusedWindow,
+                                   appearance: preferences.snowmanAppearance, hiddenWindows: display.view.hiddenWindows,
+                                   windowGeometry: display.view.windowGeometry)
         }
     }
 

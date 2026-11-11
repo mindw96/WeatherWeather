@@ -1,11 +1,17 @@
 import SwiftUI
+import UniformTypeIdentifiers
 import WeatherCore
 
 struct SettingsView: View {
     @ObservedObject var preferences: Preferences
     @ObservedObject var updater: AppUpdater
+    @ObservedObject var weather: LiveWeatherService
+    @ObservedObject var login: LoginItemService
+    @ObservedObject var shortcuts: GlobalShortcutService
+    let selectMode: (WeatherMode) -> Void
     let clear: () -> Void
     @State private var screens = NSScreen.screens
+    @State private var availableApps: [ApplicationChoice] = []
 
     private var hasSelectedDisplay: Bool {
         screens.contains { preferences.isDisplayEnabled(DisplayIdentity.key(for: $0)) }
@@ -38,7 +44,7 @@ struct SettingsView: View {
                     .foregroundStyle(Color(nsColor: preferences.mode.accent))
             }
 
-            DemoView(mode: preferences.mode, intensity: preferences.intensity, wind: preferences.wind, accumulation: preferences.accumulation, showEffectsOnFocusedWindow: preferences.showEffectsOnFocusedWindow, showSnowman: preferences.showSnowman, paused: preferences.paused, clearVersion: preferences.clearVersion)
+            DemoView(mode: preferences.mode, intensity: preferences.intensity, wind: preferences.effectiveWind, accumulation: preferences.accumulation, showEffectsOnFocusedWindow: preferences.showEffectsOnFocusedWindow, showSnowman: preferences.showSnowman, snowmanAppearance: preferences.snowmanAppearance, movementReactionEnabled: preferences.movementReactionEnabled, paused: preferences.paused, clearVersion: preferences.clearVersion)
                 .frame(height: 160)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .overlay(alignment: .topTrailing) {
@@ -49,7 +55,7 @@ struct SettingsView: View {
                 ForEach(WeatherMode.allCases, id: \.self) { mode in
                     Toggle(isOn: Binding(
                         get: { preferences.mode == mode },
-                        set: { if $0 { preferences.mode = mode } }
+                        set: { if $0 { selectMode(mode) } }
                     )) {
                         Label(mode.title, systemImage: mode.symbol)
                             .frame(maxWidth: .infinity)
@@ -95,11 +101,21 @@ struct SettingsView: View {
                         .monospacedDigit().foregroundStyle(.secondary).frame(width: 38, alignment: .trailing)
                 }
                 HStack {
-                    Text("바람").frame(width: 72, alignment: .leading)
-                    Image(systemName: "arrow.left").font(.caption).foregroundStyle(.secondary)
-                    Slider(value: $preferences.wind, in: -1...1)
-                    Image(systemName: "arrow.right").font(.caption).foregroundStyle(.secondary)
+                    Text("바람 방향").frame(width: 72, alignment: .leading)
+                    Picker("바람 방향", selection: $preferences.wind) {
+                        Text("← 왼쪽").tag(-1.0)
+                        Text("오른쪽 →").tag(1.0)
+                    }.pickerStyle(.segmented).labelsHidden()
                 }
+                HStack {
+                    Text("바람 세기").frame(width: 72, alignment: .leading)
+                    Slider(value: $preferences.windStrength, in: 0...1)
+                    Text("\(Int(preferences.windStrength * 100))%")
+                        .monospacedDigit().foregroundStyle(.secondary).frame(width: 38, alignment: .trailing)
+                }
+                Toggle("창과 바람에 쌓인 효과가 반응", isOn: $preferences.movementReactionEnabled)
+                    .toggleStyle(.switch)
+                    .help("창을 움직이면 눈 조각이 떨어지고, 강한 바람에 쌓인 잎과 꽃잎이 다시 날립니다.")
                 Toggle(preferences.mode.accumulationLabel, isOn: $preferences.accumulation)
                     .toggleStyle(.switch)
                 Toggle("눈사람 표시", isOn: $preferences.showSnowman)
@@ -121,6 +137,12 @@ struct SettingsView: View {
                 }
             }
 
+            snowmanSettings
+            excludedAppSettings
+            desktopSettings
+            LiveWeatherSettingsView(service: weather, enabled: $preferences.liveWeatherEnabled,
+                                    city: $preferences.weatherCity, fallback: $preferences.fairWeatherMode)
+
             Divider()
             HStack {
                 Circle().fill(preferences.paused || !hasSelectedDisplay ? .orange : .mint).frame(width: 7, height: 7)
@@ -130,7 +152,7 @@ struct SettingsView: View {
                 Button("쌓인 흔적 지우기", action: clear).controlSize(.small)
             }
             HStack {
-                Text("날씨 효과는 계정 없이, 인터넷 없이.\nDock과 메뉴 막대에서 바꿀 수 있어요.")
+                Text("효과는 계정 없이 오프라인으로 작동합니다.\n날씨 연동·업데이트 확인에는 인터넷을 사용합니다.")
                     .font(.caption).foregroundStyle(.secondary).lineSpacing(3)
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer()
@@ -139,6 +161,10 @@ struct SettingsView: View {
                 } label: {
                     Label(preferences.paused ? "다시 내리기" : "잠시 멈추기", systemImage: preferences.paused ? "play.fill" : "pause.fill")
                 }.buttonStyle(.borderedProminent).tint(.teal)
+            }
+            if let until = preferences.pauseUntil {
+                Text("\(until.formatted(date: .omitted, time: .shortened))에 자동으로 다시 내립니다.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
 
             Divider()
@@ -164,12 +190,113 @@ struct SettingsView: View {
         }
     }
 
+    private var snowmanSettings: some View {
+        GroupBox("눈사람 꾸미기") {
+            VStack(spacing: 10) {
+                Picker("모자", selection: $preferences.snowmanAppearance.hat) {
+                    ForEach(SnowmanColor.allCases, id: \.self) { Text($0.title).tag($0) }
+                }
+                Picker("목도리", selection: $preferences.snowmanAppearance.scarf) {
+                    ForEach(SnowmanColor.allCases, id: \.self) { Text($0.title).tag($0) }
+                }
+                HStack {
+                    Text("크기")
+                    Slider(value: $preferences.snowmanAppearance.scale, in: 0.6...1.5)
+                    Text("\(Int(preferences.snowmanAppearance.scale * 100))%")
+                        .monospacedDigit().frame(width: 42, alignment: .trailing)
+                }
+            }.padding(.vertical, 5)
+        }.disabled(preferences.mode != .snow || !preferences.showSnowman)
+    }
+
+    private var excludedAppSettings: some View {
+        GroupBox("효과를 숨길 앱") {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("선택한 앱의 창 안과 창 위에 쌓인 효과를 숨깁니다.")
+                    .font(.caption).foregroundStyle(.secondary)
+                ForEach(preferences.excludedApplications.keys.sorted(), id: \.self) { id in
+                    HStack {
+                        Text(preferences.excludedApplications[id] ?? id).lineLimit(1)
+                        Spacer()
+                        Button { preferences.excludedApplications.removeValue(forKey: id) } label: {
+                            Image(systemName: "minus.circle")
+                        }.buttonStyle(.borderless).accessibilityLabel("\(preferences.excludedApplications[id] ?? id) 제외 해제")
+                    }
+                }
+                HStack {
+                    Menu("실행 중인 앱 추가") {
+                        ForEach(availableApps) { app in
+                            Button(app.name) { preferences.excludedApplications[app.id] = app.name }
+                                .disabled(preferences.excludedApplications[app.id] != nil)
+                        }
+                        Divider()
+                        Button("목록 새로고침", action: refreshApps)
+                    }
+                    Button("앱 선택…", action: chooseApplication)
+                }.controlSize(.small)
+            }.padding(.vertical, 5).frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .onAppear(perform: refreshApps)
+        .onReceive(NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didLaunchApplicationNotification)) { _ in refreshApps() }
+        .onReceive(NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didTerminateApplicationNotification)) { _ in refreshApps() }
+    }
+
+    private var desktopSettings: some View {
+        GroupBox("빠른 제어와 시작") {
+            VStack(alignment: .leading, spacing: 12) {
+                Toggle("어디서나 단축키로 숨기기·복원", isOn: $preferences.globalShortcutEnabled)
+                    .toggleStyle(.switch)
+                Picker("단축키", selection: $preferences.globalShortcut) {
+                    ForEach(GlobalShortcut.allCases, id: \.self) { Text($0.title).tag($0) }
+                }.disabled(!preferences.globalShortcutEnabled)
+                if let error = shortcuts.error { Text(error).font(.caption).foregroundStyle(.orange) }
+                Button("30분 동안 숨기기") { preferences.pause(for: 30 * 60) }.controlSize(.small)
+                Divider()
+                Toggle("Mac 로그인 시 자동 실행", isOn: Binding(get: { login.enabled }, set: { enabled in
+                    if login.setEnabled(enabled), enabled { preferences.showSettingsOnLaunch = false }
+                })).toggleStyle(.switch)
+                Toggle("시작할 때 설정창 열기", isOn: $preferences.showSettingsOnLaunch).toggleStyle(.switch)
+                Text("자동 실행을 켜면 설정창 없이 시작합니다. Dock이나 메뉴 막대에서 다시 열 수 있어요.")
+                    .font(.caption).foregroundStyle(.secondary)
+                if login.needsApproval { Button("시스템 설정에서 자동 실행 허용", action: login.openSettings) }
+                if let error = login.error { Text(error).font(.caption).foregroundStyle(.orange) }
+            }.padding(.vertical, 5)
+        }.onAppear { login.refresh() }
+    }
+
+    private func refreshApps() {
+        var apps: [String: String] = [:]
+        for app in NSWorkspace.shared.runningApplications where app.activationPolicy == .regular {
+            guard let id = app.bundleIdentifier, id != Bundle.main.bundleIdentifier else { continue }
+            apps[id] = app.localizedName ?? id
+        }
+        availableApps = apps.map { ApplicationChoice(id: $0.key, name: $0.value) }
+            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+    }
+
+    private func chooseApplication() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.applicationBundle]
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.directoryURL = URL(fileURLWithPath: "/Applications")
+        panel.prompt = "추가"
+        panel.begin { response in
+            guard response == .OK, let url = panel.url, let bundle = Bundle(url: url), let id = bundle.bundleIdentifier else { return }
+            let name = bundle.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
+                ?? bundle.object(forInfoDictionaryKey: "CFBundleName") as? String ?? url.deletingPathExtension().lastPathComponent
+            preferences.excludedApplications[id] = name
+        }
+    }
+
     private func displayDetails(_ screen: NSScreen, primary: Bool) -> String {
         let number = (screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value ?? 0
         let resolution = "\(CGDisplayPixelsWide(number)) × \(CGDisplayPixelsHigh(number))"
         return primary ? "\(resolution) · 주 디스플레이" : resolution
     }
 }
+
+private struct ApplicationChoice: Identifiable { let id: String; let name: String }
 
 private struct DemoView: NSViewRepresentable {
     let mode: WeatherMode
@@ -178,6 +305,8 @@ private struct DemoView: NSViewRepresentable {
     let accumulation: Bool
     let showEffectsOnFocusedWindow: Bool
     let showSnowman: Bool
+    let snowmanAppearance: SnowmanAppearance
+    let movementReactionEnabled: Bool
     let paused: Bool
     let clearVersion: Int
 
@@ -200,6 +329,8 @@ private struct DemoView: NSViewRepresentable {
         view.simulation.intensity = intensity
         view.simulation.wind = wind
         view.simulation.accumulationEnabled = accumulation
+        view.simulation.movementReactionEnabled = movementReactionEnabled
+        view.snowmanAppearance = snowmanAppearance
         if view.showSnowman != showSnowman {
             view.showSnowman = showSnowman
             view.needsDisplay = true

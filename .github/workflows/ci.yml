@@ -18,3 +18,7 @@ jobs:
         run: python3 script/test_update_config.py
       - name: Test simulation and geometry
         run: swift test
+      - name: Test weather service without network
+        run: |
+          ./dist/WindowWeather.app/Contents/MacOS/WindowWeather --validate-weather-service docs/validation/weather-service.json
+          python3 -c 'import json; assert json.load(open("docs/validation/weather-service.json"))["passed"]'

@@ -1,0 +1,15 @@
+{
+  "phase": "signed",
+  "submissionID": null,
+  "error": "No Keychain password item found for profile",
+  "exitCode": 69,
+  "profilesChecked": [
+    "WindowWeatherNotary",
+    "DdayNotary"
+  ],
+  "defaultContextRetried": true,
+  "screenLocked": true,
+  "lockRelationship": "unconfirmed",
+  "archiveSHA256": "a7c951061152a8e3798f86e0f5119b4740fcfb5ff495368d03d4441d69c875cc",
+  "uploadStarted": false
+}

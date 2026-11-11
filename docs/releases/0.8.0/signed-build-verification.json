@@ -1,0 +1,17 @@
+{
+  "signature": {
+    "exitCode": 0,
+    "output": "--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Autoupdate\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/Updater.app\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Installer.xpc\n--prepared:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/XPCServices/Downloader.xpc\n--validated:/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Frameworks/Sparkle.framework/Versions/Current/.\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app: valid on disk\n/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app: satisfies its Designated Requirement\n"
+  },
+  "architectures": {
+    "exitCode": 0,
+    "output": "x86_64 arm64\n"
+  },
+  "bundle": {
+    "exitCode": 0,
+    "output": "/private/tmp/window-weather-package.oIkJcA/WindowWeather-0.8.0-macOS/WindowWeather.app/Contents/Info.plist: OK\n"
+  },
+  "sourceHashesMatch": true,
+  "changedSources": [],
+  "notarized": false
+}
