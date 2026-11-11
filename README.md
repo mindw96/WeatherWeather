@@ -6,7 +6,7 @@ macOS의 창 위에 눈·비·낙엽·벚꽃·비눗방울·색종이·반딧불
 
 Mac 버전의 완성도와 기능을 먼저 다듬은 뒤 Windows로 확장합니다. 현재 Windows 실행 파일은 제공하지 않습니다.
 
-**1.0.0 App Store 제출 준비:** 바람 방향에 가운데(없음)를 추가하고, Sparkle를 제외한 Sandbox 전용 빌드·스토어 배포 패키지·개인정보 선언을 준비했습니다. App Store Connect 앱 등록은 완료했으며 업로드·심사 제출은 아직 진행 중입니다. 현재 공개 다운로드는 위의 0.8.0입니다. [스토어 구성](docs/APP_STORE.md) · [제출 검증 상태](docs/app-store/1.0.0/VALIDATION.md) · [개인정보 처리방침](docs/PRIVACY.md) · [지원](docs/SUPPORT.md)
+**1.0.0 App Store 심사 대기 중:** 바람 방향에 가운데(없음)를 추가한 Sandbox 전용 빌드 15의 검증·Apple 업로드·처리·심사 제출을 완료했습니다. 2026-11-11에 `WAITING_FOR_REVIEW` 상태를 확인했으며 승인·공개 출시는 아직입니다. 스토어 앱은 Sparkle를 제외하고 승인 후 수동 출시로 설정했습니다. 현재 GitHub 공개 다운로드는 위의 0.8.0을 유지합니다. [스토어 구성](docs/APP_STORE.md) · [제출 검증 상태](docs/app-store/1.0.0/VALIDATION.md) · [개인정보 처리방침](docs/PRIVACY.md) · [지원](docs/SUPPORT.md)
 
 ## 0.8.0에서 달라지는 점
 

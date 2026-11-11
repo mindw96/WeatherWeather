@@ -390,12 +390,22 @@ enum Validation {
         var checks: [String: Bool] = [:]
         for mode in WeatherMode.allCases where mode.hasSettledParticles {
             delegate.preferences.mode = mode
+            var observedFallingAndSettled = false
+            var peakSettledCount = 0
             for display in overlays.displays {
-                for _ in 0..<300 { display.view.simulation.update(deltaTime: 0.1) }
+                for _ in 0..<300 {
+                    let simulation = display.view.simulation
+                    simulation.update(deltaTime: 0.1)
+                    peakSettledCount = max(peakSettledCount, simulation.settledParticles.count)
+                    // Fireflies can leave an edge before the final sample.
+                    if simulation.mode == mode && !simulation.particles.isEmpty && !simulation.settledParticles.isEmpty {
+                        observedFallingAndSettled = true
+                    }
+                }
             }
-            checks["\(mode.rawValue)FallsAndSettles"] = overlays.displays.contains {
-                $0.view.simulation.mode == mode && !$0.view.simulation.particles.isEmpty && !$0.view.simulation.settledParticles.isEmpty
-            }
+            checks["\(mode.rawValue)FallsAndSettles"] = observedFallingAndSettled
+            smokeDiagnostics["\(mode.rawValue)Settling"] = ["peakCount": peakSettledCount,
+                "finalCount": overlays.displays.reduce(0) { $0 + $1.view.simulation.settledParticles.count }]
             overlays.clear()
             checks["\(mode.rawValue)ClearRemovesShapes"] = overlays.displays.allSatisfy { $0.view.simulation.settledParticles.isEmpty }
         }

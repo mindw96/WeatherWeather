@@ -1,6 +1,6 @@
 # 1.0.0 Mac App Store 제출 구성과 확인 기준
 
-확인일: 2026-11-11. 이 문서는 소스와 공식 문서를 바탕으로 한 제출 구성·판단 근거입니다. 문서 작성 자체는 빌드 업로드, 처리 완료 또는 심사 제출 완료의 증거가 아닙니다.
+확인일: 2026-11-11. 이 문서는 소스와 공식 문서를 바탕으로 한 제출 구성·판단 근거입니다. **1.0.0·빌드 15의 업로드·처리·빌드 연결·심사 제출을 완료했고, 14:12:45 KST에 ‘심사 대기 중’(`WAITING_FOR_REVIEW`)을 독립적으로 재확인했습니다.** 업로드 Archive 앱의 최종 Sandbox GUI 검사 74개와 로컬 PKG 내부 검사 13개도 통과했습니다. 승인·공개 출시는 아직 아니며 승인 후 수동 출시로 설정했습니다. GitHub 공개 최신 버전은 0.8.0입니다. [최종 상태 재확인](app-store/1.0.0/submission-readback.json), [제출 단계별 근거와 검증 한계](app-store/1.0.0/VALIDATION.md)
 
 ## 배포 구성
 
@@ -18,9 +18,11 @@ Mac App Store에는 Sandbox 적용과 Apple 도구를 통한 단일 앱 패키�
 
 파일 선택은 이름·식별자를 읽은 뒤 그 값만 저장하므로 영구 파일 접근용 bookmark는 필요하지 않습니다. 화면 녹화·위치·마이크·카메라·일반 키 입력 감시 권한을 추가할 근거는 현재 제품 코드에 없습니다. [Sandbox 구성](https://developer.apple.com/documentation/xcode/configuring-the-macos-app-sandbox), [사용자 선택 파일 접근](https://developer.apple.com/documentation/security/accessing-files-from-the-macos-app-sandbox)
 
-스토어 서명 인증서·프로비저닝 프로필·App Store Connect 앱 레코드는 별도 확인 대상입니다. 기존 Developer ID 공증 성공을 스토어 서명이나 심사 제출의 증거로 사용하지 않습니다. 업로드 후에는 처리 완료와 심사 상태를 각각 확인합니다. [Apple 빌드 업로드 안내](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/)
+스토어 서명·프로비저닝과 App Store Connect 앱 레코드 `6833310691`을 확인했습니다. 기존 Developer ID 공증 성공을 스토어 서명이나 심사 제출의 증거로 사용하지 않습니다. 업로드 성공과 처리 완료·심사 상태를 각각 확인합니다. 로컬 PKG는 업로드에 사용한 동일 Archive의 내보내기이며, 그 SHA-256을 Apple 전송 패키지의 해시로 주장하지 않습니다. [패키지 근거](app-store/1.0.0/package.json), [Apple 빌드 업로드 안내](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/)
 
 ## Sandbox에서 검증할 동작
+
+현재 1개 실제 화면에서 다른 프로세스의 창 ID/PID·좌표·누적 표면을 포함한 최종 GUI 검사 74개를 통과했습니다. 반딧불 검사에서는 가려진 외부 테스트 창의 윗변을 도우미에서만 앞으로 유지해 400pt를 노출했고, 동일 업로드 Archive 앱으로 정착 최대 11개를 관측했습니다. 제품의 창 순서·시뮬레이션은 변경하지 않았습니다. 아래 표의 물리 입력·재로그인·기기 조합 검증까지 완료했다는 의미는 아닙니다. [최종 GUI 결과](app-store/1.0.0/sandbox-smoke-uploaded.json), [테스트 창 노출 근거](app-store/1.0.0/fixture-visibility.json)
 
 | 기능 | 코드·문서에서 확인한 내용 | 실제 검증 기준 |
 | --- | --- | --- |
@@ -41,7 +43,7 @@ Sandbox 도입 시 설정 저장 위치가 달라질 수 있으므로 기존 직
 
 ## 개인정보 문서·선언
 
-제출 메타데이터와 앱 안에 [개인정보 처리방침](PRIVACY.md)을 연결하고, [지원 페이지](SUPPORT.md)를 제공합니다. 게시 후 사용할 URL은 다음과 같습니다.
+제출 메타데이터와 앱 안에 [개인정보 처리방침](PRIVACY.md)을 연결하고, [지원 페이지](SUPPORT.md)를 제공합니다. main 브랜치에 게시하고 HTTP 200을 확인한 URL은 다음과 같습니다.
 
 - 개인정보: `https://github.com/mindw96/WeatherWeather/blob/main/docs/PRIVACY.md`
 - 지원: `https://github.com/mindw96/WeatherWeather/blob/main/docs/SUPPORT.md`

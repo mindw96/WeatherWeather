@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-11T04:31:38.608056+00:00",
+  "checkedAt": "2026-11-11T05:13:26.705566+00:00",
   "appId": "6833310691",
   "name": "쌓임쌓임",
   "platform": "MAC_OS",
@@ -7,12 +7,56 @@
   "sku": "windowweather-macos",
   "primaryLocale": "ko",
   "version": "1.0.0",
-  "versionState": "PREPARE_FOR_SUBMISSION",
-  "url": "https://appstoreconnect.apple.com/apps/6833310691/distribution/macos/version/inflight",
+  "build": "15",
+  "buildId": "6aca5b90-12ef-4da1-9e7a-eefe18bae8c0",
+  "versionState": "WAITING_FOR_REVIEW",
+  "observedStatus": "심사 대기 중",
+  "url": "https://appstoreconnect.apple.com/apps/6833310691/distribution/reviewsubmissions/details/19e0df13-b028-4a3f-ae56-441d42b277e7",
+  "submissionId": "19e0df13-b028-4a3f-ae56-441d42b277e7",
+  "submittedAtDisplayed": "2026-11-11 14:12 Asia/Seoul",
   "appCreated": true,
   "manualReleaseSaved": true,
   "demoLoginRequired": false,
-  "buildAttached": false,
-  "submittedForReview": false,
-  "privacyPublished": false
+  "buildAttached": true,
+  "submittedForReview": true,
+  "privacyPublished": true,
+  "privacyDataTypes": [
+    "SEARCH_HISTORY",
+    "OTHER_DATA"
+  ],
+  "privacyPurpose": "APP_FUNCTIONALITY",
+  "privacyLinkedToIdentity": false,
+  "privacyTracking": false,
+  "price": "FREE",
+  "baseTerritory": "USA",
+  "availabilityTerritoryCount": 175,
+  "primaryCategory": "ENTERTAINMENT",
+  "ageRating": "4+",
+  "contentRights": "USES_THIRD_PARTY_CONTENT",
+  "screenshotCount": 5,
+  "screenshotOrder": [
+    "snow-app-store.png",
+    "rain-app-store.png",
+    "autumn-app-store.png",
+    "fireflies-app-store.png",
+    "stardust-app-store.png"
+  ],
+  "metadataSource": "metadata.ko.json",
+  "metadataSavedFreshReadback": true,
+  "reviewNotesMatchFreshReadback": true,
+  "reviewContactFieldsPresent": {
+    "contactFirstName": true,
+    "contactLastName": true,
+    "contactPhone": true,
+    "contactEmail": true
+  },
+  "privateContactValuesRecorded": false,
+  "browser": {
+    "windowId": 2126432513,
+    "workingTabId": 2126432679,
+    "originalTabId": 2126432662,
+    "originalTabPreserved": true,
+    "temporaryReadOnlyContactTabsClosed": true
+  },
+  "finalStatusVerifiedAfterReload": true
 }
