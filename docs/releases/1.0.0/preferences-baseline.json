@@ -1,0 +1,121 @@
+{
+  "checkedAtUTC": "2026-11-11T05:30:24.301409+00:00",
+  "purpose": "Read-only baseline before installing the Developer ID 1.0.0 direct-distribution app; no preference values are recorded.",
+  "bundleIdentifier": "org.windowweather.app",
+  "installedApp": {
+    "path": "/Users/mindw/Applications/WindowWeather.app",
+    "version": "0.8.0",
+    "build": "14",
+    "executablePath": "/Users/mindw/Applications/WindowWeather.app/Contents/MacOS/WindowWeather",
+    "executableSHA256": "030f6949b81f159932b4841fa4d2c1940fafb009635994c5c1fd5577409141ce",
+    "signatureVerification": {
+      "method": "codesign --verify --deep --strict --verbose=2 outside the tool sandbox",
+      "exitCode": 0,
+      "result": "valid on disk; satisfies its Designated Requirement",
+      "verifiedExecutableSHA256": "030f6949b81f159932b4841fa4d2c1940fafb009635994c5c1fd5577409141ce",
+      "stillMatchesVerifiedExecutable": true,
+      "appSandboxEntitlementPresent": false
+    }
+  },
+  "runningProcesses": [
+    {
+      "pid": 66146,
+      "parentPID": 1,
+      "executablePath": "/Users/mindw/Applications/WindowWeather.app/Contents/MacOS/WindowWeather"
+    }
+  ],
+  "installedAppProcessCount": 1,
+  "alternativeInstalledPaths": [
+    {
+      "path": "/Applications/WindowWeather.app",
+      "exists": false
+    },
+    {
+      "path": "/Applications/쌓임쌓임.app",
+      "exists": false
+    },
+    {
+      "path": "/Users/mindw/Applications/쌓임쌓임.app",
+      "exists": false
+    }
+  ],
+  "nonSandboxPreferences": {
+    "path": "/Users/mindw/Library/Preferences/org.windowweather.app.plist",
+    "exists": true,
+    "symlink": false,
+    "keyCount": 18,
+    "keyNames": [
+      "SUHasLaunchedBefore",
+      "SULastCheckTime",
+      "SUUpdateGroupIdentifier",
+      "accumulateOnFullScreen",
+      "accumulation",
+      "disabledDisplayIDs",
+      "fairWeatherMode",
+      "intensity",
+      "liveWeatherEnabled",
+      "mode",
+      "showEffectsOnFocusedWindow",
+      "showSettingsOnLaunch",
+      "showSnowman",
+      "snowmanPositions",
+      "weatherCity",
+      "wind",
+      "windDirection",
+      "windStrength"
+    ],
+    "fileSHA256": "9809f35c300b50a137f3ff2a3419622afbf6ae23a6bb61a835b30e96f6a71677",
+    "canonicalSHA256": "ac6b863fc186cc49e4e1b7ff0e555c1d542b806d4cfc88f8a09c4aa8e7c4b793",
+    "modifiedUTC": "2026-11-11T04:42:50.005315+00:00",
+    "birthtimeUTC": "2026-11-11T04:42:50.004847+00:00",
+    "stableDuringRead": true
+  },
+  "sandboxPreferences": {
+    "path": "/Users/mindw/Library/Containers/org.windowweather.app/Data/Library/Preferences/org.windowweather.app.plist",
+    "exists": true,
+    "symlink": false,
+    "keyCount": 18,
+    "keyNames": [
+      "SUHasLaunchedBefore",
+      "SULastCheckTime",
+      "SUUpdateGroupIdentifier",
+      "accumulateOnFullScreen",
+      "accumulation",
+      "disabledDisplayIDs",
+      "fairWeatherMode",
+      "intensity",
+      "liveWeatherEnabled",
+      "mode",
+      "showEffectsOnFocusedWindow",
+      "showSettingsOnLaunch",
+      "showSnowman",
+      "snowmanPositions",
+      "weatherCity",
+      "wind",
+      "windDirection",
+      "windStrength"
+    ],
+    "fileSHA256": "38d997a38fbb5d77d6db6e77a0370ff61d79a89a6ca5132ebabde760ecafcc15",
+    "canonicalSHA256": "fb04ebdcb08f3f099e77996f4689523b98b08be005cace9512d65dbd437041f1",
+    "modifiedUTC": "2026-11-11T04:12:39.224037+00:00",
+    "birthtimeUTC": "2026-11-11T04:12:39.223883+00:00",
+    "stableDuringRead": true
+  },
+  "comparison": {
+    "sameKeySet": true,
+    "unionKeyCount": 18,
+    "equalKeyCount": 17,
+    "differingKeyNames": [
+      "mode"
+    ]
+  },
+  "interpretation": "Both preference files currently exist. The non-sandbox file is newer; 17 of 18 keys match and only mode differs. Preserve the current non-sandbox settings for the direct-distribution upgrade and do not overwrite them with the older container file.",
+  "limits": {
+    "preferenceValuesOutput": false,
+    "preferenceFilesMutated": false,
+    "appLaunchedOrStopped": false,
+    "sourceCodeChanged": false,
+    "newVersionRuntimePreferenceReadVerified": false
+  },
+  "installationPlan": "Root will back up the exact installed app and existing settings privately after stopping the verified installed process, replace the same app path, and verify post-launch setting equality without recording values."
+}

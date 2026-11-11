@@ -1,0 +1,30 @@
+{
+  "checks" : {
+    "centerSelectionSurvivesReload" : true,
+    "centerStopsWindWithoutDiscardingStrength" : true,
+    "cityAndFallbackPersist" : true,
+    "cityCanBeRemoved" : true,
+    "desktopOptionsSurviveReload" : true,
+    "directionRestoresSavedStrength" : true,
+    "excludedAppsPersistByBundleID" : true,
+    "independentWindSettingsSurviveReload" : true,
+    "invalidSavedDirectionFallsBackToLegacyWind" : true,
+    "invalidSavedWindIsFinite" : true,
+    "legacyAppReadsEffectiveWind" : true,
+    "legacyCalmWindSelectsCenter" : true,
+    "legacyWindPreservesDirectionAndMagnitude" : true,
+    "manualResumeCancelsTimer" : true,
+    "nativeHotkeyCallbackDelivered" : true,
+    "nativeHotkeyConflictReported" : true,
+    "nativeHotkeyRegistered" : true,
+    "nativeHotkeyReleasedForReuse" : true,
+    "newNetworkAndHotkeyFeaturesAreOptIn" : true,
+    "removingOneExclusionPreservesOthers" : true,
+    "savedWindDirectionAndStrengthAreBounded" : true,
+    "timedPauseHidesEffects" : true,
+    "timedPauseResumes" : true,
+    "validationCannotStartWeatherNetwork" : true
+  },
+  "note" : "Isolated preferences, timers, temporary native hotkey registration and app-local event delivery. Does not change login items or send physical keyboard input; no live weather requests.",
+  "passed" : true
+}
