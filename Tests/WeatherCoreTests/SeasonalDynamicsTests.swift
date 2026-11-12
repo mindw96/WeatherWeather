@@ -66,44 +66,35 @@ final class SeasonalDynamicsTests: XCTestCase {
         XCTAssertTrue(simulation.particles.isEmpty)
     }
 
-    func testRainImpactsMergeDropsOnTheirOwnSurfaceAndReleaseLargeDrop() {
+    func testSustainedRainLeavesOnlyShallowWaterOnEachWindow() {
         let simulation = WeatherSimulation(width: 500, height: 500)
         simulation.mode = .rain
-        simulation.intensity = 0
-        simulation.setSurfaces([Surface(id: 1, x: 0, y: 100, width: 500),
-                                Surface(id: 2, x: 0, y: 200, width: 500)])
-        let first = WeatherSimulation.Collision(pileIndex: 0, x: 100, y: 100, fraction: 1)
-        let second = WeatherSimulation.Collision(pileIndex: 1, x: 100, y: 200, fraction: 1)
-        simulation.addRainDetails(at: first)
-        simulation.addRainDetails(at: second)
-        simulation.addRainDetails(at: second)
-        XCTAssertEqual(simulation.rainDrops.count, 2)
-        XCTAssertGreaterThan(simulation.rainDrops[1].size, simulation.rainDrops[0].size)
-        for _ in 0..<12 { simulation.addRainDetails(at: first) }
-        XCTAssertTrue(simulation.splashes.contains { $0.size >= 5.2 })
-        XCTAssertEqual(simulation.ripples.count, 15)
-        let before = simulation.ripples[0].radius
-        simulation.update(deltaTime: 0.1)
-        XCTAssertGreaterThan(simulation.ripples[0].radius, before)
-        simulation.setSurfaces([Surface(id: 2, x: 10, y: 200, width: 600)])
-        XCTAssertTrue(simulation.ripples.allSatisfy { $0.surfaceID == 2 })
-        XCTAssertTrue(simulation.rainDrops.allSatisfy { $0.surfaceID == 2 })
-        for _ in 0..<65 { simulation.update(deltaTime: 0.1) }
-        XCTAssertTrue(simulation.ripples.isEmpty)
-        XCTAssertTrue(simulation.rainDrops.isEmpty)
+        simulation.intensity = 1
+        simulation.setSurfaces([Surface(id: 1, x: 0, y: 100, width: 240),
+                                Surface(id: 2, x: 260, y: 200, width: 240)])
+        for _ in 0..<600 {
+            simulation.update(deltaTime: 0.1)
+            XCTAssertTrue(simulation.splashes.isEmpty)
+            XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.allSatisfy { (0...1.5).contains($0) } })
+        }
+        XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.contains { $0 > 0 } })
+        XCTAssertFalse(simulation.particles.isEmpty)
+        simulation.clearAccumulation()
+        XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.allSatisfy { $0 == 0 } })
     }
 
-    func testRainWithoutAccumulationKeepsOnlyTemporaryImpactRipples() {
+    func testRainWithoutAccumulationKeepsStreaksWithoutImpactDroplets() {
         let simulation = WeatherSimulation(width: 500, height: 500)
         simulation.mode = .rain
-        simulation.intensity = 0
+        simulation.intensity = 1
         simulation.setSurfaces([Surface(id: 1, x: 0, y: 100, width: 500)])
         simulation.accumulationEnabled = false
-        simulation.addRainDetails(at: .init(pileIndex: 0, x: 100, y: 100, fraction: 1))
-        XCTAssertEqual(simulation.ripples.count, 1)
-        XCTAssertTrue(simulation.rainDrops.isEmpty)
-        simulation.clearAccumulation()
-        XCTAssertTrue(simulation.ripples.isEmpty)
+        for _ in 0..<300 {
+            simulation.update(deltaTime: 0.1)
+            XCTAssertTrue(simulation.splashes.isEmpty)
+        }
+        XCTAssertFalse(simulation.particles.isEmpty)
+        XCTAssertTrue(simulation.piles.allSatisfy { $0.heights.allSatisfy { $0 == 0 } })
     }
 
     func testGlowingModesSettleBrieflyAndExpireWithoutResidualRidges() {
@@ -151,8 +142,6 @@ final class SeasonalDynamicsTests: XCTestCase {
             simulation.wind = 1
             simulation.setSurfaces([Surface(id: 10, x: 0, y: 60, width: 8_000)])
             for _ in 0..<400 { simulation.update(deltaTime: 0.1) }
-            XCTAssertLessThanOrEqual(simulation.ripples.count, WeatherSimulation.maximumRainDetails)
-            XCTAssertLessThanOrEqual(simulation.rainDrops.count, WeatherSimulation.maximumRainDetails)
             XCTAssertLessThanOrEqual(simulation.splashes.count, WeatherSimulation.maximumSplashes)
             XCTAssertLessThanOrEqual(simulation.particles.count, WeatherSimulation.maximumParticles)
             XCTAssertLessThanOrEqual(simulation.settledParticles.count, WeatherSimulation.maximumSettledParticles)

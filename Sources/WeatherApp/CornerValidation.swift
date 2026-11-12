@@ -40,6 +40,7 @@ enum CornerValidation {
                 try checkOverlap(mode: mode, checks: &checks)
             }
             try checkBubbleEdges(checks: &checks)
+            try checkRainFilm(checks: &checks, output: output)
             let bubbles = bubbleFixture(position: 0, life: 5)
             bubbles.simulation.inheritSettledParticles(from: [
                 SettledParticle(id: 2, mode: .bubbles, surfaceID: 7, position: 1,
@@ -74,6 +75,47 @@ enum CornerValidation {
             try? writeReport(checks, to: output, error: error.localizedDescription)
             fputs("Corner validation failed: \(error)\n", stderr)
         }
+    }
+
+    private static func checkRainFilm(checks: inout [String: Bool], output: URL) throws {
+        let rain = WeatherView(frame: NSRect(x: 0, y: 0, width: 240, height: 140), seed: 118)
+        rain.simulation.mode = .rain
+        rain.simulation.intensity = 1
+        rain.simulation.setSurfaces([Surface(id: 7, x: 30, y: 50, width: 180)])
+        for _ in 0..<600 { rain.simulation.update(deltaTime: 1 / 30.0) }
+        rain.simulation.intensity = 0
+        for _ in 0..<60 { rain.simulation.update(deltaTime: 1 / 30.0) }
+        let raster = try render(rain)
+        // Include fractional edge coverage around the 1.5pt film, but no decorative droplets.
+        let film = CGRect(x: 30, y: 48, width: 180, height: 3)
+        checks["rainFilmFixtureHasWaterWithoutFallingParticles"] = rain.simulation.particles.isEmpty
+            && rain.simulation.piles[0].heights.contains { $0 > 0 }
+        checks["rainFilmRemainsVisible"] = alphaSum(raster, in: film) > 0
+        checks["rainFilmHasNoPixelsOutsideThinSurfaceBand"] = alphaSum(raster, in: rain.bounds) == alphaSum(raster, in: film)
+
+        rain.simulation.setSurfaces([Surface(id: 7, x: 30, y: 50, width: 180, cornerRadius: 16)])
+        rain.windowGeometry = [WindowGeometry(id: 7, x: 30, y: 50, width: 180, height: 80, cornerRadius: 16)]
+        guard let filmPNG = try render(rain, scale: 3, background: true).representation(using: .png, properties: [:]) else {
+            throw NSError(domain: "CornerValidation", code: 2)
+        }
+        try filmPNG.write(to: output.appendingPathComponent("rain-film-preview.png"))
+        rain.simulation.accumulationEnabled = false
+        checks["rainFilmDisablingAccumulationClearsAllWater"] = alphaSum(try render(rain), in: rain.bounds) == 0
+
+        // No collision consumes random values, so before/after streak images can match exactly.
+        let streaks = WeatherView(frame: rain.frame, seed: 118)
+        streaks.simulation.mode = .rain
+        streaks.simulation.intensity = 1
+        streaks.simulation.wind = 0.2
+        streaks.simulation.setSurfaces([])
+        for _ in 0..<90 { streaks.simulation.update(deltaTime: 1 / 30.0) }
+        let falling = try render(streaks)
+        checks["rainStreakFixtureContainsVisibleFallingRain"] = !streaks.simulation.particles.isEmpty
+            && alphaSum(falling, in: streaks.bounds) > 0
+        guard let streakPNG = falling.representation(using: .png, properties: [:]) else {
+            throw NSError(domain: "CornerValidation", code: 2)
+        }
+        try streakPNG.write(to: output.appendingPathComponent("rain-streaks-only.png"))
     }
 
     private static func checkBubbleEdges(checks: inout [String: Bool]) throws {
@@ -274,7 +316,7 @@ enum CornerValidation {
         var report: [String: Any] = [
             "passed": error == nil && !checks.isEmpty && checks.values.allSatisfy { $0 },
             "checks": checks,
-            "note": "Synthetic 26-point single corners, 16-point overlapping-window occlusion, and 20-point settled bubble edges. Does not measure another app's true corner shape."
+            "note": "Synthetic corners, overlapping-window occlusion, settled bubble edges, and a thin rain film without droplets. Does not measure another app's true corner shape."
         ]
         if let error { report["error"] = error }
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys])

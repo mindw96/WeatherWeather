@@ -139,13 +139,12 @@ enum FocusedWindowValidation {
             rain.simulation.intensity = 1
             rain.simulation.setSurfaces([Surface(id: 51, x: 20, y: 200, width: 600)])
             for _ in 0..<300 { rain.simulation.update(deltaTime: 1 / 30.0) }
-            checks["rainFixtureContainsRipplesAndMergingDrops"] = !rain.simulation.ripples.isEmpty && !rain.simulation.rainDrops.isEmpty
+            checks["rainFixtureContainsOnlyShallowWater"] = rain.simulation.piles.contains { $0.heights.contains { $0 > 0 } }
+                && rain.simulation.piles.allSatisfy { $0.heights.allSatisfy { (0...1.5).contains($0) } }
             let wetArea = CGRect(x: 0, y: 150, width: 640, height: 250)
-            checks["rainSplashFixtureContainsVisibleDroplets"] = rain.simulation.splashes.contains {
-                wetArea.contains(CGPoint(x: $0.x, y: $0.y))
-            }
+            checks["rainFixtureHasNoImpactDroplets"] = rain.simulation.splashes.isEmpty
             rain.hiddenFocusedWindow = WindowGeometry(id: 51, x: 0, y: 150, width: 640, height: 250)
-            checks["rainSplashesAlsoHiddenInFocusedWindow"] = try render(rain).alphaSum(in: wetArea.insetBy(dx: 1, dy: 1)) == 0
+            checks["rainWaterAndStreaksHiddenInFocusedWindow"] = try render(rain).alphaSum(in: wetArea.insetBy(dx: 1, dy: 1)) == 0
         }
     }
 

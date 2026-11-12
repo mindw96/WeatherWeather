@@ -1,0 +1,36 @@
+{
+  "baselineCommit": "c949f31bd64288aaabf28e7ef2774ea546e4082d",
+  "sourceInputsVerified": 57,
+  "maximumWaterHeightPoints": 1.5,
+  "before": {
+    "passed": false,
+    "checks": 163,
+    "failures": [
+      "rainFilmHasNoPixelsOutsideThinSurfaceBand"
+    ]
+  },
+  "after": {
+    "passed": true,
+    "checks": 163,
+    "failures": []
+  },
+  "focusChecks": 131,
+  "coreTests": 98,
+  "unchangedPNGSHA256": {
+    "rain-streaks-only.png": "115584a53e8a4a832f6d2b95e4dea6c36498605ab88f06e0820f759f2cab8876",
+    "snow-preview.png": "1d11550ea3d737d0866979554f12a0628cbb0e8db11d26ce8e3e1a528ebe870c",
+    "autumn-preview.png": "3236d9e482f0fa9b875fce20647931f8bc9e0c191b47dcd81db0c04d35e3ad6b",
+    "cherryBlossom-preview.png": "f33eb153b53b1b085cf56634b8d1570160cb380fa5807aa1e1e45de26ce152dc",
+    "bubbles-preview.png": "d16a5fec54a6d55a4977e5c3f61478ff971c6a7e7ae7658f73f499005f60c7f1",
+    "confetti-preview.png": "34d6ecf77b620762ff8b5ce5735f27a0b56abd9e15cb98c88d360e41c48a8632",
+    "fireflies-preview.png": "dc89be0ae37b88914d7465bf12cec21cdef21f77c17e4119ef1bd8827410247a",
+    "stardust-preview.png": "3c98c0b27104ce892476abe1ae9da827eaae3473cbd664141fd4a25989c99f41"
+  },
+  "sourceSHA256": {
+    "Sources/WeatherCore/WeatherSimulation.swift": "d5f58c50a138a26e07069969aced97582df579cc5299394c72755bd582905bf5",
+    "Sources/WeatherApp/WeatherView.swift": "4a7acf6152cf8c0efdfd7936d01279d2579c40d7b884ac057fb4d4f782f2ebfb",
+    "Sources/WeatherApp/CornerValidation.swift": "fd606622567616f047dac5b67a2a6af84e606a584942e68bffef9cf1610fb16e"
+  },
+  "developmentExecutableSHA256": "4b927f44187a80eeda3c138fd61521d2baff02de996e039a32f2b79885e83ec3",
+  "scope": "Native AppKit offscreen rendering, not live desktop interaction or a public release."
+}
