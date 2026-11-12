@@ -61,16 +61,17 @@ final class CurvedSurfaceTests: XCTestCase {
     func testAccumulatedHeightAndSettledOffsetsFollowMovingResizedCurvedWindow() throws {
         for mode in WeatherMode.allCases {
             let simulation = roundedSimulation(mode: mode)
+            let height = mode == .rain ? 1.0 : 3.0
             simulation.inheritAccumulation(from: [
-                Pile(surfaceID: 1, x: 0, y: 0, width: 200, heights: [3, 3, 3],
+                Pile(surfaceID: 1, x: 0, y: 0, width: 200, heights: [height, height, height],
                      segments: [.init(minX: 0, maxX: 200)], mode: mode)
             ])
             simulation.setSurfaces([Surface(id: 1, x: 50, y: 150, width: 400, cornerRadius: 30)])
             let pile = try XCTUnwrap(simulation.piles.first)
             XCTAssertEqual(pile.cornerRadius, 30)
-            XCTAssertEqual(pile.height(at: 200), 3, accuracy: 1e-10)
+            XCTAssertEqual(pile.height(at: 200), height, accuracy: 1e-10)
             let hit = try XCTUnwrap(simulation.firstCollision(fromX: 52, y: 140, toX: 52, y: 200))
-            XCTAssertEqual(hit.y, pile.baselineY(at: 2) - 3, accuracy: 1e-10)
+            XCTAssertEqual(hit.y, pile.baselineY(at: 2) - height, accuracy: 1e-10)
             if mode.hasSettledParticles {
                 let item = SettledParticle(id: 1, mode: mode, surfaceID: 1, position: 0.005,
                                            offsetY: 6, size: mode == .bubbles ? 12 : mode.isGlowing ? 3 : 8,

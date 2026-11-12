@@ -91,20 +91,21 @@ final class WeatherSimulationTests: XCTestCase {
         let simulation = populatedSimulation(mode: .rain)
         let before = simulation.piles[0].heights.reduce(0, +)
         XCTAssertGreaterThan(before, 0)
-        XCTAssertLessThanOrEqual(simulation.piles[0].heights.max() ?? 0, WeatherSimulation.maximumWaterHeight)
-        XCTAssertFalse(simulation.splashes.isEmpty)
+        XCTAssertLessThanOrEqual(simulation.piles[0].heights.max() ?? 0, 1.5)
+        XCTAssertTrue(simulation.splashes.isEmpty)
         simulation.intensity = 0
         for _ in 0..<100 { simulation.update(deltaTime: 0.1) }
         XCTAssertLessThan(simulation.piles[0].heights.reduce(0, +), before)
         XCTAssertTrue(simulation.splashes.isEmpty)
     }
 
-    func testDisablingAccumulationClearsItAndKeepsRainImpacts() {
+    func testDisablingAccumulationClearsWaterAndKeepsFallingRain() {
         let simulation = populatedSimulation(mode: .rain)
         simulation.accumulationEnabled = false
         for _ in 0..<30 { simulation.update(deltaTime: 1.0 / 30) }
         XCTAssertTrue(simulation.piles[0].heights.allSatisfy { $0 == 0 })
-        XCTAssertFalse(simulation.splashes.isEmpty)
+        XCTAssertFalse(simulation.particles.isEmpty)
+        XCTAssertTrue(simulation.splashes.isEmpty)
     }
 
     func testSeededSimulationIsReproducible() {
@@ -223,7 +224,7 @@ final class WeatherSimulationTests: XCTestCase {
         simulation.inheritAccumulation(from: [
             samplePile(id: 10, mode: .rain, heights: [.nan, .infinity, -5, 90, 2])
         ])
-        XCTAssertEqual(simulation.piles[0].heights, [0, 0, 0, 4, 2])
+        XCTAssertEqual(simulation.piles[0].heights, [0, 0, 0, 1.5, 1.5])
     }
 
     func testDisabledAccumulationCannotBeRestoredByTransfer() {

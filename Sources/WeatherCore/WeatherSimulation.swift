@@ -138,21 +138,6 @@ public struct Splash: Equatable, Sendable {
     public var size: Double = 1.2
 }
 
-/// Rain details stay attached to the same curved window edge as the water film.
-public struct RainRipple: Equatable, Sendable {
-    public var surfaceID: UInt32
-    public var position: Double
-    public var radius: Double
-    public var life: Double
-}
-
-public struct RainDrop: Equatable, Sendable {
-    public var surfaceID: UInt32
-    public var position: Double
-    public var size: Double
-    public var life: Double
-}
-
 /// Every display owns the portion of a window edge inside its horizontal bounds.
 /// Off-display copies provide continuity, but never override an owner's deletions.
 public struct AccumulationSnapshot: Sendable {
@@ -176,13 +161,12 @@ public final class WeatherSimulation {
     public static let maximumSplashes = 400
     public static let maximumSurfaces = 256
     public static let maximumSnowHeight = 18.0
-    public static let maximumWaterHeight = 4.0
+    public static let maximumWaterHeight = 1.5
     public static let maximumLeafHeight = 10.0
     public static let maximumPetalHeight = 7.0
     public static let maximumBubbleHeight = 10.0
     public static let maximumConfettiHeight = 8.0
     public static let maximumSettledParticles = 1_200
-    public static let maximumRainDetails = 180
 
     public var mode: WeatherMode = .snow {
         didSet { if oldValue != mode { reset() } }
@@ -200,8 +184,6 @@ public final class WeatherSimulation {
     public private(set) var splashes: [Splash] = []
     public private(set) var surfaces: [Surface] = []
     public private(set) var settledParticles: [SettledParticle] = []
-    public private(set) var ripples: [RainRipple] = []
-    public private(set) var rainDrops: [RainDrop] = []
 
     private var random: SeededRandom
     private var emissionRemainder = 0.0
@@ -262,8 +244,6 @@ public final class WeatherSimulation {
                         segments: surface.segments, mode: mode, cornerRadius: surface.cornerRadius)
         }
         settledParticles.removeAll { !ids.contains($0.surfaceID) }
-        ripples.removeAll { !ids.contains($0.surfaceID) }
-        rainDrops.removeAll { !ids.contains($0.surfaceID) }
         lastSnowMotion = lastSnowMotion.filter { ids.contains($0.key) }
         if accumulationEnabled, !snapshots.isEmpty { synchronizeAccumulation(from: snapshots) }
         if mode == .snow, accumulationEnabled, movementReactionEnabled {
@@ -383,8 +363,6 @@ public final class WeatherSimulation {
 
     public func clearAccumulation() {
         settledParticles.removeAll(keepingCapacity: true)
-        ripples.removeAll(keepingCapacity: true)
-        rainDrops.removeAll(keepingCapacity: true)
         for index in piles.indices {
             piles[index].heights = Array(repeating: 0, count: piles[index].heights.count)
         }
@@ -479,7 +457,6 @@ public final class WeatherSimulation {
                     accumulate(at: hit)
                     if mode.hasSettledParticles { settle(particle, at: hit) }
                 }
-                if mode == .rain { addSplashes(at: hit); addRainDetails(at: hit) }
             } else if particle.y > -160, particle.y < height + 50, particle.x > -80, particle.x < width + 80 {
                 survivors.append(particle)
             }
@@ -493,13 +470,6 @@ public final class WeatherSimulation {
             splashes[index].life -= dt
         }
         splashes.removeAll { $0.life <= 0 || $0.y > height + 30 }
-        for index in ripples.indices {
-            ripples[index].life -= dt
-            ripples[index].radius += 14 * dt
-        }
-        ripples.removeAll { $0.life <= 0 }
-        for index in rainDrops.indices { rainDrops[index].life -= dt }
-        rainDrops.removeAll { $0.life <= 0 }
 
         if mode.hasSettledParticles {
             for index in settledParticles.indices { settledParticles[index].life -= dt }
@@ -737,38 +707,6 @@ public final class WeatherSimulation {
         settledParticles.removeAll { lifted.contains($0.id) }
     }
 
-    func addRainDetails(at hit: Collision) {
-        let pile = piles[hit.pileIndex]
-        let localX = min(max(hit.x - pile.x, 0), pile.width)
-        if ripples.count < Self.maximumRainDetails {
-            ripples.append(RainRipple(surfaceID: pile.surfaceID, position: localX / pile.width,
-                                      radius: 1.5, life: 0.65))
-        }
-        guard accumulationEnabled else { return }
-        let segment = pile.segments.first { localX >= $0.minX && localX <= $0.maxX }
-        if let index = rainDrops.indices.filter({ rainDrops[$0].surfaceID == pile.surfaceID }).min(by: {
-            abs(rainDrops[$0].position * pile.width - localX) < abs(rainDrops[$1].position * pile.width - localX)
-        }), rainDrops[index].surfaceID == pile.surfaceID,
-           let segment,
-           (segment.minX...segment.maxX).contains(rainDrops[index].position * pile.width),
-           abs(rainDrops[index].position * pile.width - localX) < rainDrops[index].size + 5 {
-            let area = pow(rainDrops[index].size, 2), addedArea = 2.25
-            rainDrops[index].position = (rainDrops[index].position * area + localX / pile.width * addedArea) / (area + addedArea)
-            rainDrops[index].size = sqrt(area + addedArea)
-            rainDrops[index].life = 6
-            if rainDrops[index].size >= 5.2 {
-                if splashes.count < Self.maximumSplashes {
-                    let x = rainDrops[index].position * pile.width
-                    splashes.append(Splash(x: pile.x + x, y: pile.baselineY(at: x) + 2,
-                                           vx: 0, vy: 38, life: 0.65, size: rainDrops[index].size))
-                }
-                rainDrops.remove(at: index)
-            }
-        } else if rainDrops.count < Self.maximumRainDetails {
-            rainDrops.append(RainDrop(surfaceID: pile.surfaceID, position: localX / pile.width, size: 1.5, life: 6))
-        }
-    }
-
     /// A stable, gently uneven saturation profile prevents long-running snow from
     /// becoming a flat bar. Actual stored heights still drive both drawing and collision.
     private func snowCapacity(at localX: Double, in pile: Pile) -> Double {
@@ -778,25 +716,6 @@ public final class WeatherSimulation {
         let edge = min(max(0, min(localX, pile.width - localX)) / 10, 1)
         let taper = edge * edge * (3 - 2 * edge)
         return min(Self.maximumSnowHeight, ridge * taper)
-    }
-
-    private func addSplashes(at hit: Collision) {
-        guard splashes.count < Self.maximumSplashes - 4 else { return }
-        for direction in [-1.0, 1.0] {
-            splashes.append(Splash(x: hit.x, y: hit.y - 1,
-                                   vx: direction * random.between(20, 72),
-                                   vy: -random.between(45, 115),
-                                   life: random.between(0.20, 0.44)))
-        }
-        let pile = piles[hit.pileIndex]
-        if accumulationEnabled, pile.surfaceID != 0,
-           pile.height(at: hit.x - pile.x) > 2.5, random.between(0, 1) < 0.15,
-           let segment = pile.segments.first(where: { hit.x - pile.x >= $0.minX && hit.x - pile.x <= $0.maxX }) {
-            let localX = hit.x - pile.x
-            let edge = localX - segment.minX < segment.maxX - localX ? segment.minX : segment.maxX
-            splashes.append(Splash(x: pile.x + edge, y: pile.baselineY(at: edge) + 2,
-                                   vx: 0, vy: 55, life: 0.75))
-        }
     }
 
     private static func validDimension(_ value: Double) -> Double {

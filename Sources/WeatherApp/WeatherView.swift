@@ -72,18 +72,14 @@ final class WeatherView: NSView {
         }
         context.setLineCap(.round)
         let settledBySurface = Dictionary(grouping: simulation.settledParticles, by: \.surfaceID)
-        let ripplesBySurface = Dictionary(grouping: simulation.ripples, by: \.surfaceID)
-        let dropsBySurface = Dictionary(grouping: simulation.rainDrops, by: \.surfaceID)
 
         // Paint rear accumulation first, just like the windows carrying it.
         for pile in simulation.piles.reversed() {
             // Mounds and settled shapes extend above the window's rectangle.
             guard !excludedIDs.contains(pile.surfaceID) else { continue }
             let settled = settledBySurface[pile.surfaceID] ?? []
-            let ripples = ripplesBySurface[pile.surfaceID] ?? []
-            let drops = dropsBySurface[pile.surfaceID] ?? []
             guard simulation.mode.hasSettledParticles ? !settled.isEmpty
-                : pile.heights.contains(where: { $0 > 0.01 }) || !ripples.isEmpty || !drops.isEmpty else { continue }
+                : pile.heights.contains(where: { $0 > 0.01 }) else { continue }
             context.saveGState()
             // A 20pt bubble can expand 1.22x when popping; include its rim and antialiasing.
             let sidePadding = simulation.mode == .bubbles ? 14.0 : 0
@@ -143,9 +139,6 @@ final class WeatherView: NSView {
             context.setFillColor((snow ? NSColor(calibratedRed: 0.94, green: 0.98, blue: 1, alpha: 0.96) : NSColor(calibratedRed: 0.34, green: 0.68, blue: 0.98, alpha: 0.46)).cgColor)
             context.addPath(path)
             context.fillPath()
-            if !snow {
-                drawRainDetails(in: context, pile: pile, ripples: ripples, drops: drops)
-            }
             context.restoreGState()
         }
 
@@ -188,38 +181,10 @@ final class WeatherView: NSView {
             }
         }
         for splash in simulation.splashes {
-            let snow = simulation.mode == .snow
-            context.setFillColor((snow ? NSColor.white.withAlphaComponent(min(0.95, splash.life * 2))
-                                 : NSColor(calibratedRed: 0.52, green: 0.78, blue: 1, alpha: min(0.8, splash.life * 1.8))).cgColor)
-            let width = snow ? splash.size : splash.size / 1.2 * 2
+            context.setFillColor(NSColor.white.withAlphaComponent(min(0.95, splash.life * 2)).cgColor)
+            let width = splash.size
             context.fillEllipse(in: CGRect(x: splash.x - width / 2, y: splash.y - width / 2,
-                                          width: width, height: snow ? width : width * 1.4))
-        }
-    }
-
-    private func drawRainDetails(in context: CGContext, pile: Pile, ripples: [RainRipple], drops: [RainDrop]) {
-        for ripple in ripples {
-            let x = ripple.position * pile.width
-            let y = pile.baselineY(at: x) - pile.height(at: x)
-            context.setStrokeColor(NSColor(calibratedRed: 0.19, green: 0.59, blue: 0.94,
-                                           alpha: min(0.65, ripple.life)).cgColor)
-            context.setLineWidth(0.8)
-            context.strokeEllipse(in: CGRect(x: pile.x + x - ripple.radius, y: y - ripple.radius * 0.3,
-                                             width: ripple.radius * 2, height: ripple.radius * 0.6))
-        }
-        for drop in drops {
-            let x = drop.position * pile.width
-            let y = pile.baselineY(at: x) - pile.height(at: x) - drop.size * 0.55
-            let rect = CGRect(x: pile.x + x - drop.size, y: y - drop.size,
-                              width: drop.size * 2, height: drop.size * 1.6)
-            context.setFillColor(NSColor(calibratedRed: 0.27, green: 0.65, blue: 0.97, alpha: 0.55).cgColor)
-            context.fillEllipse(in: rect)
-            context.setStrokeColor(NSColor(calibratedRed: 0.10, green: 0.46, blue: 0.82, alpha: 0.6).cgColor)
-            context.setLineWidth(0.55)
-            context.strokeEllipse(in: rect)
-            context.setFillColor(NSColor.white.withAlphaComponent(0.8).cgColor)
-            context.fillEllipse(in: CGRect(x: rect.minX + drop.size * 0.4, y: rect.minY + drop.size * 0.25,
-                                          width: max(0.7, drop.size * 0.65), height: max(0.5, drop.size * 0.3)))
+                                          width: width, height: width))
         }
     }
 
